@@ -1,0 +1,13 @@
+use WithPagination;
+
+public $search = '';
+
+
+return view('livewire.dashboard', [
+    'transactions' => Transaction::search('title', $this->search)->pagination(10)
+])
+-----------
+
+wire:model='search' placeholder="search"
+
+wire:loading.class="opacity-50"
