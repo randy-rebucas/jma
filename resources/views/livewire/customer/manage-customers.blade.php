@@ -2,7 +2,6 @@
 use Livewire\WithPagination;
 use Livewire\Volt\Component;
 use Livewire\Attributes\On;
-use Illuminate\View\View;
 use App\Models\Customer;
 use App\Models\User;
 
@@ -48,7 +47,7 @@ new class extends Component {
 
         <div class="flex justify-between">
             <x-text-input wire:model.live="search" class="py-2" type="search" placeholder="Search Customers..." />
-            <x-secondary-button class="ms-3 py-3" wire:click="$dispatch('openModal', { component: 'create-customer' })">
+            <x-secondary-button class="ms-3 py-3" wire:click="$dispatch('openModal', { component: 'customer.create-customer' })">
                 {{ __('Create Customer') }}
             </x-secondary-button>
         </div>
@@ -73,9 +72,9 @@ new class extends Component {
                             <x-table.tbody-cell :item="$customer->phone_number" class="text-center" />
                             <x-table.tbody-cell :item="$customer->id" class="text-right" :action="true">
                                 <button type="button" class="btn btn-info m-1 font-medium underline"
-                                    wire:click="$dispatch('openModal', {component: 'edit-customer', arguments: {customer: {{ $customer }} }})">Edit</button>
+                                    wire:click="$dispatch('openModal', {component: 'customer.edit-customer', arguments: {customer: {{ $customer }} }})">Edit</button>
                                 <button type="button" class="btn btn-info m-1 text-red-600 font-medium underline" wire:click="delete({{ $customer->id }})"
-                                    wire:confirm="Are you sure you want to delete this post?">Delete</button>
+                                    wire:confirm="Are you sure you want to delete this customer?">Delete</button>
                             </x-table.tbody-cell>
                         </x-table.row>
                     @empty

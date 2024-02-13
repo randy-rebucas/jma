@@ -27,6 +27,10 @@ class Customer extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function jobs() {
+        return $this->hasMany(Job::class);
+    }
+    
     public function fullName()
     {
         return Attribute::make(

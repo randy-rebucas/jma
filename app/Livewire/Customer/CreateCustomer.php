@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Customer;
 
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Support\Facades\Hash;
@@ -82,6 +82,6 @@ class CreateCustomer extends ModalComponent
 
     public function render()
     {
-        return view('livewire.pages.customer.create-customer');
+        return view('livewire.customer.create-customer');
     }
 }
