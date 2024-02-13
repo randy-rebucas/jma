@@ -14,14 +14,13 @@
         <div class="mt-4">
             <x-input-label for="type" :value="__('Type')" />
             <x-select wire:model="type" id="type" name="type" :options="$types" class="block mt-1 w-full"
-                :selectedOptions="$selected" />
+                :selectedOptions="$selectedType" />
             <x-input-error :messages="$errors->get('type')" class="mt-2" />
         </div>
 
         <div class="mt-4">
             <x-input-label for="customer" :value="__('Customer')" />
-            <x-text-input wire:model="customer" id="customer" class="block mt-1 w-full" type="text"
-                name="customer" />
+            <livewire:customer.auto-complete-customer />
             <x-input-error :messages="$errors->get('customer')" class="mt-2" />
         </div>
     </fieldset>

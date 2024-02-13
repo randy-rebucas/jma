@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Livewire\Job;
+
+use App\Models\Customer;
 use Illuminate\Support\Str;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Validation\Rules;
@@ -10,24 +12,31 @@ class CreateJob extends ModalComponent
 {
     public $job_number;
     public $type;
-    public $customer;
-
+    public $customerId;
     public $types = [];
+    public $selectedType;
 
-    public $selected;
+    protected $listeners = [
+        'selectedCustomer'
+    ];
 
+    public function selectedCustomer($value)
+    {
+        $this->customerId = $value;
+    }
     protected $rules = [
         'job_number' => 'required|string|max:255',
         'type' => 'required',
-        'customer' => 'required'
+        'customerId' => 'required'
     ];
+
     public function mount()
     {
         $this->job_number = Str::upper(Str::random(16));
         $this->types = [
-            ''=> 'Select',
-            'order'=> 'Order',
-            'estimate'=> 'Estimate',
+            '' => 'Select',
+            'order' => 'Order',
+            'estimate' => 'Estimate',
         ];
     }
 
@@ -43,7 +52,7 @@ class CreateJob extends ModalComponent
         Job::create([
             'job_number' => $this->job_number,
             'type' => $this->type,
-            'customer_id' => $this->customer
+            'customer_id' => $this->customerId
         ]);
 
         $this->dispatch('job-created');
