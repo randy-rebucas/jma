@@ -21,17 +21,7 @@ class CreateCustomer extends ModalComponent
 
     public static function modalMaxWidth(): string
     {
-        // 'sm'
-        // 'md'
-        // 'lg'
-        // 'xl'
-        // '2xl'
-        // '3xl'
-        // '4xl'
-        // '5xl'
-        // '6xl'
-        // '7xl'
-        return 'xl';
+        return '4xl';
     }
 
     public static function closeModalOnEscape(): bool
@@ -44,6 +34,15 @@ class CreateCustomer extends ModalComponent
         return false;
     }
 
+    public static function closeModalOnEscapeIsForceful(): bool
+    {
+        return false;
+    }
+
+    public static function destroyOnClose(): bool
+    {
+        return true;
+    }
     protected $rules = [
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',

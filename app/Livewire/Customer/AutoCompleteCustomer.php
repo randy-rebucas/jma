@@ -12,6 +12,14 @@ class AutoCompleteCustomer extends Component
     public $records;
     public $details;
 
+    public function mount($customer = null)
+    {
+        if ($customer) {
+            $this->details = Customer::find($customer);
+            $this->showresult = false;
+        }
+    }
+
     // Fetch records
     public function searchResult()
     {

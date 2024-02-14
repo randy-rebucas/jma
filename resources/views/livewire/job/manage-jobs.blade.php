@@ -65,7 +65,7 @@ new class extends Component {
                             <x-table.tbody-cell :item="$job->customer->first_name . ', ' . $job->customer->last_name" />
                             <x-table.tbody-cell :item="$job->id" class="text-right" :action="true">
                                 <button type="button" class="btn btn-info m-1 font-medium underline"
-                                    wire:click="$dispatch('openModal', {component: 'edit-job', arguments: {job: {{ $job }} }})">Edit</button>
+                                    wire:click="$dispatch('openModal', {component: 'job.edit-job', arguments: {job: {{ $job }} }})">Edit</button>
                                 <button type="button" class="btn btn-info m-1 text-red-600 font-medium underline"
                                     wire:click="delete({{ $job->id }})"
                                     wire:confirm="Are you sure you want to delete this job?">Delete</button>

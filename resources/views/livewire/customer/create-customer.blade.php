@@ -61,7 +61,7 @@
                 {{ __('Cancel') }}
             </x-secondary-button>
 
-            <x-primary-button class="ms-3">
+            <x-primary-button class="ms-3" wire:loading.attr="disabled">
                 {{ __('Submit') }}
             </x-primary-button>
         </div>

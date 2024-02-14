@@ -16,19 +16,22 @@ class CreateJob extends ModalComponent
     public $types = [];
     public $selectedType;
 
-    protected $listeners = [
-        'selectedCustomer'
-    ];
-
-    public function selectedCustomer($value)
+    public static function modalMaxWidth(): string
     {
-        $this->customerId = $value;
+        return '4xl';
     }
     protected $rules = [
         'job_number' => 'required|string|max:255',
         'type' => 'required',
         'customerId' => 'required'
     ];
+    protected $listeners = [
+        'selectedCustomer'
+    ];
+    public function selectedCustomer($value)
+    {
+        $this->customerId = $value;
+    }
 
     public function mount()
     {
