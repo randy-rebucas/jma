@@ -27,7 +27,7 @@
     </fieldset>
     <x-slot name="buttons">
         <div class="flex items-center justify-end mt-4">
-            <x-secondary-button class="ms-3" wire:click="$dispatch('modal.close')">
+            <x-secondary-button class="ms-3" wire:click="$dispatch('closeModal')">
                 {{ __('Cancel') }}
             </x-secondary-button>
 
