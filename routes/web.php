@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::view('customers', 'customer')->name('customers');
+    Route::view('suppliers', 'supplier')->name('suppliers');
     Route::view('users', 'user')->name('users');
     Route::view('jobs', 'job')->name('jobs');
     Route::view('items', 'item')->name('items');

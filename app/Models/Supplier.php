@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class Customer extends Model
+class Supplier extends Model
 {
     use HasFactory;
 
@@ -19,24 +18,15 @@ class Customer extends Model
         'first_name',
         'last_name',
         'phone_number',
+        'company_name',
+        'comments',
         'user_id'
     ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    public function jobs() {
-        return $this->hasMany(Job::class);
-    }
-    public function sales()
-    {
-        return $this->hasMany(Sale::class);
-    }
-    public function fullName()
-    {
-        return Attribute::make(
-            get: fn () => $this->first_name.' '.$this->last_name,
-        );
+    public function items() {
+        return $this->hasMany(Item::class);
     }
 }

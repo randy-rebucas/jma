@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class SalePayment extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'payment_type',
+        'payment_amount',
+        'sale_id'
+    ];
+
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class);
+    }
 }

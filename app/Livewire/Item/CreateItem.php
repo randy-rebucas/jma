@@ -4,6 +4,7 @@ namespace App\Livewire\Item;
 
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Supplier;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Support\Str;
 
@@ -20,7 +21,9 @@ class CreateItem extends ModalComponent
     public $reorder_level;
     public $receiving_quantity;
     public $category_id;
+    public $supplier_id;
     public $categories = [];
+    public $suppliers = [];
     public $selectedCategory;
 
     public static function modalMaxWidth(): string
@@ -37,7 +40,8 @@ class CreateItem extends ModalComponent
         'unit_price' => 'required',
         'reorder_level' => 'required|numeric',
         'receiving_quantity' => 'required|numeric',
-        'category_id' => 'required'
+        'category_id' => 'required',
+        'supplier_id' => 'required'
     ];
 
     public function mount()
@@ -45,16 +49,17 @@ class CreateItem extends ModalComponent
         $this->code = Str::upper(Str::random(8));
 
         $this->categories = Category::pluck('name', 'id');
+        $this->suppliers = Supplier::pluck('company_name', 'id');
     }
 
     public function submit()
     {
         $validated = $this->validate();
 
-        $validated['cost_price'] = number_format($this->cost_price, 2);
-        $validated['unit_price'] = number_format($this->unit_price, 2);
+        $validated['cost_price'] = $this->cost_price;
+        $validated['unit_price'] = $this->unit_price;
         $validated['slug'] = Str::slug($this->name);
-
+        
         Item::create($validated);
 
         $this->dispatch('item-created');

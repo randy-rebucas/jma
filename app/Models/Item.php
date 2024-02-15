@@ -19,11 +19,21 @@ class Item extends Model
         'unit_price',
         'reorder_level',
         'receiving_quantity',
-        'category_id'
+        'category_id',
+        'supplier_id'
     ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function sale_item()
+    {
+        return $this->hasOne(SaleItem::class);
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
     }
 }

@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Livewire\Customer;
+namespace App\Livewire\Supplier;
 
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Models\User;
-use App\Models\Customer;
+use App\Models\Supplier;
 use Faker\Generator as Faker;
-
-class CreateCustomer extends ModalComponent
+class CreateSupplier extends ModalComponent
 {
+    
     public $first_name;
     public $last_name;
     public $phone_number;
+    public $company_name;
+    public $comments;
 
     public $name;
     public $email;
@@ -47,6 +49,8 @@ class CreateCustomer extends ModalComponent
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
         'phone_number' => 'required',
+        'company_name' => 'required',
+        'comments' => 'string|max:1000',
         'name' => 'required|string|max:255',
         'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
         'password' => 'required|string'
@@ -67,20 +71,16 @@ class CreateCustomer extends ModalComponent
         // Execution doesn't reach here if validation fails.
         $user = User::create($validated);
 
-        Customer::create([
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'phone_number' => $this->phone_number,
-            'user_id' => $user->id
-        ]);
+        $validated['user_id'] = $user->id;
 
-        $this->dispatch('customer-created');
+        Supplier::create($validated);
+
+        $this->dispatch('supplier-created');
 
         $this->closeModal();
     }
-
     public function render()
     {
-        return view('livewire.customer.create-customer');
+        return view('livewire.supplier.create-supplier');
     }
 }

@@ -4,14 +4,14 @@
     </x-slot>
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
         <legend class="px-2">Item Details</legend>
-        <div class="flex justify-between">
-            <div>
+        <div class="flex justify-between gap-4">
+            <div class="w-1/2">
                 <x-input-label for="code" :value="__('Code')" />
                 <x-text-input wire:model="code" id="code" class="block mt-1 w-full" type="text" name="code"
                     readonly />
                 <x-input-error :messages="$errors->get('code')" class="mt-2" />
             </div>
-            <div>
+            <div class="w-1/2">
                 <x-input-label for="item_number" :value="__('Item Number')" />
                 <x-text-input wire:model="item_number" id="item_number" class="block mt-1 w-full" type="text"
                     name="item_number" autofocus />
@@ -29,14 +29,14 @@
             <x-textarea wire:model="description" class="w-full" />
         </div>
 
-        <div class="flex justify-between mt-4">
-            <div>
+        <div class="flex justify-between gap-4 mt-4">
+            <div class="w-1/2">
                 <x-input-label for="cost_price" :value="__('Cost Price')" />
                 <x-text-input wire:model="cost_price" id="cost_price" class="block mt-1 w-full" type="text"
                     name="cost_price" />
                 <x-input-error :messages="$errors->get('cost_price')" class="mt-2" />
             </div>
-            <div>
+            <div class="w-1/2">
                 <x-input-label for="unit_price" :value="__('Unit Price')" />
                 <x-text-input wire:model="unit_price" id="unit_price" class="block mt-1 w-full" type="text"
                     name="unit_price" />
@@ -44,14 +44,14 @@
             </div>
         </div>
 
-        <div class="flex justify-between mt-4">
-            <div>
+        <div class="flex justify-between gap-4 mt-4">
+            <div class="w-1/2">
                 <x-input-label for="reorder_level" :value="__('Re-Order Level')" />
                 <x-text-input wire:model="reorder_level" id="reorder_level" class="block mt-1 w-full" type="number"
                     name="reorder_level" />
                 <x-input-error :messages="$errors->get('reorder_level')" class="mt-2" />
             </div>
-            <div>
+            <div class="w-1/2">
                 <x-input-label for="receiving_quantity" :value="__('Receiving Quantity')" />
                 <x-text-input wire:model="receiving_quantity" id="receiving_quantity" class="block mt-1 w-full"
                     type="number" name="receiving_quantity" />
@@ -59,12 +59,21 @@
             </div>
         </div>
 
-        <div class="mt-4">
-            <x-input-label for="type" :value="__('Category')" />
-            <x-select wire:model="category_id" id="category_id" name="category_id" :options="$categories"
-                class="block mt-1 w-full" />
-            <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+        <div class="flex justify-between gap-4 mt-4">
+            <div class="w-1/2">
+                <x-input-label for="type" :value="__('Category')" />
+                <x-select wire:model="category_id" id="category_id" name="category_id" :options="$categories"
+                    class="block mt-1 w-full" />
+                <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+            </div>
+            <div class="w-1/2">
+                <x-input-label for="type" :value="__('Supplier')" />
+                <x-select wire:model="supplier_id" id="supplier_id" name="supplier_id" :options="$suppliers"
+                    class="block mt-1 w-full" />
+                <x-input-error :messages="$errors->get('supplier_id')" class="mt-2" />
+            </div>
         </div>
+
     </fieldset>
 
     <x-slot name="buttons">
