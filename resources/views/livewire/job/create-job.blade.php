@@ -13,8 +13,7 @@
 
         <div class="mt-4">
             <x-input-label for="type" :value="__('Type')" />
-            <x-select wire:model="type" id="type" name="type" :options="$types" class="block mt-1 w-full"
-                :selectedOptions="$type" />
+            <x-select wire:model="type" id="type" name="type" :options="$types" class="block mt-1 w-full"/>
             <x-input-error :messages="$errors->get('type')" class="mt-2" />
         </div>
 

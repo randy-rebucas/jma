@@ -38,7 +38,6 @@ class EditJob extends ModalComponent
         $this->job = $job;
 
         $this->types = [
-            '' => 'Select',
             'order' => 'Order',
             'estimate' => 'Estimate',
         ];

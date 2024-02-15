@@ -48,7 +48,7 @@ new class extends Component {
         </div>
 
         <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
-            <x-table for="customer">
+            <x-table for="jobs">
                 <x-table.thead>
                     <x-table.row>
                         <x-table.thead-cell title="Job Number" class="text-left" />

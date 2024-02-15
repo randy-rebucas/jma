@@ -37,7 +37,6 @@ class CreateJob extends ModalComponent
     {
         $this->job_number = Str::upper(Str::random(16));
         $this->types = [
-            '' => 'Select',
             'order' => 'Order',
             'estimate' => 'Estimate',
         ];
