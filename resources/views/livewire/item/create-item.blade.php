@@ -3,7 +3,7 @@
         Create new Item
     </x-slot>
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
-        <legend class="px-2">Item Details</legend>
+        <legend class="dark:text-gray-200 px-2">Item Details</legend>
         <div class="flex justify-between gap-4">
             <div class="w-1/2">
                 <x-input-label for="code" :value="__('Code')" />
@@ -77,7 +77,7 @@
     </fieldset>
 
     <x-slot name="buttons">
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-end">
             <x-secondary-button class="ms-3" wire:click="$dispatch('closeModal')">
                 {{ __('Cancel') }}
             </x-secondary-button>

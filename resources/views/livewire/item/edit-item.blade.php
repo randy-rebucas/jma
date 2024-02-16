@@ -3,7 +3,7 @@
         Update Item
     </x-slot>
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
-        <legend class="px-2">Item Details</legend>
+        <legend class="dark:text-gray-200 px-2">Item Details</legend>
         <x-text-input wire:model="slug" id="slug" class="block mt-1 w-full" type="hidden" name="slug"
                      />
         <div class="flex justify-between">
@@ -70,7 +70,7 @@
     </fieldset>
 
     <x-slot name="buttons">
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-end">
             <x-secondary-button class="ms-3" wire:click="$dispatch('closeModal')">
                 {{ __('Cancel') }}
             </x-secondary-button>

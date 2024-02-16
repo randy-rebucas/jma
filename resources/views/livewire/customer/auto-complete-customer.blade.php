@@ -27,7 +27,7 @@
         <div class="clear-both"></div>
         <div>
             @if (!empty($details))
-                <div>
+                <div class="dark:text-green-400">
                     Name : {{ $details->first_name . ' ' . $details->last_name }} <br>
                     Email : {{ $details->user->email }}
                 </div>

@@ -1,7 +1,6 @@
 <div>
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
         <legend class="px-2">{{ __('Select Customer') }}</legend>
-        {{-- <x-text-input wire:model="customer" id="customer" class="block w-full" type="text" name="customer" /> --}}
         <div class="relative w-full">
             <x-text-input wire:model.debounce.500ms="search" wire:keyup="searchResult" wire:keydown.enter="searchResult"
                 class="w-full" type="text" placeholder="Find customer..." />
@@ -11,7 +10,7 @@
                 <ul class="absolute bottom-0 list-none overflow-visible top-12 w-full">
                     @foreach ($records as $record)
                         <li wire:click="setCustomer({{ $record->id }})"
-                            class="bg-indigo-50 p-2 hover:cursor-pointer hover:bg-slate-100">
+                            class="bg-indigo-50 dark:text-gray-800 hover:bg-slate-100 hover:cursor-pointer p-2">
                             {{ $record->first_name . ' ' . $record->last_name }}</li>
                     @endforeach
                 </ul>
@@ -27,7 +26,7 @@
         </div>
 
         @if (!empty($details))
-            <p class="bg-slate-200 mt-2 p-2"> Name : {{ $details->first_name . ' ' . $details->last_name }}</p>
+            <p class="bg-slate-200 dark:bg-gray-800/50 mt-2 p-2 rounded-lg"> Name : {{ $details->first_name . ' ' . $details->last_name }}</p>
         @endif
     </fieldset>
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md mt-2">

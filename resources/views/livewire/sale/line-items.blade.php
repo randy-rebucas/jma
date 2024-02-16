@@ -2,7 +2,7 @@
     @if ($content->count() > 0)
         <x-table for="items">
             <x-table.thead>
-                <x-table.row>
+                <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
                     <x-table.thead-cell title="Name" class="text-left" />
                     <x-table.thead-cell title="Price" class="text-right" />
                     <x-table.thead-cell title="Quantity" class="text-center" />
@@ -10,9 +10,9 @@
                     <x-table.thead-cell title="Actions" class="text-right" />
                 </x-table.row>
             </x-table.thead>
-            <x-table.tbody>
+            <x-table.tbody class="dark:border-gray-500">
                 @foreach ($content as $i => $item)
-                    <x-table.row class="bg-white" wire:loading.class="opacity-50">
+                    <x-table.row class="bg-white dark:bg-gray-700 dark:text-white" wire:loading.class="opacity-50">
                         <x-table.tbody-cell :item="$item->get('name')" />
                         <x-table.tbody-cell :item="number_format($item->get('price'), 2)" class="text-right"/>
                         <x-table.tbody-cell :item="$item->get('quantity')" class="text-center" />
@@ -26,6 +26,6 @@
             </x-table.tbody>
         </x-table>
     @else
-        <p class="text-left bg-green-200 p-2 rounded m-3">{{ __('No cart items.') }}</p>
+        <p class="text-left bg-green-200 p-2 rounded m-3">{{ __('No items added.') }}</p>
     @endif
 </div>

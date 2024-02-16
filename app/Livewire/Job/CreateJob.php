@@ -18,7 +18,7 @@ class CreateJob extends ModalComponent
 
     public static function modalMaxWidth(): string
     {
-        return '4xl';
+        return 'xl';
     }
     protected $rules = [
         'job_number' => 'required|string|max:255',

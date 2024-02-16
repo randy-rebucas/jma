@@ -50,16 +50,16 @@ new class extends Component {
         <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
             <x-table for="jobs">
                 <x-table.thead>
-                    <x-table.row>
+                    <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
                         <x-table.thead-cell title="Job Number" class="text-left" />
                         <x-table.thead-cell title="Type" class="text-left" />
                         <x-table.thead-cell title="Customer" class="text-left" />
                         <x-table.thead-cell title="Actions" class="text-right" />
                     </x-table.row>
                 </x-table.thead>
-                <x-table.tbody>
+                <x-table.tbody class="dark:border-gray-500">
                     @forelse ($jobs as $job)
-                        <x-table.row class="bg-white" wire:loading.class="opacity-50">
+                        <x-table.row class="bg-white dark:bg-gray-700 dark:text-white" wire:loading.class="opacity-50">
                             <x-table.tbody-cell :item="$job->job_number" />
                             <x-table.tbody-cell :item="$job->type" />
                             <x-table.tbody-cell :item="$job->customer->first_name . ', ' . $job->customer->last_name" />
@@ -72,7 +72,7 @@ new class extends Component {
                             </x-table.tbody-cell>
                         </x-table.row>
                     @empty
-                        <x-table.row class="bg-white">
+                        <x-table.row class="bg-white dark:bg-gray-700 dark:text-white">
                             <x-table.tbody-cell colspan="6" :item="'No job found!!'" />
                         </x-table.row>
                     @endforelse

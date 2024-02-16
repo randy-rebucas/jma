@@ -3,7 +3,7 @@
         Update Job
     </x-slot>
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
-        <legend class="px-2">Job Details</legend>
+        <legend class="dark:text-gray-200 px-2">Job Details</legend>
         <div>
             <x-input-label for="job_number" :value="__('Job Number')" />
             <x-text-input wire:model="job_number" id="job_number" class="block mt-1 w-full" type="text" name="job_number"
@@ -25,7 +25,7 @@
     </fieldset>
 
     <x-slot name="buttons">
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-end ">
             <x-secondary-button class="ms-3" wire:click="$dispatch('closeModal')">
                 {{ __('Cancel') }}
             </x-secondary-button>
