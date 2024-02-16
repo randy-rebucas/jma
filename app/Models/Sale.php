@@ -13,7 +13,9 @@ class Sale extends Model
         'comment',
         'invoice_number',
         'sale_status',
-        'sale_type'
+        'sale_type',
+        'user_id',
+        'customer_id'
     ];
 
     public function customer()

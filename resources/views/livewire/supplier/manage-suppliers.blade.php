@@ -57,8 +57,7 @@ new class extends Component {
             <x-table for="customer">
                 <x-table.thead>
                     <x-table.row>
-                        <x-table.thead-cell title="First Name" class="text-left" />
-                        <x-table.thead-cell title="Last Name" class="text-left" />
+                        <x-table.thead-cell title="Full Name" class="text-left" />
                         <x-table.thead-cell title="Company Name" class="text-left" />
                         <x-table.thead-cell title="Email" class="text-left" />
                         <x-table.thead-cell title="Phone Number" class="text-center" />
@@ -68,8 +67,7 @@ new class extends Component {
                 <x-table.tbody>
                     @forelse ($suppliers as $supplier)
                         <x-table.row class="bg-white" wire:loading.class="opacity-50">
-                            <x-table.tbody-cell :item="$supplier->first_name" />
-                            <x-table.tbody-cell :item="$supplier->last_name" />
+                            <x-table.tbody-cell :item="$supplier->full_name" />
                             <x-table.tbody-cell :item="$supplier->company_name" />
                             <x-table.tbody-cell :item="$supplier->user->email" />
                             <x-table.tbody-cell :item="$supplier->phone_number" class="text-center" />

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Item extends Model
 {
@@ -23,6 +24,11 @@ class Item extends Model
         'supplier_id'
     ];
 
+    protected $appends = [
+        'format_cost_price',
+        'format_unit_price'
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -35,5 +41,15 @@ class Item extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class);
+    }
+
+    public function getFormatUnitPriceAttribute()
+    {
+        return number_format($this->unit_price, 2);
+    }
+
+    public function getFormatCostPriceAttribute()
+    {
+        return number_format($this->cost_price, 2);
     }
 }

@@ -1,21 +1,20 @@
 <div class="flex-1">
     <div class="flex items-center">
         <x-input-label for="item" :value="__('Scan Item')" class="block flex-initial" />
-        <x-text-input wire:model="search" wire:keyup="searchResult" wire:keydown.enter="searchResult" class="mx-6 w-3/4"
-            type="text" placeholder="find item..." />
+        <div class="relative mx-6 w-3/4 flex">
+            <x-text-input wire:model.debounce.500ms="search" wire:keyup="searchResult" wire:keydown.enter="searchResult" class="mx-6 w-3/4"
+                type="text" placeholder="Start typing Item name or scan..." />
 
-        <!-- Search result list -->
-        @if ($showresult)
-            <ul class="list-none absolute w-3/4 overflow-visible">
-                @if (!empty($records))
+            <!-- Search result list -->
+            @if (!empty($records))
+                <ul class="list-none absolute w-3/4 overflow-visible left-6 top-12 bottom-0">
                     @foreach ($records as $record)
                         <li wire:click="setItem({{ $record->id }})"
-                            class="bg-indigo-50 p-2 hover:cursor-pointer hover:bg-violet-400">
-                            {{ $record->first_name . ' ' . $record->last_name }}</li>
+                            class="bg-indigo-50 p-2 hover:cursor-pointer hover:bg-slate-100">
+                            {{ $record->name . ' - code:' . $record->item_number }}</li>
                     @endforeach
-                @endif
-            </ul>
-        @endif
-        {{-- <x-text-input wire:keydown.enter="findItem" id="item" class="mx-6 w-3/4" type="text" name="item" /> --}}
+                </ul>
+            @endif
+        </div>
     </div>
 </div>

@@ -22,6 +22,10 @@ class Customer extends Model
         'user_id'
     ];
 
+    protected $appends = [
+        'full_name'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -33,10 +37,9 @@ class Customer extends Model
     {
         return $this->hasMany(Sale::class);
     }
-    public function fullName()
+
+    public function getFullNameAttribute()
     {
-        return Attribute::make(
-            get: fn () => $this->first_name.' '.$this->last_name,
-        );
+        return $this->first_name.' '.$this->last_name;
     }
 }

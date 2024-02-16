@@ -68,8 +68,8 @@ new class extends Component {
                             <x-table.tbody-cell :item="$item->name" />
                             <x-table.tbody-cell :item="$item->code" />
                             <x-table.tbody-cell :item="$item->item_number" />
-                            <x-table.tbody-cell :item="number_format($item->cost_price, 2)" class="text-right" />
-                            <x-table.tbody-cell :item="number_format($item->unit_price, 2)" class="text-right"/>
+                            <x-table.tbody-cell :item="$item->format_cost_price" class="text-right" />
+                            <x-table.tbody-cell :item="$item->format_unit_price" class="text-right"/>
                             <x-table.tbody-cell :item="$item->reorder_level" class="text-center"/>
                             <x-table.tbody-cell :item="$item->receiving_quantity" class="text-center" />
                             <x-table.tbody-cell :item="$item->category->name" />

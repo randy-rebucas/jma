@@ -22,11 +22,18 @@ class Supplier extends Model
         'comments',
         'user_id'
     ];
+    protected $appends = [
+        'full_name'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);
     }
     public function items() {
         return $this->hasMany(Item::class);
+    }
+    public function getFullNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
     }
 }
