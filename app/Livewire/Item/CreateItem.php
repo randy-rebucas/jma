@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Supplier;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Support\Str;
+use Barryvdh\Debugbar\Facades\Debugbar;
 
 class CreateItem extends ModalComponent
 {
@@ -24,7 +25,6 @@ class CreateItem extends ModalComponent
     public $supplier_id;
     public $categories = [];
     public $suppliers = [];
-    public $selectedCategory;
 
     public static function modalMaxWidth(): string
     {
@@ -32,7 +32,6 @@ class CreateItem extends ModalComponent
     }
     protected $rules = [
         'name' => 'required|string|max:255',
-        'slug' => 'string',
         'code' => 'string|max:255',
         'item_number' => 'string|max:255',
         'description' => 'string|max:1000',
@@ -54,17 +53,22 @@ class CreateItem extends ModalComponent
 
     public function submit()
     {
-        $validated = $this->validate();
-
-        $validated['cost_price'] = $this->cost_price;
-        $validated['unit_price'] = $this->unit_price;
-        $validated['slug'] = Str::slug($this->name);
-        
-        Item::create($validated);
-
-        $this->dispatch('item-created');
-
-        $this->closeModal();
+        try {
+            //code...
+            $validated = $this->validate();
+    
+            $validated['cost_price'] = $this->cost_price;
+            $validated['unit_price'] = $this->unit_price;
+            $validated['slug'] = Str::slug($this->name);
+            
+            Item::create($validated);
+    
+            $this->dispatch('item-created');
+    
+            $this->closeModal();
+        } catch (\Throwable $e) {
+            Debugbar::addThrowable($e);
+        }
     }
     public function render()
     {
