@@ -24,9 +24,10 @@
                 {{ __('Create customer') }}
             </x-secondary-button>
         </div>
-
+        <x-input-error :messages="$errors->get('customer')" />
         @if (!empty($details))
-            <p class="bg-slate-200 dark:bg-gray-800/50 mt-2 p-2 rounded-lg"> Name : {{ $details->first_name . ' ' . $details->last_name }}</p>
+            <p class="bg-slate-200 dark:bg-gray-800/50 mt-2 p-2 rounded-lg"> Name :
+                {{ $details->first_name . ' ' . $details->last_name }}</p>
         @endif
     </fieldset>
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md mt-2">
@@ -36,28 +37,30 @@
             <li class="text-2xl">Total <span class="float-right">{{ $total }}</span></li>
         </ul>
     </fieldset>
-    <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md mt-2">
-        <legend class="px-2">Payments {{$mode}}</legend>
-        <div class="flex items-center justify-between w-full">
-            <x-input-label for="type" :value="__('Type')" />
-            <x-select wire:model="type" id="type" name="type" :options="$types" class="mt-1 w-1/2" />
+    @if ($total > 0)
+        <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md mt-2">
+            <legend class="px-2">Payments</legend>
+            <div class="flex items-center justify-between w-full">
+                <x-input-label for="type" :value="__('Type')" />
+                <x-select wire:model="type" id="type" name="type" :options="$types" class="mt-1 w-1/2" />
+            </div>
+            <div class="flex items-center justify-between w-full">
+                <x-input-label for="amount" :value="__('Amount')" />
+                <x-text-input wire:model="amount" id="amount" class="mt-1 w-1/2" type="number" name="amount" />
+            </div>
+            <div class="mt-2">
+                <x-input-error :messages="$errors->get('type')" />
+                <x-input-error :messages="$errors->get('amount')" />
+            </div>
+        </fieldset>
+        <div class="flex justify-between mt-2">
+            <x-secondary-button class="py-3 my-2"
+                wire:click="$dispatch('openModal', { component: 'customer.create-customer' })">
+                {{ __('Suspend') }}
+            </x-secondary-button>
+            <x-secondary-button class="py-3 my-2" wire:click="doComplete">
+                {{ __('Complete') }}
+            </x-secondary-button>
         </div>
-        <div class="flex items-center justify-between w-full">
-            <x-input-label for="amount" :value="__('Amount')" />
-            <x-text-input wire:model="amount" id="amount" class="mt-1 w-1/2" type="number" name="amount" />
-        </div>
-        <div class="mt-2">
-            <x-input-error :messages="$errors->get('type')" />
-            <x-input-error :messages="$errors->get('amount')" />
-        </div>
-    </fieldset>
-    <div class="flex justify-between mt-2">
-        <x-secondary-button class="py-3 my-2"
-            wire:click="$dispatch('openModal', { component: 'customer.create-customer' })">
-            {{ __('Suspend') }}
-        </x-secondary-button>
-        <x-secondary-button class="py-3 my-2" wire:click="doComplete">
-            {{ __('Complete') }}
-        </x-secondary-button>
-    </div>
+    @endif
 </div>

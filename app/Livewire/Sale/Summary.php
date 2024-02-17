@@ -9,6 +9,7 @@ use App\Models\SalePayment;
 use Livewire\Component;
 use App\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class Summary extends Component
 {
@@ -65,6 +66,10 @@ class Summary extends Component
         ];
 
         $this->type = 'cash';
+
+        if ($this->customerId) {
+            $this->setCustomer($this->customerId);
+        }
     }
 
     public function saleCompleted()
@@ -86,8 +91,14 @@ class Summary extends Component
     {
         $this->validate([
             'type' => 'required',
-            'amount' => 'required|gte:' . $this->total
+            'amount' => 'required|gte:' . $this->total,
         ]);
+
+        Validator::make(
+            ['customer' => $this->customerId],
+            ['customer' => 'required'],
+            ['required' => 'The :attribute field is required'],
+        )->validate();
 
         $sale = Sale::create([
             'sale_status' => 'paid',
@@ -98,7 +109,8 @@ class Summary extends Component
 
         SaleItem::create([
             'sale_id' => $sale->id,
-            'items' => json_encode(Cart::content())
+            'items' => json_encode(Cart::content()),
+            'sale_total_amount' => $this->total,
         ]);
 
         SalePayment::create([

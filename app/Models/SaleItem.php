@@ -13,7 +13,8 @@ class SaleItem extends Model
     ];
     protected $fillable = [
         'items',
-        'sale_id'
+        'sale_id',
+        'sale_total_amount'
     ];
 
     public function sale()
