@@ -26,12 +26,18 @@ class Summary extends Component
     public $details;
     public $customerId;
 
-    protected $listeners = ['removeItem', 'addItem', 'saleCompleted'];
+    protected $listeners = ['removeItem', 'addItem', 'saleCompleted', 'saleCanceled'];
 
     private function getCartTotal()
     {
         $this->total = Cart::total();
         $this->totalQuantity = Cart::quantity();
+    }
+
+    public function clean() {
+        $this->getCartTotal();
+        $this->amount = '';
+        $this->details = null;
     }
     public function searchResult()
     {
@@ -74,9 +80,12 @@ class Summary extends Component
 
     public function saleCompleted()
     {
-        $this->getCartTotal();
-        $this->amount = '';
-        $this->details = null;
+        $this->clean();
+    }
+
+    public function saleCanceled()
+    {
+        $this->clean();
     }
     public function addItem()
     {
@@ -87,6 +96,12 @@ class Summary extends Component
         $this->getCartTotal();
     }
 
+    public function doCanceled()
+    {
+        Cart::clear();
+        session()->flash('status', 'Sale canceled.');
+        $this->dispatch('saleCanceled');
+    }
     public function doComplete()
     {
         $this->validate([
@@ -122,6 +137,8 @@ class Summary extends Component
         Cart::clear();
         session()->flash('status', 'Sales successfully registered.');
         $this->dispatch('saleCompleted');
+        // return redirect()->to('/sales')
+        // ->with('status', 'Sales successfully registered.');
     }
     public function render()
     {

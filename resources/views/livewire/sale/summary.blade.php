@@ -54,9 +54,9 @@
             </div>
         </fieldset>
         <div class="flex justify-between mt-2">
-            <x-secondary-button class="py-3 my-2"
-                wire:click="$dispatch('openModal', { component: 'customer.create-customer' })">
-                {{ __('Suspend') }}
+            <x-secondary-button class="py-3 my-2" wire:click="doCanceled"
+                wire:confirm="Are you sure you want to clear this sale? All items will be cleared.">
+                {{ __('Cancel') }}
             </x-secondary-button>
             <x-secondary-button class="py-3 my-2" wire:click="doComplete">
                 {{ __('Complete') }}

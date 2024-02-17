@@ -8,14 +8,17 @@ use App\Facades\Cart;
 class LineItems extends Component
 {
     protected $content;
-    protected $listeners = ['addItem', 'saleCompleted'];
-
+    protected $listeners = ['addItem', 'saleCompleted', 'saleCanceled'];
     public function mount(): void
     {
         $this->addItem();
     }
 
     public function saleCompleted()
+    {
+        $this->addItem();
+    }
+    public function saleCanceled()
     {
         $this->addItem();
     }
