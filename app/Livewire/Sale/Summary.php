@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Sale;
 
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\Customer;
 use App\Models\Sale;
 use App\Models\SaleItem;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 
 class Summary extends Component
 {
+    use LivewireAlert;
     public $mode;
     public $total;
     public $totalQuantity;
@@ -26,15 +28,15 @@ class Summary extends Component
     public $details;
     public $customerId;
 
-    protected $listeners = ['removeItem', 'addItem', 'saleCompleted', 'saleCanceled'];
-
+    protected $listeners = ['removeItem', 'addItem', 'saleCompleted', 'saleCanceled', 'confirmed', 'cancelled'];
     private function getCartTotal()
     {
         $this->total = Cart::total();
         $this->totalQuantity = Cart::quantity();
     }
 
-    public function clean() {
+    public function clean()
+    {
         $this->getCartTotal();
         $this->amount = '';
         $this->details = null;
@@ -135,11 +137,27 @@ class Summary extends Component
         ]);
 
         Cart::clear();
-        session()->flash('status', 'Sales successfully registered.');
+        // session()->flash('status', 'Sales successfully registered.');
         $this->dispatch('saleCompleted');
-        // return redirect()->to('/sales')
-        // ->with('status', 'Sales successfully registered.');
+        $this->alert('warning', 'Confirm or Cancel Sales?', [
+            'showCancelButton' => true,
+            'cancelButtonText' => 'Cancel',
+            'onDismissed' => 'cancelled',
+
+            'showConfirmButton' => true,
+            'confirmButtonText' => 'Confirm',
+            'onConfirmed' => 'confirmed',
+
+            'icon' => 'warning',
+            'position' => 'center',
+            'toast' => false,
+            'timer' => null,
+            'confirmButtonColor' => '#3085d6',
+            'cancelButtonColor' => '#d33'
+        ]);
     }
+
+
     public function render()
     {
         return view('livewire.sale.summary', [
