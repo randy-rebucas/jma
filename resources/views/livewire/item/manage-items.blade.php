@@ -42,9 +42,16 @@ new class extends Component {
 
         <div class="flex justify-between">
             <x-text-input wire:model.live="search" class="py-2" type="search" placeholder="Search Items..." />
-            <x-secondary-button class="ms-3 py-3" wire:click="$dispatch('openModal', { component: 'item.create-item' })">
-                {{ __('Create Item') }}
-            </x-secondary-button>
+            <div>
+                <x-secondary-button class="ms-3 py-3"
+                    wire:click="$dispatch('openModal', { component: 'item.create-item' })">
+                    {{ __('Create Item') }}
+                </x-secondary-button>
+                <x-secondary-button class="ms-3 py-3"
+                    wire:click="$dispatch('openModal', { component: 'category.manage-category' })">
+                    {{ __('Categories') }}
+                </x-secondary-button>
+            </div>
         </div>
 
         <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
@@ -69,8 +76,8 @@ new class extends Component {
                             <x-table.tbody-cell :item="$item->code" />
                             <x-table.tbody-cell :item="$item->item_number" />
                             <x-table.tbody-cell :item="$item->format_cost_price" class="text-right" />
-                            <x-table.tbody-cell :item="$item->format_unit_price" class="text-right"/>
-                            <x-table.tbody-cell :item="$item->reorder_level" class="text-center"/>
+                            <x-table.tbody-cell :item="$item->format_unit_price" class="text-right" />
+                            <x-table.tbody-cell :item="$item->reorder_level" class="text-center" />
                             <x-table.tbody-cell :item="$item->receiving_quantity" class="text-center" />
                             <x-table.tbody-cell :item="$item->category->name" />
                             <x-table.tbody-cell :item="$item->id" :action="true" class="text-right">

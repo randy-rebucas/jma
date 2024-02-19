@@ -8,6 +8,7 @@ class RegisterMode extends Component
 {
     public $mode;
     public $modes = [];
+    
     public function changeRegisterMode($mode) {
         $this->dispatch('activeMode', $mode);
     }
@@ -19,6 +20,8 @@ class RegisterMode extends Component
         $this->modes = [
             'sales' => 'Sales',
             'return' => 'Return',
+            'order' => 'Order',
+            'estimate' => 'Estimate',
         ];
     }
 
