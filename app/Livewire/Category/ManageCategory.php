@@ -41,13 +41,6 @@ class ManageCategory extends ModalComponent
         $this->dispatch('category-created');
     }
 
-    public function edit($id): void
-    {
-        $category = Category::find($id);
-        $this->name = $category->name;
-        $this->id = $category->id;
-    }
-
     public function delete($id): void
     {
         $category = Category::find($id);

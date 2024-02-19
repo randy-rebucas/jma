@@ -25,8 +25,6 @@
                     <x-table.tbody-cell :item="$category->name" />
                     <x-table.tbody-cell :item="$category->slug" />
                     <x-table.tbody-cell :item="$category->id" :action="true" class="text-right">
-                        <button type="button" class="btn btn-info m-1 font-medium underline"
-                            wire:click="edit({{ $category->id }})">Edit</button>
                         <button type="button" class="btn btn-info m-1 text-red-600 font-medium underline"
                             wire:click="delete({{ $category->id }})"
                             wire:confirm="Are you sure you want to delete this category?">Delete</button>
