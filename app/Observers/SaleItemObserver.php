@@ -20,13 +20,13 @@ class SaleItemObserver
 
         if ($sale->sale_type == SaleType::Sale) {
             foreach ($items as $key => $item) {
-                Item::where('id', $key)->decrement('receiving_quantity', $item["quantity"]);
+                Item::where('id', $key)->decrement('receiving_quantity', $item["qty"]);
             }
         }
 
         if ($sale->sale_type == SaleType::Return) {
             foreach ($items as $key => $item) {
-                Item::where('id', $key)->increment('receiving_quantity', $item["quantity"]);
+                Item::where('id', $key)->increment('receiving_quantity', $item["qty"]);
             }
         }
     }

@@ -3,7 +3,7 @@
 use Livewire\Volt\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\On;
-use App\Facades\Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 new class extends Component {
     use LivewireAlert;
@@ -26,7 +26,7 @@ new class extends Component {
             'timer' => 3000,
         ]);
 
-        Cart::clear();
+        Cart::destroy();
     }
 
     #[On('errorAddItem')]

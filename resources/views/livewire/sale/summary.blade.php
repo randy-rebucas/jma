@@ -42,7 +42,7 @@
             <legend class="px-2">Payments</legend>
             <div class="flex items-center justify-between w-full">
                 <x-input-label for="type" :value="__('Type')" />
-                <x-select wire:model="type" id="type" name="type" :options="$types" class="mt-1 w-1/2" />
+                <x-select wire:model="type" id="type" name="type" wire:change="changeType($event.target.value)" :options="$types" class="mt-1 w-1/2" />
             </div>
             <div class="flex items-center justify-between w-full">
                 <x-input-label for="amount" :value="__('Amount')" />

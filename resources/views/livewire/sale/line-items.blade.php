@@ -11,15 +11,15 @@
                 </x-table.row>
             </x-table.thead>
             <x-table.tbody class="dark:border-gray-500">
-                @foreach ($content as $i => $item)
+                @foreach ($content as $item)
                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white" wire:loading.class="opacity-50">
-                        <x-table.tbody-cell :item="$item->get('name')" />
-                        <x-table.tbody-cell :item="number_format($item->get('price'), 2)" class="text-right" />
-                        <x-table.tbody-cell :item="$item->get('quantity')" class="text-center" />
-                        <x-table.tbody-cell :item="number_format($item->get('price') * $item->get('quantity'), 2)" class="text-right" />
-                        <x-table.tbody-cell :item="$i" class="text-right" :action="true">
+                        <x-table.tbody-cell :item="$item->name" />
+                        <x-table.tbody-cell :item="number_format($item->price, 2)" class="text-right" />
+                        <x-table.tbody-cell :item="$item->qty" class="text-center" />
+                        <x-table.tbody-cell :item="number_format($item->total, 2)" class="text-right" />
+                        <x-table.tbody-cell :item="$item->id" class="text-right" :action="true">
                             <button type="button" class="btn btn-info m-1 text-red-600 font-medium underline"
-                                wire:click="remove({{ $i }})">
+                                wire:click="remove('{{ $item->rowId }}')">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="w-5 h-5">
                                     <path

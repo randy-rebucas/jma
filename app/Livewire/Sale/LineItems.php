@@ -2,27 +2,12 @@
 
 namespace App\Livewire\Sale;
 
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
-use App\Facades\Cart;
 use Livewire\Attributes\On;
 
 class LineItems extends Component
 {
-    public $content;
-
-    #[On('addItem')]
-    #[On('saleCompleted')]
-    #[On('saleCanceled')]
-    #[On('removeItem')]
-    #[On('clearItem')]
-    public function getCartContents()
-    {
-        $this->content = Cart::content();
-    }
-    public function mount(): void
-    {
-        $this->getCartContents();
-    }
 
     /**
      * Removes a cart item by id.
@@ -30,11 +15,10 @@ class LineItems extends Component
      * @param string $id
      * @return void
      */
-    public function remove($id): void
+    public function remove($rowId): void
     {
-        Cart::remove($id);
-
-        $this->dispatch('removeItem', $id);
+        Cart::remove($rowId);
+        $this->dispatch('removeItem', $rowId);
     }
     /**
      * Clears the cart content.
@@ -43,7 +27,7 @@ class LineItems extends Component
      */
     public function clearCart(): void
     {
-        Cart::clear();
+        Cart::destroy();
         $this->dispatch('clearItem');
     }
     /**
@@ -57,8 +41,15 @@ class LineItems extends Component
     {
         Cart::update($id, $action);
     }
+
+    #[On('addItem')]
+    #[On('saleCompleted')]
+    #[On('saleCanceled')]
+    #[On('removeItem')]
+    #[On('clearItem')]
     public function render()
     {
-        return view('livewire.sale.line-items');
+        $content = Cart::content();
+        return view('livewire.sale.line-items', compact('content'));
     }
 }

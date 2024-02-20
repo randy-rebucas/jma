@@ -15,7 +15,6 @@ class Sale extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sale_status',
         'sale_type',
         'serial',
         'user_id',

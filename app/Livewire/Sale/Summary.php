@@ -8,7 +8,7 @@ use App\Models\SaleItem;
 use App\Models\SalePayment;
 use Livewire\Component;
 use Livewire\Attributes\On;
-use App\Facades\Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +28,8 @@ class Summary extends Component
     public $details;
     public $customerId;
 
+    protected $listeners = ['refreshItem' => '$refresh'];
+
     #[On('change-mode')] 
     public function changeRegisterMode($mode)
     {
@@ -44,7 +46,7 @@ class Summary extends Component
         $this->amount = '';
         $this->details = null;
         $this->total = Cart::total();
-        $this->totalQuantity = Cart::quantity();
+        $this->totalQuantity = Cart::count();
     }
 
     public function searchResult()
@@ -85,9 +87,13 @@ class Summary extends Component
         $this->getCartTotal();
     }
 
+    public function changeType($type) {
+        $this->type = $type;
+    }
+
     public function doCanceled()
     {
-        Cart::clear();
+        Cart::destroy();
         $this->dispatch('saleCanceled');
     }
 
@@ -104,25 +110,24 @@ class Summary extends Component
             ['required' => 'The :attribute field is required'],
         )->validate();
 
-        $sale = Sale::create([
-            'sale_status' => 'paid',
-            'sale_type' => $this->mode,
-            'user_id' => Auth::id(),
-            'customer_id' => $this->customerId,
-            'serial' => Str::uuid()
-        ]);
+        $sale = new Sale();
+        $sale->sale_type = $this->mode;
+        $sale->user_id = Auth::id();
+        $sale->customer_id = $this->customerId;
+        $sale->serial = Str::uuid();
+        $sale->save();
 
-        SaleItem::create([
-            'sale_id' => $sale->id,
-            'items' => json_encode(Cart::content()),
-            'sale_total_amount' => $this->total,
-        ]);
-
-        SalePayment::create([
-            'sale_id' => $sale->id,
-            'payment_type' => $this->type,
-            'payment_amount' => $this->amount
-        ]);
+        $sale_item = new SaleItem();
+        $sale_item->sale_id = $sale->id;
+        $sale_item->items = json_encode(Cart::content());
+        $sale_item->sale_total_amount = $this->total;
+        $sale_item->save();
+        
+        $sale_payment = new SalePayment();
+        $sale_payment->sale_id = $sale->id;
+        $sale_payment->payment_type = $this->type;
+        $sale_payment->payment_amount = $this->amount;
+        $sale_payment->save();
         
         $this->dispatch('saleCompleted', serial: $sale->serial);
     }
