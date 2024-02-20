@@ -17,7 +17,7 @@ class LineItems extends Component
      */
     public function remove($rowId): void
     {
-        Cart::remove($rowId);
+        Cart::instance('default')->remove($rowId);
         $this->dispatch('removeItem', $rowId);
     }
     /**
@@ -27,7 +27,7 @@ class LineItems extends Component
      */
     public function clearCart(): void
     {
-        Cart::destroy();
+        Cart::instance('default')->destroy();
         $this->dispatch('clearItem');
     }
     /**
@@ -39,7 +39,7 @@ class LineItems extends Component
      */
     public function updateCartItem(string $id, string $action): void
     {
-        Cart::update($id, $action);
+        Cart::instance('default')->update($id, $action);
     }
 
     #[On('addItem')]

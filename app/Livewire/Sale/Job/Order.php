@@ -6,10 +6,14 @@ use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
 
 class Order extends Component
 {
+    #[Validate('required|max:225')] 
     public $scope_name;
+
+    #[Validate('required')] 
     public $scope_amount;
 
     public function add() {

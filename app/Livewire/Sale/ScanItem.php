@@ -27,7 +27,7 @@ class ScanItem extends Component
 
     public function inCart()
     {
-        return Cart::search(function ($cartItem, $rowId) {
+        return Cart::instance('default')->search(function ($cartItem, $rowId) {
             return $cartItem->id === $this->item->id;
         });
     }
@@ -37,7 +37,7 @@ class ScanItem extends Component
 
         if (is_null($this->inCart()->first())) {
             if ($this->item->receiving_quantity >= 1) {
-                Cart::add($this->item->id, $this->item->name, 1, $this->item->getRawOriginal('unit_price'));
+                Cart::instance('default')->add($this->item->id, $this->item->name, 1, $this->item->getRawOriginal('unit_price'));
                 $this->dispatch('addItem');
                 $this->records = [];
             }
@@ -49,7 +49,7 @@ class ScanItem extends Component
             $newQuantity = $this->item->receiving_quantity - $this->inCart()->first()->qty;
 
             if ($this->item->receiving_quantity > $newQuantity && $newQuantity > 0) {
-                Cart::add($this->item->id, $this->item->name, 1, $this->item->getRawOriginal('unit_price'));
+                Cart::instance('default')->add($this->item->id, $this->item->name, 1, $this->item->getRawOriginal('unit_price'));
                 $this->dispatch('addItem');
                 $this->records = [];
             }

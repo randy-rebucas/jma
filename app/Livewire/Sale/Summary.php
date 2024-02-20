@@ -104,8 +104,9 @@ class Summary extends Component
 
     public function doCanceled()
     {
-        Cart::destroy();
+        Cart::instance('default')->destroy();
         Cart::instance('order')->destroy();
+        Cart::instance('estimate')->destroy();
         $this->dispatch('saleCanceled');
     }
 
@@ -113,7 +114,7 @@ class Summary extends Component
     {
         $this->validate([
             'type' => 'required',
-            'amount' => 'required|gte:' . $this->total,
+            'amount' => 'required|gte:' . ($this->total + $this->job_total + $this->estimate_total),
         ]);
 
         Validator::make(
