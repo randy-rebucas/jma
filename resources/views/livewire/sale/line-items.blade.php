@@ -13,11 +13,11 @@
             <x-table.tbody class="dark:border-gray-500">
                 @foreach ($content as $item)
                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white" wire:loading.class="opacity-50">
-                        <x-table.tbody-cell :item="$item->name" />
-                        <x-table.tbody-cell :item="number_format($item->price, 2)" class="text-right" />
-                        <x-table.tbody-cell :item="$item->qty" class="text-center" />
-                        <x-table.tbody-cell :item="number_format($item->total, 2)" class="text-right" />
-                        <x-table.tbody-cell :item="$item->id" class="text-right" :action="true">
+                        <x-table.tbody-cell :item="$item->name" class="md:py-1"/>
+                        <x-table.tbody-cell :item="number_format($item->price, 2)" class="text-right md:py-1" />
+                        <x-table.tbody-cell :item="$item->qty" class="text-center md:py-1" />
+                        <x-table.tbody-cell :item="number_format($item->total, 2)" class="text-right md:py-1" />
+                        <x-table.tbody-cell :item="$item->id" class="text-right md:py-1" :action="true">
                             <button type="button" class="btn btn-info m-1 text-red-600 font-medium underline"
                                 wire:click="remove('{{ $item->rowId }}')">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"

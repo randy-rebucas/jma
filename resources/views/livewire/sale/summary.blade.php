@@ -1,5 +1,5 @@
 <div>
-    <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
+    <fieldset class="border-2 border-double border-gray-200 pb-3 px-4 rounded-md">
         <legend class="px-2">{{ __('Select Customer') }}</legend>
         <div class="relative w-full">
             <x-text-input wire:model.debounce.500ms="search" wire:keyup="searchResult" wire:keydown.enter="searchResult"
@@ -30,19 +30,30 @@
                 {{ $details->first_name . ' ' . $details->last_name }}</p>
         @endif
     </fieldset>
-    <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md mt-2">
+    <fieldset class="border-2 border-double border-gray-200 pb-3 px-4 rounded-md">
         <legend class="px-2">Summary</legend>
         <ul class="list-none">
-            <li>Quantity <span class="float-right">{{ $totalQuantity }}</span></li>
-            <li class="text-2xl">Total <span class="float-right">{{ number_format($total, 2) }}</span></li>
+            <li>Sale Qty <span class="float-right">{{ $total_quantity }}</span></li>
+            <li>Sale Total <span class="float-right">{{ number_format($total, 2) }}</span></li>
+            @if ($mode == 'order')
+                <li>Job Qty <span class="float-right">{{ $job_total_quantity }}</span></li>
+                <li>Job Total <span class="float-right">{{ number_format($job_total, 2) }}</span></li>
+            @endif
+            @if ($mode == 'estimate')
+                <li>Estimate Qty <span class="float-right">{{ $estimate_total_quantity }}</span></li>
+                <li>Estimate Total <span class="float-right">{{ number_format($estimate_total, 2) }}</span></li>
+            @endif
+            <li class="text-2xl">Total <span class="float-right">{{ number_format($total + $job_total + $estimate_total, 2) }}</span>
+            </li>
         </ul>
     </fieldset>
     @if ($total > 0)
-        <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md mt-2">
+        <fieldset class="border-2 border-double border-gray-200 pb-3 px-4 rounded-md">
             <legend class="px-2">Payments</legend>
             <div class="flex items-center justify-between w-full">
                 <x-input-label for="type" :value="__('Type')" />
-                <x-select wire:model="type" id="type" name="type" wire:change="changeType($event.target.value)" :options="$types" class="mt-1 w-1/2" />
+                <x-select wire:model="type" id="type" name="type" wire:change="changeType($event.target.value)"
+                    :options="$types" class="mt-1 w-1/2" />
             </div>
             <div class="flex items-center justify-between w-full">
                 <x-input-label for="amount" :value="__('Amount')" />

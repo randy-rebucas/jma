@@ -45,4 +45,9 @@ class Sale extends Model
     {
         return $this->hasOne(SaleItem::class);
     }
+
+    public function job(): HasOne
+    {
+        return $this->hasOne(Job::class);
+    }
 }

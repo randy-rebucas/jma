@@ -9,7 +9,6 @@ new class extends Component {
     use LivewireAlert;
     public $mode;
     public $option;
-    public $total;
 
     #[On('change-mode')]
     public function changeRegisterMode($mode)
@@ -26,7 +25,9 @@ new class extends Component {
             'timer' => 3000,
         ]);
 
-        Cart::destroy();
+        Cart::instance('default')->destroy();
+        Cart::instance('order')->destroy();
+        Cart::instance('estimate')->destroy();
     }
 
     #[On('errorAddItem')]
@@ -39,18 +40,10 @@ new class extends Component {
         ]);
     }
 
-    #[On('addItem')]
-    #[On('saleCanceled')]
-    #[On('removeItem')]
-    public function getCartTotal()
-    {
-        $this->total = Cart::total();
-    }
-
     public function mount($option)
     {
+        $this->mode = session('mode');
         $this->option = $option;
-        $this->getCartTotal();
     }
 
     public function viewSales()
@@ -64,7 +57,7 @@ new class extends Component {
     }
 }; ?>
 
-<section>
+<div>
     <div class="flex flex-row justify-between">
         <div class="w-3/4">
             <div class="bg-slate-200 flex justify-between p-2 dark:bg-gray-800">
@@ -85,7 +78,7 @@ new class extends Component {
                     {{ __('New Item') }}
                 </x-secondary-button>
             </div>
-            <div class="h-96">
+            <div class="h-auto">
                 <livewire:sale.line-items />
                 @if ($mode == 'order')
                     <livewire:sale.job.order />
@@ -100,4 +93,4 @@ new class extends Component {
             <livewire:sale.summary />
         </div>
     </div>
-</section>
+</div>

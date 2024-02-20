@@ -4,26 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Casts\Json;
 
 class Job extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'scope_of_works' => Json::class,
+    ];
     protected $fillable = [
-        'job_number',
+        'scope_of_works',
+        'sale_id',
         'type',
-        'customer_id'
+        'total_amount'
     ];
 
-    public function customer()
+    public function sale()
     {
-        return $this->belongsTo(Customer::class);
-    }
-
-    public function customerName() {
-        return Attribute::make(
-            get: fn () => $this->customer->first_name.' '.$this->customer->last_name,
-        );
+        return $this->belongsTo(Sale::class);
     }
 }
