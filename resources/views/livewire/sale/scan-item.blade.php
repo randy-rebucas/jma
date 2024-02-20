@@ -3,7 +3,7 @@
         <x-input-label for="item" :value="__('Scan Item')" class="block flex-initial" />
         <div class="relative mx-6 w-3/4 flex">
             <x-text-input wire:model.debounce.500ms="search" wire:keyup="searchResult" wire:keydown.enter="searchResult" class="mx-6 w-3/4"
-                type="text" placeholder="Start typing Item name or scan..." />
+                type="text" :placeholder="__('Start typing Item name or scan...')" />
 
             <!-- Search result list -->
             @if (!empty($records))

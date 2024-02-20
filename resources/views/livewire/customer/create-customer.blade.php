@@ -1,9 +1,9 @@
 <x-modal form-action="submit">
     <x-slot name="title">
-        Create new Customer
+        {{ __('Create new Customer') }}
     </x-slot>
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
-        <legend class="dark:text-gray-200 px-2">Personal Details</legend>
+        <legend class="dark:text-gray-200 px-2">{{ __('Personal Details') }}</legend>
         <div class="flex justify-between gap-4">
             <div class="w-1/2">
                 <x-input-label for="first_name" :value="__('First Name')" />
@@ -29,7 +29,7 @@
     </fieldset>
 
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
-        <legend class="dark:text-gray-200 px-2">Auth Credentials</legend>
+        <legend class="dark:text-gray-200 px-2">{{ __('Auth Credentials') }}</legend>
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Username')" />

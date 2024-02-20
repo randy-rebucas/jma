@@ -71,7 +71,7 @@ new class extends Component {
     <div class="mt-6 space-y-6">
         <form wire:submit="save" class="w-full">
             <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
-                <legend class="dark:text-gray-200 px-2">Business Details</legend>
+                <legend class="dark:text-gray-200 px-2">{{ __('Business Details') }}</legend>
                     <div class="mb-2 md:flex">
                         <div class="flex items-center md:w-1/4">
                             <x-input-label for="business_name" :value="__('Name')"
@@ -107,7 +107,7 @@ new class extends Component {
                     </div>
             </fieldset>
             <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
-                <legend class="dark:text-gray-200 px-2">POS Settings</legend>
+                <legend class="dark:text-gray-200 px-2">{{ __('POS Settings') }}</legend>
                 <div class="md:flex mb-2">
                     <div class="flex items-center md:w-1/4">
                         <x-input-label for="register_mode" :value="__('Default Register Mode')"

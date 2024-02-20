@@ -19,14 +19,14 @@ class SaleItemObserver
         $items = json_decode($saleItem->items, true);
 
         if ($sale->sale_type == SaleType::Sale) {
-            foreach ($items as $key => $item) {
-                Item::where('id', $key)->decrement('receiving_quantity', $item["qty"]);
+            foreach ($items as $item) {
+                Item::where('id', $item['id'])->decrement('receiving_quantity', $item["qty"]);
             }
         }
 
         if ($sale->sale_type == SaleType::Return) {
-            foreach ($items as $key => $item) {
-                Item::where('id', $key)->increment('receiving_quantity', $item["qty"]);
+            foreach ($items as $item) {
+                Item::where('id', $item['id'])->increment('receiving_quantity', $item["qty"]);
             }
         }
     }

@@ -3,7 +3,7 @@
         <legend class="px-2">{{ __('Select Customer') }}</legend>
         <div class="relative w-full">
             <x-text-input wire:model.debounce.500ms="search" wire:keyup="searchResult" wire:keydown.enter="searchResult"
-                class="w-full" type="text" placeholder="Find customer..." />
+                class="w-full" type="text" :placeholder="__('Find customer...')" />
 
             <!-- Search result list -->
             @if (!empty($records))
@@ -18,7 +18,7 @@
         </div>
 
         <div class="flex items-center justify-center mt-2">
-            <p class="text-gray-400 text-sm">or</p>
+            <p class="text-gray-400 text-sm">{{__('or')}}</p>
             <x-secondary-button class="ms-3 py-3"
                 wire:click="$dispatch('openModal', { component: 'customer.create-customer' })">
                 {{ __('Create customer') }}
@@ -26,30 +26,30 @@
         </div>
         <x-input-error :messages="$errors->get('customer')" />
         @if (!empty($details))
-            <p class="bg-slate-200 dark:bg-gray-800/50 mt-2 p-2 rounded-lg"> Name :
+            <p class="bg-slate-200 dark:bg-gray-800/50 mt-2 p-2 rounded-lg"> {{ __('Name') }} :
                 {{ $details->first_name . ' ' . $details->last_name }}</p>
         @endif
     </fieldset>
     <fieldset class="border-2 border-double border-gray-200 pb-3 px-4 rounded-md">
-        <legend class="px-2">Summary</legend>
+        <legend class="px-2">{{ __('Summary') }}</legend>
         <ul class="list-none">
-            <li>Sale Qty <span class="float-right">{{ $total_quantity }}</span></li>
-            <li>Sale Total <span class="float-right">{{ number_format($total, 2) }}</span></li>
+            <li>{{ __('Sale Qty') }} <span class="float-right">{{ $total_quantity }}</span></li>
+            <li>{{ __('Sale Total') }} <span class="float-right">{{ number_format($total, 2) }}</span></li>
             @if ($mode == 'order')
-                <li>Job Qty <span class="float-right">{{ $job_total_quantity }}</span></li>
-                <li>Job Total <span class="float-right">{{ number_format($job_total, 2) }}</span></li>
+                <li>{{ __('Job Qty') }} <span class="float-right">{{ $job_total_quantity }}</span></li>
+                <li>{{ __('Job Total') }} <span class="float-right">{{ number_format($job_total, 2) }}</span></li>
             @endif
             @if ($mode == 'estimate')
-                <li>Estimate Qty <span class="float-right">{{ $estimate_total_quantity }}</span></li>
-                <li>Estimate Total <span class="float-right">{{ number_format($estimate_total, 2) }}</span></li>
+                <li>{{ __('Estimate Qty') }} <span class="float-right">{{ $estimate_total_quantity }}</span></li>
+                <li>{{ __('Estimate Total') }} <span class="float-right">{{ number_format($estimate_total, 2) }}</span></li>
             @endif
-            <li class="text-2xl">Total <span class="float-right">{{ number_format($total + $job_total + $estimate_total, 2) }}</span>
+            <li class="text-2xl">{{ __('Total') }} <span class="float-right">{{ number_format($total + $job_total + $estimate_total, 2) }}</span>
             </li>
         </ul>
     </fieldset>
     @if ($total > 0)
         <fieldset class="border-2 border-double border-gray-200 pb-3 px-4 rounded-md">
-            <legend class="px-2">Payments</legend>
+            <legend class="px-2">{{__('Payments')}}</legend>
             <div class="flex items-center justify-between w-full">
                 <x-input-label for="type" :value="__('Type')" />
                 <x-select wire:model="type" id="type" name="type" wire:change="changeType($event.target.value)"

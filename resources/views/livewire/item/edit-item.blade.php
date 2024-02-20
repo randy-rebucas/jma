@@ -1,11 +1,10 @@
 <x-modal form-action="update">
     <x-slot name="title">
-        Update Item
+        {{ __('Update Item') }}
     </x-slot>
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
-        <legend class="dark:text-gray-200 px-2">Item Details</legend>
-        <x-text-input wire:model="slug" id="slug" class="block mt-1 w-full" type="hidden" name="slug"
-                     />
+        <legend class="dark:text-gray-200 px-2">{{ __('Item Details') }}</legend>
+        <x-text-input wire:model="slug" id="slug" class="block mt-1 w-full" type="hidden" name="slug" />
         <div class="flex justify-between">
             <div>
                 <x-input-label for="code" :value="__('Code')" />

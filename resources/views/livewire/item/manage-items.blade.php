@@ -41,7 +41,7 @@ new class extends Component {
     <div class="mt-6 space-y-6">
 
         <div class="flex justify-between">
-            <x-text-input wire:model.live="search" class="py-2" type="search" placeholder="Search Items..." />
+            <x-text-input wire:model.live="search" class="py-2" type="search" :placeholder="__('Search Items...')" />
             <div>
                 <x-secondary-button class="ms-3 py-3"
                     wire:click="$dispatch('openModal', { component: 'item.create-item' })">
@@ -58,15 +58,15 @@ new class extends Component {
             <x-table for="items">
                 <x-table.thead>
                     <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
-                        <x-table.thead-cell title="Name" class="text-left" />
-                        <x-table.thead-cell title="Code" class="text-left" />
-                        <x-table.thead-cell title="Item Number" class="text-left" />
-                        <x-table.thead-cell title="Cost Price" class="text-right" />
-                        <x-table.thead-cell title="Unit Price" class="text-right" />
-                        <x-table.thead-cell title="ReOrder Level" class="text-center" />
-                        <x-table.thead-cell title="Quantity" class="text-center" />
-                        <x-table.thead-cell title="Category" class="text-left" />
-                        <x-table.thead-cell title="Actions" class="text-right" />
+                        <x-table.thead-cell :title="__('Name')" class="text-left" />
+                        <x-table.thead-cell :title="__('Code')" class="text-left" />
+                        <x-table.thead-cell :title="__('Item Number')" class="text-left" />
+                        <x-table.thead-cell :title="__('Cost Price')" class="text-right" />
+                        <x-table.thead-cell :title="__('Unit Price')" class="text-right" />
+                        <x-table.thead-cell :title="__('ReOrder Level')" class="text-center" />
+                        <x-table.thead-cell :title="__('Quantity')" class="text-center" />
+                        <x-table.thead-cell :title="__('Category')" class="text-left" />
+                        <x-table.thead-cell title="" class="text-right" />
                     </x-table.row>
                 </x-table.thead>
                 <x-table.tbody class="dark:border-gray-500">

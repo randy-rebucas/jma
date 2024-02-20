@@ -1,6 +1,6 @@
 <x-modal>
     <x-slot name="title">
-        Categories
+        {{ __('Categories') }}
     </x-slot>
     <form wire:submit="save" class="flex">
         <x-text-input wire:model="name" id="name" class="block w-full bg-gray-100" type="text" name="name"
@@ -14,9 +14,9 @@
     <x-table for="categories">
         <x-table.thead>
             <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
-                <x-table.thead-cell title="Name" />
-                <x-table.thead-cell title="Slug" class="text-center" />
-                <x-table.thead-cell title="Actions" class="text-right" />
+                <x-table.thead-cell :title="__('Name')" />
+                <x-table.thead-cell :title="__('Slug')" class="text-center" />
+                <x-table.thead-cell title="" class="text-right" />
             </x-table.row>
         </x-table.thead>
         <x-table.tbody class="dark:border-gray-500">

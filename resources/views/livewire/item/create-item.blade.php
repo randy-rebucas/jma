@@ -1,9 +1,9 @@
 <x-modal form-action="submit">
     <x-slot name="title">
-        Create new Item
+        {{ __('Create new Item') }}
     </x-slot>
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
-        <legend class="dark:text-gray-200 px-2">Item Details</legend>
+        <legend class="dark:text-gray-200 px-2">{{ __('Item Details') }}</legend>
         <div class="flex justify-between gap-4">
             <div class="w-1/2">
                 <x-input-label for="code" :value="__('Code')" />

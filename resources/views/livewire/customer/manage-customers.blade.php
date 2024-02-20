@@ -46,7 +46,7 @@ new class extends Component {
     <div class="mt-6 space-y-6">
 
         <div class="flex justify-between">
-            <x-text-input wire:model.live="search" class="py-2" type="search" placeholder="Search Customers..." />
+            <x-text-input wire:model.live="search" class="py-2" type="search" :placeholder="__('Search Customers...')" />
             <x-secondary-button class="ms-3 py-3"
                 wire:click="$dispatch('openModal', { component: 'customer.create-customer' })">
                 {{ __('Create Customer') }}
@@ -57,10 +57,10 @@ new class extends Component {
             <x-table for="customer">
                 <x-table.thead>
                     <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
-                        <x-table.thead-cell title="Full Name" class="text-left" />
-                        <x-table.thead-cell title="Email" class="text-left" />
-                        <x-table.thead-cell title="Phone Number" class="text-center" />
-                        <x-table.thead-cell title="Actions" class="text-right" />
+                        <x-table.thead-cell :title="__('Full Name')" class="text-left" />
+                        <x-table.thead-cell :title="__('Email')" class="text-left" />
+                        <x-table.thead-cell :title="__('Phone Number')" class="text-center" />
+                        <x-table.thead-cell title="" class="text-right" />
                     </x-table.row>
                 </x-table.thead>
                 <x-table.tbody class="dark:border-gray-500">
