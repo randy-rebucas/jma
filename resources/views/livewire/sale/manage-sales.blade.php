@@ -7,9 +7,15 @@ use App\Facades\Cart;
 
 new class extends Component {
     use LivewireAlert;
-
+    public $mode;
     public $option;
     public $total;
+
+    #[On('change-mode')]
+    public function changeRegisterMode($mode)
+    {
+        $this->mode = $mode;
+    }
 
     #[On('saleCompleted')]
     public function saleCompleted($serial)
@@ -81,6 +87,12 @@ new class extends Component {
             </div>
             <div class="h-96">
                 <livewire:sale.line-items />
+                @if ($mode == 'order')
+                    <livewire:sale.job.order />
+                @endif
+                @if ($mode == 'estimate')
+                    <livewire:sale.job.estimate />
+                @endif
             </div>
         </div>
 
