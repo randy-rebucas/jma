@@ -10,12 +10,12 @@ class RegisterMode extends Component
     public $modes = [];
     
     public function changeRegisterMode($mode) {
-        $this->dispatch('activeMode', $mode);
+        $this->dispatch('change-mode', mode: $mode);
     }
 
-    public function mount($activeMode = 'sales')
+    public function mount()
     {
-        $this->mode = $activeMode;
+        $this->mode = config('settings.register_mode');
         
         $this->modes = [
             'sales' => 'Sales',

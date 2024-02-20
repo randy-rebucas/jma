@@ -6,6 +6,7 @@ use App\Models\Inventory;
 use App\Models\Sale;
 use App\Models\SalePayment;
 use Illuminate\Support\Str;
+
 class SalePaymentObserver
 {
     /**
@@ -22,7 +23,8 @@ class SalePaymentObserver
             "transaction_paid_amount" => $sale->sale_payment->payment_amount,
             "transaction_payment_method" => $sale->sale_payment->payment_type,
             "transaction_total_amount" => $sale->sale_item->sale_total_amount,
-            "items" => $sale->sale_item->items
+            "items" => $sale->sale_item->items,
+            "serial" => $sale->serial
         ]);
     }
 

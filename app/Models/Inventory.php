@@ -16,6 +16,7 @@ class Inventory extends Model
         'transaction_code',
         'transaction_paid_amount',
         'transaction_payment_method',
-        'items'
+        'items',
+        'serial'
     ];
 }

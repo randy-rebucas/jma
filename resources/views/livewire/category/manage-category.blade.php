@@ -5,7 +5,7 @@
     <form wire:submit="save" class="flex">
         <x-text-input wire:model="name" id="name" class="block w-full bg-gray-100" type="text" name="name"
             autofocus />
-        
+
         <x-primary-button class="ms-3" wire:loading.attr="disabled">
             {{ __('Submit') }}
         </x-primary-button>
@@ -22,9 +22,9 @@
         <x-table.tbody class="dark:border-gray-500">
             @forelse ($categories as $category)
                 <x-table.row class="bg-white dark:bg-gray-700 dark:text-white" wire:loading.class="opacity-50">
-                    <x-table.tbody-cell :item="$category->name" />
-                    <x-table.tbody-cell :item="$category->slug" />
-                    <x-table.tbody-cell :item="$category->id" :action="true" class="text-right">
+                    <x-table.tbody-cell :item="$category->name" class="md:py-1" />
+                    <x-table.tbody-cell :item="$category->slug" class="md:py-1" />
+                    <x-table.tbody-cell :item="$category->id" :action="true" class="text-right md:py-1">
                         <button type="button" class="btn btn-info m-1 text-red-600 font-medium underline"
                             wire:click="delete({{ $category->id }})"
                             wire:confirm="Are you sure you want to delete this category?">Delete</button>

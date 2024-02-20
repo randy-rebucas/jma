@@ -5,7 +5,9 @@ namespace App\Services;
 use Illuminate\Support\Collection;
 use Illuminate\Session\SessionManager;
 
-class CartService {
+// use Throwable;
+class CartService
+{
     const MINIMUM_QUANTITY = 1;
     const DEFAULT_INSTANCE = 'shopping-cart';
 
@@ -34,7 +36,7 @@ class CartService {
      */
     public function add($id, $name, $price, $quantity, $options = []): void
     {
-        $cartItem = $this->createCartItem($name, $price, $quantity, $options);
+        $cartItem = $this->createCartItem($id, $name, $price, $quantity, $options);
 
         $content = $this->getContent();
 
@@ -97,6 +99,25 @@ class CartService {
         }
     }
 
+    public function get($rowId)
+    {
+        try {
+            $content = $this->getContent();
+            return $content->get($rowId);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public function countItemQuantity($rowId)
+    {
+        try {
+            $content = $this->getContent();
+            return $content->get($rowId);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
     /**
      * Clears the cart.
      *
@@ -130,7 +151,7 @@ class CartService {
             return $total += $item->get('price') * $item->get('quantity');
         });
 
-        return number_format($total ?? 0, 2);
+        return $total ?? 0;
     }
 
     /**
@@ -168,7 +189,7 @@ class CartService {
      * @param array $options
      * @return Illuminate\Support\Collection
      */
-    protected function createCartItem(string $name, string $price, string $quantity, array $options): Collection
+    protected function createCartItem(int $id, string $name, string $price, string $quantity, array $options): Collection
     {
         $price = floatval($price);
         $quantity = intval($quantity);
@@ -178,6 +199,7 @@ class CartService {
         }
 
         return collect([
+            'id' => $id,
             'name' => $name,
             'price' => $price,
             'quantity' => $quantity,

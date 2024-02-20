@@ -34,7 +34,7 @@
         <legend class="px-2">Summary</legend>
         <ul class="list-none">
             <li>Quantity <span class="float-right">{{ $totalQuantity }}</span></li>
-            <li class="text-2xl">Total <span class="float-right">{{ $total }}</span></li>
+            <li class="text-2xl">Total <span class="float-right">{{ number_format($total, 2) }}</span></li>
         </ul>
     </fieldset>
     @if ($total > 0)

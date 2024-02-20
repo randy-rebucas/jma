@@ -2,19 +2,19 @@
 
 namespace App\Livewire\Sale;
 
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\Customer;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\SalePayment;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use App\Facades\Cart;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class Summary extends Component
 {
-    use LivewireAlert;
     public $mode;
     public $total;
     public $totalQuantity;
@@ -28,19 +28,25 @@ class Summary extends Component
     public $details;
     public $customerId;
 
-    protected $listeners = ['removeItem', 'addItem', 'saleCompleted', 'saleCanceled', 'confirmed', 'cancelled'];
-    private function getCartTotal()
+    #[On('change-mode')] 
+    public function changeRegisterMode($mode)
     {
+        $this->mode = $mode;
+    }
+
+    #[On('saleCompleted')] 
+    #[On('saleCanceled')] 
+    #[On('removeItem')] 
+    #[On('addItem')] 
+    #[On('clearItem')]
+    public function getCartTotal()
+    {
+        $this->amount = '';
+        $this->details = null;
         $this->total = Cart::total();
         $this->totalQuantity = Cart::quantity();
     }
 
-    public function clean()
-    {
-        $this->getCartTotal();
-        $this->amount = '';
-        $this->details = null;
-    }
     public function searchResult()
     {
         $this->records = Customer::orderby('first_name', 'asc')
@@ -62,48 +68,29 @@ class Summary extends Component
         $this->records = [];
         $this->search = '';
     }
-    public function mount($activeMode = 'sales'): void
+    public function mount(): void
     {
-        $this->mode = $activeMode;
-
-        $this->getCartTotal();
+        $this->mode = config('settings.register_mode');
+        $this->type = config('settings.payment_type');
 
         $this->types = [
             'cash' => 'Cash',
             'credit' => 'Credit',
         ];
 
-        $this->type = 'cash';
-
         if ($this->customerId) {
             $this->setCustomer($this->customerId);
         }
-    }
 
-    public function saleCompleted()
-    {
-        $this->clean();
-    }
-
-    public function saleCanceled()
-    {
-        $this->clean();
-    }
-    public function addItem()
-    {
-        $this->getCartTotal();
-    }
-    public function removeItem()
-    {
         $this->getCartTotal();
     }
 
     public function doCanceled()
     {
         Cart::clear();
-        session()->flash('status', 'Sale canceled.');
         $this->dispatch('saleCanceled');
     }
+
     public function doComplete()
     {
         $this->validate([
@@ -121,7 +108,8 @@ class Summary extends Component
             'sale_status' => 'paid',
             'sale_type' => $this->mode,
             'user_id' => Auth::id(),
-            'customer_id' => $this->customerId
+            'customer_id' => $this->customerId,
+            'serial' => Str::uuid()
         ]);
 
         SaleItem::create([
@@ -135,26 +123,8 @@ class Summary extends Component
             'payment_type' => $this->type,
             'payment_amount' => $this->amount
         ]);
-
-        Cart::clear();
-        // session()->flash('status', 'Sales successfully registered.');
-        $this->dispatch('saleCompleted');
-        $this->alert('warning', 'Confirm or Cancel Sales?', [
-            'showCancelButton' => true,
-            'cancelButtonText' => 'Cancel',
-            'onDismissed' => 'cancelled',
-
-            'showConfirmButton' => true,
-            'confirmButtonText' => 'Confirm',
-            'onConfirmed' => 'confirmed',
-
-            'icon' => 'warning',
-            'position' => 'center',
-            'toast' => false,
-            'timer' => null,
-            'confirmButtonColor' => '#3085d6',
-            'cancelButtonColor' => '#d33'
-        ]);
+        
+        $this->dispatch('saleCompleted', serial: $sale->serial);
     }
 
 
