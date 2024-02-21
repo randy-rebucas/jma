@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Enums\SaleType;
+use App\Enums\SaleTypeEnum;
 use App\Models\Item;
 use App\Models\Sale;
 use App\Models\SaleItem;
@@ -18,13 +18,13 @@ class SaleItemObserver
         //
         $items = json_decode($saleItem->items, true);
 
-        if ($sale->sale_type == SaleType::Sale) {
+        if ($sale->sale_type == SaleTypeEnum::SALE) {
             foreach ($items as $item) {
                 Item::where('id', $item['id'])->decrement('receiving_quantity', $item["qty"]);
             }
         }
 
-        if ($sale->sale_type == SaleType::Return) {
+        if ($sale->sale_type == SaleTypeEnum::RETURN) {
             foreach ($items as $item) {
                 Item::where('id', $item['id'])->increment('receiving_quantity', $item["qty"]);
             }

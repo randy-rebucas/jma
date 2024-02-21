@@ -35,7 +35,7 @@
                                     <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
                                         <x-table.thead-cell :title="__('Full Name')" class="text-left" />
                                         <x-table.thead-cell :title="__('Company Name')" class="text-left" />
-                                        <x-table.thead-cell :title="__('Email')" class="text-left" />
+                                        <x-table.thead-cell :title="__('Item Counts')" class="text-center" />
                                         <x-table.thead-cell :title="__('Phone Number')" class="text-center" />
                                         <x-table.thead-cell title="" class="text-right" />
                                     </x-table.row>
@@ -45,7 +45,7 @@
                                         <x-table.row class="bg-white dark:bg-gray-700 dark:text-white" wire:loading.class="opacity-50">
                                             <x-table.tbody-cell :item="$supplier->full_name" />
                                             <x-table.tbody-cell :item="$supplier->company_name" />
-                                            <x-table.tbody-cell :item="$supplier->user->email" />
+                                            <x-table.tbody-cell :item="count($supplier->items)" class="text-center" />
                                             <x-table.tbody-cell :item="$supplier->phone_number" class="text-center" />
                                             <x-table.tbody-cell :item="$supplier->id" class="text-right" :action="true">
                                                 <button type="button" class="btn btn-info m-1 font-medium underline"

@@ -29,7 +29,8 @@ class Supplier extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function items() {
+    public function items() 
+    {
         return $this->hasMany(Item::class);
     }
     public function getFullNameAttribute()

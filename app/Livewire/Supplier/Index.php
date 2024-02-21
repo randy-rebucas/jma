@@ -32,7 +32,7 @@ class Index extends Component
     #[On('supplier-deleted')]
     public function render()
     {
-        $suppliers = Supplier::search('first_name', $this->search)->paginate(10);
+        $suppliers = Supplier::with('items')->search('first_name', $this->search)->paginate(10);
         return view('livewire.supplier.index', compact('suppliers'));
     }
 }

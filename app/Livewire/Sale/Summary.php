@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Sale;
 
+use App\Enums\SaleTypeEnum;
 use App\Models\Customer;
 use App\Models\Job;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\SalePayment;
+use BenSampo\Enum\Rules\EnumValue;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -142,11 +144,11 @@ class Summary extends Component
         $sale_payment->payment_amount = $this->amount;
         $sale_payment->save();
 
-        if ($sale->sale_type == 'order' || $sale->sale_type == 'estimate') {
+        if ($sale->sale_type == SaleTypeEnum::ORDER || $sale->sale_type == SaleTypeEnum::ESTIMATE) {
             $job = new Job();
             $job->type = $sale->sale_type;
             $job->sale_id = $sale->id;
-            $job->scope_of_works = $sale->sale_type == 'order' ? json_encode(Cart::instance('order')->content()) : json_encode(Cart::instance('estimate')->content());
+            $job->scope_of_works = $sale->sale_type == SaleTypeEnum::ORDER ? json_encode(Cart::instance('order')->content()) : json_encode(Cart::instance('estimate')->content());
             $job->total_amount = $this->job_total;
             $job->save();
         }

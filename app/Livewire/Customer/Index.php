@@ -32,7 +32,7 @@ class Index extends Component
     #[On('customer-deleted')]
     public function render()
     {
-        $customers = Customer::search('first_name', $this->search)->paginate(10);
+        $customers = Customer::with('sales')->search('first_name', $this->search)->paginate(10);
 
         return view('livewire.customer.index', compact('customers'));
     }

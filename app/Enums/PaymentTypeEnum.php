@@ -9,10 +9,8 @@ use BenSampo\Enum\Enum;
  * @method static static OptionTwo()
  * @method static static OptionThree()
  */
-final class SaleType extends Enum
+final class PaymentTypeEnum extends Enum
 {
-    const Sale = 'sales';
-    const Return = 'return';
-    const Order = 'order';
-    const Estimate = 'estimate';
+    const CASH = 'cash';
+    const CREDIT = 'credit';
 }

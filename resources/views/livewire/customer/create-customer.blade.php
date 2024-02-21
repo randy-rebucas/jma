@@ -28,7 +28,7 @@
         </div>
     </fieldset>
 
-    <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
+    <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md hidden">
         <legend class="dark:text-gray-200 px-2">{{ __('Auth Credentials') }}</legend>
         <!-- Name -->
         <div>
