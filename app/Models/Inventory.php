@@ -9,6 +9,9 @@ class Inventory extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'items' => 'array',
+    ];
     protected $fillable = [
         'transaction_type',
         'transaction_total_amount',

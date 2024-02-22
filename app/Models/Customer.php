@@ -41,6 +41,16 @@ class Customer extends Model
         return $this->hasMany(Sale::class);
     }
 
+    public function cars()
+    {
+        return $this->hasMany(CustomerCar::class);
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(CustomerAddress::class);
+    }
+
     public function getFullNameAttribute()
     {
         return $this->first_name.' '.$this->last_name;

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Livewire\Dashboard;
 use App\Livewire\Customer\Index as Customer;
+use App\Livewire\Customer\DetailCustomer as CustomerDetail;
 use App\Livewire\Supplier\Index as Supplier;
 use App\Livewire\User\Index as User;
 use App\Livewire\User\Profile as Profile;
@@ -30,6 +31,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/customers', Customer::class)->name('customers');
+    Route::get('/customer/{customerId}', CustomerDetail::class)->name('customer-detail');
     Route::get('/suppliers', Supplier::class)->name('suppliers');
     Route::get('/items', Item::class)->name('items');
     Route::get('/users', User::class)->name('users');
