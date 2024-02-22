@@ -16,6 +16,7 @@ use App\Livewire\Dashboard;
 use App\Livewire\Customer\Index as Customer;
 use App\Livewire\Customer\DetailCustomer as CustomerDetail;
 use App\Livewire\Supplier\Index as Supplier;
+use App\Livewire\Supplier\DetailSupplier as SupplierDetail;
 use App\Livewire\User\Index as User;
 use App\Livewire\User\Profile as Profile;
 use App\Livewire\Item\Index as Item;
@@ -33,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customers', Customer::class)->name('customers');
     Route::get('/customer/{customerId}', CustomerDetail::class)->name('customer-detail');
     Route::get('/suppliers', Supplier::class)->name('suppliers');
+    Route::get('/supplier/{supplierId}', SupplierDetail::class)->name('supplier-detail');
     Route::get('/items', Item::class)->name('items');
     Route::get('/users', User::class)->name('users');
     Route::get('/profile', Profile::class)->name('profile');

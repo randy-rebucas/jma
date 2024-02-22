@@ -27,6 +27,11 @@ class Index extends Component
         $this->dispatch('supplier-deleted');
     }
     
+    public function onView($supplier_id)
+    {
+        return $this->redirectRoute('supplier-detail', ['supplierId'=> $supplier_id]);
+    }
+
     #[On('supplier-created')]
     #[On('supplier-updated')]
     #[On('supplier-deleted')]

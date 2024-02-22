@@ -30,7 +30,6 @@ class Index extends Component
     public function onView($customer_id)
     {
         return $this->redirectRoute('customer-detail', ['customerId'=> $customer_id]);
-        // return $this->redirect('/customer/' . $customer_id, navigate: true);
     }
 
     #[On('customer-created')]
