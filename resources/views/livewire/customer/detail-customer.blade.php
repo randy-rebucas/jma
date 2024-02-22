@@ -19,7 +19,7 @@
                             Total Purchased: {{ count($customer->sales) }}
                         </p>
                     </header>
-                    <div class="flex justify-center mt-6">
+                    <div class="flex gap-4 justify-center mt-6">
                         <div class="flex-1">
                             <livewire:customer.block.addresses :customer="$customer"/>
                         </div>

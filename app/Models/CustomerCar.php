@@ -21,6 +21,6 @@ class CustomerCar extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Car::class);
+        return $this->belongsTo(Customer::class);
     }
 }

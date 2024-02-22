@@ -1,6 +1,6 @@
 <x-modal form-action="submit">
     <x-slot name="title">
-        {{ __('Create new Car') }} {{$customer->id}}
+        {{ __('Create new Car') }}
     </x-slot>
 
     <div class="flex justify-between gap-4">
