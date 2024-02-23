@@ -25,7 +25,6 @@ class Addresses extends Component
     public function render()
     {
         $addresses = CustomerAddress::with('address')->where("customer_id", $this->customer->id)->get();
-        
         return view('livewire.customer.block.addresses', compact('addresses'));
     }
 }

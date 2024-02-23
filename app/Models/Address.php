@@ -17,6 +17,10 @@ class Address extends Model
         'postal_code'
     ];
 
+    protected $appends = [
+        'complete_address'
+    ];
+
     public function city()
     {
         return $this->belongsTo(City::class);
@@ -25,5 +29,13 @@ class Address extends Model
     public function customer_address()
     {
         return $this->belongsTo(CustomerAddress::class);
+    }
+
+    public function getCompleteAddressAttribute()
+    {
+        $address = $this->line_1 . ', ' . $this->line_2;
+        $address .= $this->district . ', ' . $this->city->name;
+        $address .= $this->city->country->name . ', ' . $this->postal_code;
+        return $address;
     }
 }

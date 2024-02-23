@@ -1,6 +1,6 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        {{ $supplier->full_name }} {{ __('Detail') }}
+        {{ $supplier->full_name }} <smal class="font-extralight text-green-600 text-sm">(Total Items: {{ count($supplier->items) }})</smal>
     </h2>
 </x-slot>
 
