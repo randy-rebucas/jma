@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Livewire\Sale;
+namespace App\Livewire\Inventory;
 
 use App\Models\Inventory;
 use App\Models\Sale;
 use LivewireUI\Modal\ModalComponent;
 
-class Inventories extends ModalComponent
+class Detail extends ModalComponent
 {
-    // public Inventory $inventory;
     public $inventory;
 
     public function mount(Sale $sale)
@@ -17,6 +16,6 @@ class Inventories extends ModalComponent
     }
     public function render()
     {
-        return view('livewire.sale.inventories');
+        return view('livewire.inventory.detail');
     }
 }

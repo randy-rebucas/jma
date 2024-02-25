@@ -22,11 +22,11 @@
                 @forelse ($sales as $sale)
                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white" wire:loading.class="opacity-50">
                         <x-table.tbody-cell :item="$sale->serial" />
-                        <x-table.tbody-cell :item="$sale->sale_type" class="text-center" />
+                        <x-table.tbody-cell :item="$sale->sale_type" class="text-center uppercase" />
                         <x-table.tbody-cell :item="$sale->created_at" class="text-center" />
                         <x-table.tbody-cell :item="$sale->id" class="text-right" :action="true">
                             <button type="button" class="btn btn-info m-1 font-medium underline"
-                                wire:click="$dispatch('openModal', {component: 'sale.inventories', arguments: {sale: {{ $sale }} }})">
+                                wire:click="$dispatch('openModal', {component: 'inventory.detail', arguments: {sale: {{ $sale }} }})">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"

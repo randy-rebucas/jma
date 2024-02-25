@@ -30,6 +30,7 @@ class Index extends Component
     public function mount($option)
     {
         $this->option = $option;
+        session()->forget('mode');
     }
     public function render()
     {
