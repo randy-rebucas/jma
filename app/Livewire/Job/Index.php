@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Sale;
+namespace App\Livewire\Job;
 
 use Livewire\Component;
 use Livewire\Attributes\Layout;
@@ -31,9 +31,8 @@ class Index extends Component
     {
         $this->option = $option;
     }
-
     public function render()
     {
-        return view('livewire.sale.index');
+        return view('livewire.job.index');
     }
 }

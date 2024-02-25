@@ -18,10 +18,10 @@ class DatabaseSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Permission::create(['name' => 'pos.menu']);
         Permission::create(['name' => 'customer.menu']);
         Permission::create(['name' => 'supplier.menu']);
         Permission::create(['name' => 'item.menu']);
+        Permission::create(['name' => 'job.menu']);
         Permission::create(['name' => 'sale.menu']);
         Permission::create(['name' => 'receiving.menu']);
         Permission::create(['name' => 'report.menu']);
@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'user.menu']);
 
         $role1 = Role::create(['name' => 'SuperAdmin'])->givePermissionTo(Permission::all());
-        $role2 = Role::create(['name' => 'Admin'])->givePermissionTo(['customer.menu', 'pos.menu', 'user.menu', 'item.menu', 'sale.menu', 'receiving.menu', 'role.menu', 'report.menu', 'supplier.menu']);
-        $role3 = Role::create(['name' => 'Staff'])->givePermissionTo(['customer.menu', 'supplier.menu', 'item.menu', 'sale.menu', 'receiving.menu']);
+        $role2 = Role::create(['name' => 'Admin'])->givePermissionTo(['customer.menu', 'supplier.menu', 'item.menu', 'job.menu', 'sale.menu', 'receiving.menu', 'report.menu', 'user.menu', 'role.menu']);
+        $role3 = Role::create(['name' => 'Staff'])->givePermissionTo(['customer.menu', 'supplier.menu', 'item.menu', 'job.menu', 'sale.menu', 'receiving.menu']);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'superadmin',
@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CountrySeeder::class,
             CitySeeder::class,
-            // CategorySeeder::class,
+                // CategorySeeder::class,
             CustomerSeeder::class,
             SupplierSeeder::class,
         ]);

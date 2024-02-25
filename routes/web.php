@@ -21,6 +21,7 @@ use App\Livewire\User\Index as User;
 use App\Livewire\User\Profile as Profile;
 use App\Livewire\Item\Index as Item;
 use App\Livewire\Sale\Index as Sale;
+use App\Livewire\Job\Index as Job;
 use App\Livewire\Setting\Index as Setting;
 use App\Livewire\Receiving\Index as Receiving;
 use App\Livewire\Report\Index as Report;
@@ -38,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/items', Item::class)->name('items');
     Route::get('/users', User::class)->name('users');
     Route::get('/profile', Profile::class)->name('profile');
+    Route::get('/jobs/{option}', Job::class)->name('jobs');
     Route::get('/sales/{option}', Sale::class)->name('sales');
     Route::get('/receivings', Receiving::class)->name('receivings');
     Route::get('/reports', Report::class)->name('reports');

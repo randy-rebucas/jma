@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire\Sale;
+namespace App\Livewire\Pos;
 
 use App\Models\Item;
 use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
-
+use Livewire\Attributes\On;
 class ScanItem extends Component
 {
     public $search;
@@ -30,6 +30,16 @@ class ScanItem extends Component
         return Cart::instance('default')->search(function ($cartItem, $rowId) {
             return $cartItem->id === $this->item->id;
         });
+    }
+    
+    #[On('errorAddItem')]
+    public function errorAddItem($name, $quantity)
+    {
+        $this->alert('error', "Item {$name} is only {$quantity} stocks? ", [
+            'position' => 'center',
+            'toast' => false,
+            'timer' => 3000,
+        ]);
     }
     public function setItem($id = 0)
     {
@@ -61,9 +71,8 @@ class ScanItem extends Component
 
         $this->search = '';
     }
-
     public function render()
     {
-        return view('livewire.sale.scan-item');
+        return view('livewire.pos.scan-item');
     }
 }

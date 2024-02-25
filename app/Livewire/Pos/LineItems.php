@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Livewire\Sale;
+namespace App\Livewire\Pos;
 
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Attributes\On;
-
 class LineItems extends Component
 {
-
     /**
      * Removes a cart item by id.
      *
@@ -49,7 +47,7 @@ class LineItems extends Component
     #[On('clearItem')]
     public function render()
     {
-        $content = Cart::content();
-        return view('livewire.sale.line-items', compact('content'));
+        $content = Cart::instance('default')->content();
+        return view('livewire.pos.line-items', compact('content'));
     }
 }

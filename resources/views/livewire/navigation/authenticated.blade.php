@@ -54,6 +54,13 @@ new class extends Component {
                         </x-nav-link>
                     </div>
                 @endcan
+                @can('job.menu')
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('jobs', 'register')" :active="request()->routeIs('jobs')" wire:navigate>
+                            {{ __('Jobs') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
                 @can('sale.menu')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('sales', 'register')" :active="request()->routeIs('sales')" wire:navigate>

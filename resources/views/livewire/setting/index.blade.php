@@ -60,17 +60,17 @@
                                 <legend class="dark:text-gray-200 px-2">{{ __('POS Settings') }}</legend>
                                 <div class="md:flex mb-2">
                                     <div class="flex items-center md:w-1/4">
-                                        <x-input-label for="register_mode" :value="__('Default Register Mode')"
+                                        <x-input-label for="sale_register_mode" :value="__('Sale Register Mode')"
                                             class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4" />
                                     </div>
                                     <div class="md:w-2/3">
-                                        <x-select wire:model="setting.register_mode" id="register_mode" name="register_mode"
-                                        :options="$modes" class="rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" />
+                                        <x-select wire:model="setting.sale_register_mode" id="sale_register_mode" name="sale_register_mode"
+                                        :options="$sale_modes" class="rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" />
                                     </div>
                                 </div>
                                 <div class="md:flex mb-2">
                                     <div class="flex items-center md:w-1/4">
-                                        <x-input-label for="payment_type" :value="__('Default Payment Type')"
+                                        <x-input-label for="payment_type" :value="__('Payment Type')"
                                             class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4" />
                                     </div>
                                     <div class="md:w-2/3">

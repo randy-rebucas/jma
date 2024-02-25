@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Sale\Job;
+namespace App\Livewire\Job;
 
 use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 
-class Order extends Component
+class DetailForm extends Component
 {
     #[Validate('required|max:225')] 
     public $scope_name;
@@ -17,23 +17,14 @@ class Order extends Component
     public $scope_amount;
 
     public function add() {
-        Cart::instance('order')->add(Str::uuid(), $this->scope_name, 1, $this->scope_amount);
+        Cart::instance('job')->add(Str::uuid(), $this->scope_name, 1, $this->scope_amount);
         
         $this->scope_amount = '';
         $this->scope_name = '';
         $this->dispatch('updateJobLists');
     }
-
-    public function remove($rowId) {    
-        Cart::instance('order')->remove($rowId);
-        $this->dispatch('updateJobLists');
-    }
-
-    #[On('updateJobLists')]
-    #[On('saleCompleted')]
     public function render()
     {
-        $content = Cart::instance('order')->content();
-        return view('livewire.sale.job.order', compact('content'));
+        return view('livewire.job.detail-form');
     }
 }

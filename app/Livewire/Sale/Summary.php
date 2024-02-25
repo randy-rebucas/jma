@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Sale;
 
+use App\Enums\JobTypeEnum;
 use App\Enums\SaleTypeEnum;
 use App\Models\Customer;
 use App\Models\Job;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\SalePayment;
-use BenSampo\Enum\Rules\EnumValue;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -23,8 +23,6 @@ class Summary extends Component
     public $total_quantity;
     public $job_total;
     public $job_total_quantity;
-    public $estimate_total;
-    public $estimate_total_quantity;
     public $type;
     public $amount;
     public $types = [];
@@ -51,14 +49,8 @@ class Summary extends Component
     {
         $this->amount = '';
         $this->details = null;
-        $this->total = Cart::instance('default')->total();
-        $this->total_quantity = Cart::instance('default')->count();
-
-        $this->job_total = Cart::instance('order')->total();
-        $this->job_total_quantity = Cart::instance('order')->count();
-
-        $this->estimate_total = Cart::instance('estimate')->total();
-        $this->estimate_total_quantity = Cart::instance('estimate')->count();
+        $this->total = Cart::instance('default')->total() + Cart::instance('job')->total();
+        $this->total_quantity = Cart::instance('default')->count() + Cart::instance('job')->count();
     }
 
     public function searchResult()
@@ -107,8 +99,7 @@ class Summary extends Component
     public function doCanceled()
     {
         Cart::instance('default')->destroy();
-        Cart::instance('order')->destroy();
-        Cart::instance('estimate')->destroy();
+        Cart::instance('job')->destroy();
         $this->dispatch('saleCanceled');
     }
 
@@ -116,7 +107,7 @@ class Summary extends Component
     {
         $this->validate([
             'type' => 'required',
-            'amount' => 'required|gte:' . ($this->total + $this->job_total + $this->estimate_total),
+            'amount' => 'required|gte:' . ($this->total),
         ]);
 
         Validator::make(
@@ -135,7 +126,7 @@ class Summary extends Component
         $sale_item = new SaleItem();
         $sale_item->sale_id = $sale->id;
         $sale_item->items = json_encode(Cart::instance('default')->content());
-        $sale_item->sale_total_amount = $this->total;
+        $sale_item->sale_total_amount = Cart::instance('default')->total();
         $sale_item->save();
 
         $sale_payment = new SalePayment();
@@ -144,12 +135,12 @@ class Summary extends Component
         $sale_payment->payment_amount = $this->amount;
         $sale_payment->save();
 
-        if ($sale->sale_type == SaleTypeEnum::ORDER || $sale->sale_type == SaleTypeEnum::ESTIMATE) {
+        if ($this->mode == JobTypeEnum::ORDER || $sale->sale_type == JobTypeEnum::ESTIMATE) {
             $job = new Job();
-            $job->type = $sale->sale_type;
+            $job->type = $this->mode;
             $job->sale_id = $sale->id;
-            $job->scope_of_works = $sale->sale_type == SaleTypeEnum::ORDER ? json_encode(Cart::instance('order')->content()) : json_encode(Cart::instance('estimate')->content());
-            $job->total_amount = $this->job_total;
+            $job->scope_of_works = json_encode(Cart::instance('job')->content());
+            $job->total_amount = Cart::instance('job')->total();
             $job->save();
         }
 

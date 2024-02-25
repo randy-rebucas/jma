@@ -12,7 +12,8 @@ class Index extends Component
 {
     use LivewireAlert;
 
-    public $modes = [];
+    public $sale_modes = [];
+    public $job_modes = [];
     public $types = [];
     public $setting = [];
 
@@ -21,15 +22,19 @@ class Index extends Component
         $this->setting['business_name'] = config('settings.business_name');
         $this->setting['business_contact'] = config('settings.business_contact');
         $this->setting['business_address'] = config('settings.business_address');
-        $this->setting['register_mode'] = config('settings.register_mode');
+        $this->setting['sale_register_mode'] = config('settings.sale_register_mode');
+        $this->setting['job_register_mode'] = config('settings.job_register_mode');
         $this->setting['payment_type'] = config('settings.payment_type');
         $this->setting['auto_print'] = (bool) config('settings.auto_print');
 
-        $this->modes = [
-            'sales' => 'Sales',
-            'return' => 'Return',
+        $this->sale_modes = [
+            'sale' => 'Sale',
+            'return' => 'Return'
+        ];
+
+        $this->job_modes = [
             'order' => 'Order',
-            'estimate' => 'Estimate',
+            'estimate' => 'Estimate'
         ];
 
         $this->types = [
@@ -55,7 +60,7 @@ class Index extends Component
                 Setting::where('key', $key)->update(['value' => $value]);
             }
         }
-        
+
         $this->alert('success', 'Settings successfully registered.', [
             'position' => 'center',
             'toast' => false

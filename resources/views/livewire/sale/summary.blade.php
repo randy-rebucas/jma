@@ -33,17 +33,8 @@
     <fieldset class="border-2 border-double border-gray-200 pb-3 px-4 rounded-md">
         <legend class="px-2">{{ __('Summary') }}</legend>
         <ul class="list-none">
-            <li>{{ __('Sale Qty') }} <span class="float-right">{{ $total_quantity }}</span></li>
-            <li>{{ __('Sale Total') }} <span class="float-right">{{ number_format($total, 2) }}</span></li>
-            @if ($mode == 'order')
-                <li>{{ __('Job Qty') }} <span class="float-right">{{ $job_total_quantity }}</span></li>
-                <li>{{ __('Job Total') }} <span class="float-right">{{ number_format($job_total, 2) }}</span></li>
-            @endif
-            @if ($mode == 'estimate')
-                <li>{{ __('Estimate Qty') }} <span class="float-right">{{ $estimate_total_quantity }}</span></li>
-                <li>{{ __('Estimate Total') }} <span class="float-right">{{ number_format($estimate_total, 2) }}</span></li>
-            @endif
-            <li class="text-2xl">{{ __('Total') }} <span class="float-right">{{ number_format($total + $job_total + $estimate_total, 2) }}</span>
+            <li>{{ __('Qty') }} <span class="float-right">{{ $total_quantity}}</span></li>
+            <li class="text-2xl">{{ __('Total') }} <span class="float-right">{{ number_format($total, 2) }}</span>
             </li>
         </ul>
     </fieldset>
