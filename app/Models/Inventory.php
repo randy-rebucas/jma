@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Json;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +11,7 @@ class Inventory extends Model
     use HasFactory;
 
     protected $casts = [
-        'items' => 'array',
+        'items' => Json::class,
     ];
     protected $fillable = [
         'transaction_type',
