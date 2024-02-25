@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,35 +15,51 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = \App\Models\User::factory()->create([
-            'name' => 'Admin',
-            'username' => 'admin',
-            'email' => 'admin@gmail.com',
+        // Reset cached roles and permissions
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+
+        Permission::create(['name' => 'pos.menu']);
+        Permission::create(['name' => 'customer.menu']);
+        Permission::create(['name' => 'supplier.menu']);
+        Permission::create(['name' => 'item.menu']);
+        Permission::create(['name' => 'sale.menu']);
+        Permission::create(['name' => 'receiving.menu']);
+        Permission::create(['name' => 'report.menu']);
+        Permission::create(['name' => 'setting.menu']);
+        Permission::create(['name' => 'role.menu']);
+        Permission::create(['name' => 'user.menu']);
+
+        $role1 = Role::create(['name' => 'SuperAdmin'])->givePermissionTo(Permission::all());
+        $role2 = Role::create(['name' => 'Admin'])->givePermissionTo(['customer.menu', 'pos.menu', 'user.menu', 'item.menu', 'sale.menu', 'receiving.menu', 'role.menu', 'report.menu', 'supplier.menu']);
+        $role3 = Role::create(['name' => 'Staff'])->givePermissionTo(['customer.menu', 'supplier.menu', 'item.menu', 'sale.menu', 'receiving.menu']);
+
+        $user = \App\Models\User::factory()->create([
+            'name' => 'superadmin',
+            'email' => 'superadmin@jma.com',
+            'password' => bcrypt('password'),
         ]);
-        // Employee::factory(5)->create();
+        $user->assignRole($role1);
 
-        Permission::create(['name' => 'pos.menu', 'group_name' => 'pos']);
-        // Permission::create(['name' => 'employee.menu', 'group_name' => 'employee']);
-        Permission::create(['name' => 'customer.menu', 'group_name' => 'customer']);
-        Permission::create(['name' => 'supplier.menu', 'group_name' => 'supplier']);
-        Permission::create(['name' => 'item.menu', 'group_name' => 'item']);
-        Permission::create(['name' => 'sale.menu', 'group_name' => 'sale']);
-        Permission::create(['name' => 'receiving.menu', 'group_name' => 'receiving']);
-        Permission::create(['name' => 'report.menu', 'group_name' => 'report']);
-        Permission::create(['name' => 'setting.menu', 'group_name' => 'setting']);
-        Permission::create(['name' => 'roles.menu', 'group_name' => 'roles']);
-        Permission::create(['name' => 'user.menu', 'group_name' => 'user']);
+        $user = \App\Models\User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@jma.com',
+            'password' => bcrypt('password'),
+        ]);
+        $user->assignRole($role2);
 
-        Role::create(['name' => 'SuperAdmin'])->givePermissionTo(Permission::all());
-        Role::create(['name' => 'Admin'])->givePermissionTo(['customer.menu', 'user.menu', 'supplier.menu']);
-        Role::create(['name' => 'Account'])->givePermissionTo(['customer.menu', 'user.menu', 'supplier.menu']);
-        Role::create(['name' => 'Manager'])->givePermissionTo(['item.menu', 'sale.menu', 'receiving.menu', 'report.menu']);
-
-        $admin->assignRole('SuperAdmin');
+        $user = \App\Models\User::factory()->create([
+            'name' => 'staff',
+            'email' => 'staff@jma.com',
+            'password' => bcrypt('password'),
+        ]);
+        $user->assignRole($role3);
 
         $this->call([
             CountrySeeder::class,
             CitySeeder::class,
+            // CategorySeeder::class,
+            CustomerSeeder::class,
+            SupplierSeeder::class,
         ]);
     }
 }
