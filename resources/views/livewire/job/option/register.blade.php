@@ -12,10 +12,10 @@
                     <livewire:pos.line-items />
                 </div>
                 <div class="bg-slate-100 flex justify-between p-2 dark:bg-gray-700">
-                    <livewire:job.detail-form />
+                    <livewire:pos.scope-form />
                 </div>
                 <div class="h-auto">
-                    <livewire:job.details :mode="$mode" />
+                    <livewire:pos.scope-line-items :mode="$mode" />
                 </div>
             @endisset
             @empty($mode)

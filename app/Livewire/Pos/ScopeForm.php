@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Livewire\Job;
+namespace App\Livewire\Pos;
 
 use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Str;
-use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 
-class DetailForm extends Component
+class ScopeForm extends Component
 {
     #[Validate('required|max:225')] 
     public $scope_name;
@@ -25,6 +24,6 @@ class DetailForm extends Component
     }
     public function render()
     {
-        return view('livewire.job.detail-form');
+        return view('livewire.pos.scope-form');
     }
 }
