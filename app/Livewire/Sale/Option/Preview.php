@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Sale\Option;
 
+use App\Models\Sale;
 use Livewire\Component;
 
 class Preview extends Component
@@ -10,8 +11,10 @@ class Preview extends Component
     {
         return $this->redirect('/sales/register', navigate: true);
     }
+    
     public function render()
     {
-        return view('livewire.sale.option.preview');
+        $items = Sale::paginate(10);
+        return view('livewire.sale.option.preview', compact('items'));
     }
 }

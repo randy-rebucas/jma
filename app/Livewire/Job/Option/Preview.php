@@ -10,14 +10,6 @@ class Preview extends Component
 {
     use WithPagination;
 
-    public function delete($id): void
-    {
-        $item = Sale::find($id);
-        $item->delete();
-
-        $this->dispatch('job-deleted');
-    }
-
     public function registerView()
     {
         return $this->redirect('/jobs/register', navigate: true);
