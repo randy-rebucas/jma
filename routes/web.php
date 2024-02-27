@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', Profile::class)->name('profile');
     Route::get('/jobs/{option}', Job::class)->name('jobs');
     Route::get('/sales/{option}', Sale::class)->name('sales');
-    Route::get('/receivings', Receiving::class)->name('receivings');
+    Route::get('/receivings/{option}', Receiving::class)->name('receivings');
     Route::get('/reports', Report::class)->name('reports');
     Route::get('/settings', Setting::class)->name('settings');
 });

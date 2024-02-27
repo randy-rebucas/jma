@@ -22,7 +22,7 @@ class SalePaymentObserver
             "user_id" => $sale->user->id,
             "transaction_paid_amount" => $sale->sale_payment->payment_amount,
             "transaction_payment_method" => $sale->sale_payment->payment_type,
-            "transaction_total_amount" => $sale->sale_item->sale_total_amount,
+            "transaction_total_amount" => $sale->sale_item->total_amount,
             "items" => $sale->sale_item->items,
             "serial" => $sale->serial
         ]);

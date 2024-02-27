@@ -70,7 +70,7 @@ new class extends Component {
                 @endcan
                 @can('receiving.menu')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('receivings')" :active="request()->routeIs('receivings')" wire:navigate>
+                        <x-nav-link :href="route('receivings', 'register')" :active="request()->routeIs('receivings')" wire:navigate>
                             {{ __('Receivings') }}
                         </x-nav-link>
                     </div>

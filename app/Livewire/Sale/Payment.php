@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Livewire\Pos;
+namespace App\Livewire\Sale;
 
-use App\Models\Job;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\SalePayment;
-use App\Enums\JobTypeEnum;
 use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +40,6 @@ class Payment extends Component
     public function doCanceled()
     {
         Cart::instance('default')->destroy();
-        Cart::instance('job')->destroy();
         $this->dispatch('saleCanceled');
     }
     public function doComplete()
@@ -74,7 +71,7 @@ class Payment extends Component
         $sale_item = new SaleItem();
         $sale_item->sale_id = $sale->id;
         $sale_item->items = json_encode(Cart::instance('default')->content());
-        $sale_item->sale_total_amount = Cart::instance('default')->total();
+        $sale_item->total_amount = Cart::instance('default')->total();
         $sale_item->save();
 
         $sale_payment = new SalePayment();
@@ -82,15 +79,6 @@ class Payment extends Component
         $sale_payment->payment_type = $this->type;
         $sale_payment->payment_amount = $this->amount;
         $sale_payment->save();
-
-        if ($this->mode == JobTypeEnum::ORDER || $sale->sale_type == JobTypeEnum::ESTIMATE) {
-            $job = new Job();
-            $job->type = $this->mode;
-            $job->sale_id = $sale->id;
-            $job->scope_of_works = json_encode(Cart::instance('job')->content());
-            $job->total_amount = Cart::instance('job')->total();
-            $job->save();
-        }
 
         $this->dispatch('saleCompleted', serial: $sale->serial);
     }
@@ -111,6 +99,6 @@ class Payment extends Component
             'cash' => 'Cash',
             'credit' => 'Credit',
         ];
-        return view('livewire.pos.payment');
+        return view('livewire.sale.payment');
     }
 }

@@ -28,14 +28,23 @@ class RegisterMode extends Component
         if (request()->routeIs('jobs')) {
             $this->modes['order'] = 'Order';
             $this->modes['estimate'] = 'Estimate';
-        } else {
+            $this->uri = 'jobs';
+            $this->uriLabel = 'View Jobs';
+        }
+        if (request()->routeIs('sales')) {
             $this->modes['sales'] = 'Sale';
             $this->modes['return'] = 'Return';
+            $this->uri = 'sales';
+            $this->uriLabel = 'View Sales';
+        }
+        if (request()->routeIs('receivings')) {
+            $this->modes['receive'] = 'Receive';
+            $this->modes['return'] = 'Return';
+            $this->uri = 'receivings';
+            $this->uriLabel = 'View Receivings';
         }
         
         $this->mode = session('mode');
-        $this->uri = request()->routeIs('jobs') ? 'jobs' : 'sales';
-        $this->uriLabel = request()->routeIs('jobs') ? 'View Jobs' : 'View Sales';
     }
     public function previewView()
     {

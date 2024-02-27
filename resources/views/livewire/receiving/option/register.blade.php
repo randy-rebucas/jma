@@ -18,9 +18,9 @@
         </div>
 
         <div class="bg-slate-100 dark:bg-gray-700 dark:text-gray-200 m-1 p-2 w-1/4">
-            <livewire:pos.scan-customer />
+            <livewire:pos.scan-supplier />
             <livewire:pos.total />
-            <livewire:sale.payment />
+            <livewire:receiving.payment />
         </div>
     </div>
 </section>
