@@ -1,37 +1,27 @@
 <?php
 
-namespace App\Livewire\Sale;
+namespace App\Livewire\Pos;
 
-use App\Enums\JobTypeEnum;
-use App\Enums\SaleTypeEnum;
-use App\Models\Customer;
 use App\Models\Job;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\SalePayment;
+use App\Enums\JobTypeEnum;
 use Livewire\Component;
-use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\On;
 
-class Summary extends Component
+class Payment extends Component
 {
-    public $mode;
     public $total;
-    public $total_quantity;
-    public $job_total;
-    public $job_total_quantity;
-    public $type;
     public $amount;
+    public $type;
     public $types = [];
-    public $search;
-    public $records;
-    public $details;
-    public $customerId;
-
-    protected $listeners = ['refreshItem' => '$refresh'];
+    public $mode;
+    public $customerId = null;
 
     #[On('change-mode')]
     public function changeRegisterMode($mode)
@@ -39,70 +29,22 @@ class Summary extends Component
         $this->mode = $mode;
     }
 
-    #[On('saleCompleted')]
-    #[On('saleCanceled')]
-    #[On('removeItem')]
-    #[On('addItem')]
-    #[On('clearItem')]
-    #[On('updateJobLists')]
-    public function getCartTotal()
-    {
-        $this->amount = '';
-        $this->details = null;
-        $this->total = Cart::instance('default')->total() + Cart::instance('job')->total();
-        $this->total_quantity = Cart::instance('default')->count() + Cart::instance('job')->count();
-    }
-
-    public function searchResult()
-    {
-        $this->records = Customer::orderby('first_name', 'asc')
-            ->select('*')
-            ->where('first_name', 'like', '%' . $this->search . '%')
-            ->orWhere('last_name', 'like', '%' . $this->search . '%')
-            ->take(5)
-            ->get();
-    }
-    public function setCustomer($id)
-    {
-        $record = Customer::select('*')
-            ->where('id', $id)
-            ->first();
-
-        $this->details = $record;
-
-        $this->customerId = $id;
-        $this->records = [];
-        $this->search = '';
-    }
-    public function mount(): void
-    {
-        $this->mode = session('mode');
-        $this->type = config('settings.payment_type');
-
-        $this->types = [
-            'cash' => 'Cash',
-            'credit' => 'Credit',
-        ];
-
-        if ($this->customerId) {
-            $this->setCustomer($this->customerId);
-        }
-
-        $this->getCartTotal();
-    }
-
     public function changeType($type)
     {
         $this->type = $type;
     }
 
+    #[On('setCustomer')]
+    public function setCustomer($customerId)
+    {
+        $this->customerId = $customerId;
+    }
     public function doCanceled()
     {
         Cart::instance('default')->destroy();
         Cart::instance('job')->destroy();
         $this->dispatch('saleCanceled');
     }
-
     public function doComplete()
     {
         $this->validate([
@@ -114,6 +56,12 @@ class Summary extends Component
             ['customer' => $this->customerId],
             ['customer' => 'required'],
             ['required' => 'The :attribute field is required'],
+        )->validate();
+
+        Validator::make(
+            ['mode' => $this->mode],
+            ['mode' => 'required'],
+            ['required' => 'The register :attribute is required'],
         )->validate();
 
         $sale = new Sale();
@@ -147,9 +95,22 @@ class Summary extends Component
         $this->dispatch('saleCompleted', serial: $sale->serial);
     }
 
-
+    #[On('addItem')]
+    #[On('saleCompleted')]
+    #[On('saleCanceled')]
+    #[On('removeItem')]
+    #[On('clearItem')]
     public function render()
     {
-        return view('livewire.sale.summary');
+        $this->total = Cart::instance('default')->total() + Cart::instance('job')->total();
+        $this->mode = session('mode');
+
+        $this->type = config('settings.payment_type');
+
+        $this->types = [
+            'cash' => 'Cash',
+            'credit' => 'Credit',
+        ];
+        return view('livewire.pos.payment');
     }
 }
