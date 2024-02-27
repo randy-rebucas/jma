@@ -22,6 +22,7 @@ class ScanCustomer extends Component
             ->take(5)
             ->get();
     }
+
     public function setCustomer($id)
     {
         $record = Customer::select('*')
@@ -29,7 +30,6 @@ class ScanCustomer extends Component
             ->first();
 
         $this->details = $record;
-
         $this->customerId = $id;
         $this->records = [];
         $this->search = '';
@@ -40,15 +40,18 @@ class ScanCustomer extends Component
     #[On('saleCompleted')]
     public function clearCustomerId() {
         $this->details = null;
+        $this->customerId = null;
         $this->records = [];
         $this->search = '';
     }
+
     public function mount(): void
     {
         if ($this->customerId) {
             $this->setCustomer($this->customerId);
         }
     }
+
     public function render()
     {
         return view('livewire.pos.scan-customer');

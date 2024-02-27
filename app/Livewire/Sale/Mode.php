@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Livewire\Sale\Option;
+namespace App\Livewire\Sale;
 
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
-use Livewire\Attributes\On;
 
-class Register extends Component
+class Mode extends Component
 {
     public $mode;
-    public $total;
+    public $modes = [];
 
-    #[On('changeMode')]
     public function changeMode($mode)
     {
         $this->setMode($mode);
+        $this->dispatch('changeMode', mode: $mode);
     }
 
     public function setMode($mode) {
@@ -29,17 +27,21 @@ class Register extends Component
         return session('sale-mode');
     }
 
-    #[On('addItem')]
-    #[On('removeItem')]
-    #[On('clearItem')]
-    public function mount()
+    public function onClickLists()
     {
-        $this->total = Cart::instance('default')->total();
-        $this->mode = $this->getMode();
+        return $this->redirect('/sales/view', navigate: true);
     }
 
+    public function mount()
+    {
+        $this->modes['sale'] = 'Sale';
+        $this->modes['return'] = 'Return';
+
+        $this->mode = $this->getMode();
+    }
+    
     public function render()
     {
-        return view('livewire.sale.option.register');
+        return view('livewire.sale.mode');
     }
 }

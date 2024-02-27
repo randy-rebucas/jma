@@ -12,6 +12,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 class Index extends Component
 {
     use LivewireAlert;
+
     public $option;
 
     #[On('saleCompleted')]
@@ -24,13 +25,11 @@ class Index extends Component
         ]);
 
         Cart::instance('default')->destroy();
-        Cart::instance('job')->destroy();
     }
 
     public function mount($option)
     {
         $this->option = $option;
-        session()->forget('mode');
     }
 
     public function render()

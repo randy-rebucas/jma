@@ -18,18 +18,41 @@ class Payment extends Component
     public $amount;
     public $type;
     public $types = [];
-    public $mode;
     public $customerId = null;
 
-    #[On('change-mode')]
-    public function changeRegisterMode($mode)
+    #[On('changeMode')]
+    public function changeMode($mode)
     {
-        $this->mode = $mode;
+        $this->setMode($mode);
+    }
+
+    public function setMode($mode) {
+        session()->put('sale-mode', $mode);
+    }
+
+    public function getMode() {
+        if (!session('sale-mode')) {
+            $this->setMode(config('settings.sale_register_mode'));
+        }
+
+        return session('sale-mode');
     }
 
     public function changeType($type)
     {
-        $this->type = $type;
+        $this->setType($type);
+    }
+
+    public function setType($mode) {
+        session()->put('payment-type', $mode);
+    }
+
+    public function getType() {
+        if (!session('payment-type')) {
+            $this->setType(config('settings.payment_type'));
+        }
+
+        return session('payment-type');
     }
 
     #[On('setCustomer')]
@@ -37,11 +60,13 @@ class Payment extends Component
     {
         $this->customerId = $customerId;
     }
+
     public function doCanceled()
     {
         Cart::instance('default')->destroy();
         $this->dispatch('saleCanceled');
     }
+
     public function doComplete()
     {
         $this->validate([
@@ -56,13 +81,13 @@ class Payment extends Component
         )->validate();
 
         Validator::make(
-            ['mode' => $this->mode],
+            ['mode' => $this->getMode()],
             ['mode' => 'required'],
             ['required' => 'The register :attribute is required'],
         )->validate();
 
         $sale = new Sale();
-        $sale->sale_type = $this->mode;
+        $sale->sale_type = $this->getMode();
         $sale->user_id = Auth::id();
         $sale->customer_id = $this->customerId;
         $sale->serial = Str::uuid();
@@ -76,7 +101,7 @@ class Payment extends Component
 
         $sale_payment = new SalePayment();
         $sale_payment->sale_id = $sale->id;
-        $sale_payment->payment_type = $this->type;
+        $sale_payment->payment_type = $this->getType();
         $sale_payment->payment_amount = $this->amount;
         $sale_payment->save();
 
@@ -90,15 +115,11 @@ class Payment extends Component
     #[On('clearItem')]
     public function render()
     {
-        $this->total = Cart::instance('default')->total() + Cart::instance('job')->total();
-        $this->mode = session('mode');
+        $this->types['cash'] = 'Cash';
+        $this->types['credit'] = 'Credit';
 
-        $this->type = config('settings.payment_type');
+        $this->total = Cart::instance('default')->total();
 
-        $this->types = [
-            'cash' => 'Cash',
-            'credit' => 'Credit',
-        ];
         return view('livewire.sale.payment');
     }
 }

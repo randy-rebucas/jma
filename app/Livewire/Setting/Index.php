@@ -14,34 +14,9 @@ class Index extends Component
 
     public $sale_modes = [];
     public $job_modes = [];
+    public $receiving_modes = [];
     public $types = [];
     public $setting = [];
-
-    public function mount()
-    {
-        $this->setting['business_name'] = config('settings.business_name');
-        $this->setting['business_contact'] = config('settings.business_contact');
-        $this->setting['business_address'] = config('settings.business_address');
-        $this->setting['sale_register_mode'] = config('settings.sale_register_mode');
-        $this->setting['job_register_mode'] = config('settings.job_register_mode');
-        $this->setting['payment_type'] = config('settings.payment_type');
-        $this->setting['auto_print'] = (bool) config('settings.auto_print');
-
-        $this->sale_modes = [
-            'sale' => 'Sale',
-            'return' => 'Return'
-        ];
-
-        $this->job_modes = [
-            'order' => 'Order',
-            'estimate' => 'Estimate'
-        ];
-
-        $this->types = [
-            'cash' => 'Cash',
-            'credit' => 'Credit',
-        ];
-    }
 
     /**
      * Delete the sale.
@@ -66,6 +41,31 @@ class Index extends Component
             'toast' => false
         ]);
     }
+
+    public function mount()
+    {
+        $this->setting['business_name'] = config('settings.business_name');
+        $this->setting['business_contact'] = config('settings.business_contact');
+        $this->setting['business_address'] = config('settings.business_address');
+        $this->setting['sale_register_mode'] = config('settings.sale_register_mode');
+        $this->setting['job_register_mode'] = config('settings.job_register_mode');
+        $this->setting['receiving_register_mode'] = config('settings.receiving_register_mode');
+        $this->setting['payment_type'] = config('settings.payment_type');
+        $this->setting['auto_print'] = (bool) config('settings.auto_print');
+
+        $this->sale_modes['sale'] = 'Sale';
+        $this->sale_modes['return'] = 'Return';
+
+        $this->job_modes['order'] = 'Order';
+        $this->job_modes['estimate'] = 'Estimate';
+
+        $this->receiving_modes['receive'] = 'Receive';
+        $this->receiving_modes['return'] = 'Return';
+
+        $this->types['cash'] = 'Cash';
+        $this->types['credit'] = 'Credit';
+    }
+    
     public function render()
     {
         return view('livewire.setting.index');
