@@ -11,7 +11,7 @@
                 @if ($option == 'view')
                     <livewire:job.option.preview />
                 @else
-                    <livewire:job.option.register />
+                    <livewire:job.option.register :mode="$mode"/>
                 @endif
             </div>
         </div>

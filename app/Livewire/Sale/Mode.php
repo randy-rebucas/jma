@@ -3,28 +3,19 @@
 namespace App\Livewire\Sale;
 
 use Livewire\Component;
+use App\Traits\CartSession;
 
 class Mode extends Component
 {
+    use CartSession;
+
     public $mode;
     public $modes = [];
 
     public function changeMode($mode)
     {
-        $this->setMode($mode);
+        $this->setModeValue($mode);
         $this->dispatch('changeMode', mode: $mode);
-    }
-
-    public function setMode($mode) {
-        session()->put('sale-mode', $mode);
-    }
-
-    public function getMode() {
-        if (!session('sale-mode')) {
-            $this->setMode(config('settings.sale_register_mode'));
-        }
-
-        return session('sale-mode');
     }
 
     public function onClickLists()
@@ -36,8 +27,7 @@ class Mode extends Component
     {
         $this->modes['sale'] = 'Sale';
         $this->modes['return'] = 'Return';
-
-        $this->mode = $this->getMode();
+        $this->mode = $this->getModeValue();
     }
     
     public function render()

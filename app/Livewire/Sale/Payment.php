@@ -11,32 +11,17 @@ use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
+use App\Traits\CartSession;
 
 class Payment extends Component
 {
+    use CartSession;
+
     public $total;
     public $amount;
     public $type;
     public $types = [];
     public $customerId = null;
-
-    #[On('changeMode')]
-    public function changeMode($mode)
-    {
-        $this->setMode($mode);
-    }
-
-    public function setMode($mode) {
-        session()->put('sale-mode', $mode);
-    }
-
-    public function getMode() {
-        if (!session('sale-mode')) {
-            $this->setMode(config('settings.sale_register_mode'));
-        }
-
-        return session('sale-mode');
-    }
 
     public function changeType($type)
     {
@@ -81,13 +66,13 @@ class Payment extends Component
         )->validate();
 
         Validator::make(
-            ['mode' => $this->getMode()],
+            ['mode' => $this->getModeValue()],
             ['mode' => 'required'],
             ['required' => 'The register :attribute is required'],
         )->validate();
 
         $sale = new Sale();
-        $sale->sale_type = $this->getMode();
+        $sale->sale_type = $this->getModeValue();
         $sale->user_id = Auth::id();
         $sale->customer_id = $this->customerId;
         $sale->serial = Str::uuid();
