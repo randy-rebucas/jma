@@ -2,26 +2,36 @@
 
 namespace App\Livewire\Pos;
 
-use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 
-class ScopeForm extends Component
+class ScopeForm extends ModalComponent
 {
-    #[Validate('required|max:225')] 
     public $scope_name;
-
-    #[Validate('required')] 
     public $scope_amount;
 
-    public function add() {
-        Cart::instance('job')->add(Str::uuid(), $this->scope_name, 1, $this->scope_amount);
-        
-        $this->scope_amount = '';
-        $this->scope_name = '';
-        $this->dispatch('updateJobLists');
+    public static function modalMaxWidth(): string
+    {
+        return 'xl';
     }
+
+    protected $rules = [
+        'scope_name' => 'required|string|max:255',
+        'scope_amount' => 'required'
+    ];
+
+    public function submit() {
+        $this->validate();
+    
+        // Cart::instance('job')->add(Str::uuid(), $this->scope_name, 1, $this->scope_amount);
+        Cart::addCost('labor', 200);
+        Cart::addCost('somethingelse', 1.11);
+        $this->dispatch('updateJobLists');
+        $this->closeModal();
+    }
+
     public function render()
     {
         return view('livewire.pos.scope-form');

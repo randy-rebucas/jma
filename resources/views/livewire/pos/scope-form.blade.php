@@ -1,13 +1,29 @@
-<form wire:submit="add" class="flex-1">
-    <div class="flex items-center gap-6">
-        <x-text-input wire:model="scope_name" id="scope_name" class="block  bg-gray-100 grow"
-            type="text" name="scope_name" :placeholder="__('Name')" />
+<x-modal form-action="submit">
+    <x-slot name="title">
+        {{ __('Scope of works') }}
+    </x-slot>
 
-        <x-text-input wire:model="scope_amount" id="scope_amount" class="block  bg-gray-100"
-            type="number" name="scope_amount" :placeholder="__('Cost')" />
-
-        <x-primary-button class="ms-3 mx-3 py-3" wire:loading.attr="disabled">
-            {{ __('Add') }}
-        </x-primary-button>
+    <div>
+        <x-input-label for="scope_name" :value="__('Scope Name')" />
+        <x-textarea wire:model="scope_name" class="w-full" />
+        <x-input-error :messages="$errors->get('scope_name')" class="mt-2" />
     </div>
-</form>
+    <div class="mt-2">
+        <x-input-label for="scope_amount" :value="__('Amount')" />
+        <x-text-input wire:model="scope_amount" id="scope_amount" class="block mt-1 w-full" type="text"
+            name="scope_amount" />
+        <x-input-error :messages="$errors->get('scope_amount')" class="mt-2" />
+    </div>
+
+    <x-slot name="buttons">
+        <div class="flex items-center justify-end">
+            <x-secondary-button class="ms-3" wire:click="$dispatch('closeModal')">
+                {{ __('Cancel') }}
+            </x-secondary-button>
+
+            <x-primary-button class="ms-3" wire:loading.attr="disabled">
+                {{ __('Submit') }}
+            </x-primary-button>
+        </div>
+    </x-slot>
+</x-modal>

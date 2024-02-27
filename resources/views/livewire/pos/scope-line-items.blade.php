@@ -41,4 +41,5 @@
             
         </div>
     @endif
+    <p>{{Cart::getCost('somethingelse')}}</p>
 </div>
