@@ -18,4 +18,18 @@ trait CartSession
 
         return session($key);
     }
+
+    public function setTypeValue($key, $value)
+    {
+        session()->put($key, $value);
+    }
+
+    public function getTypeValue($key)
+    {
+        if (!session($key)) {
+            $this->setTypeValue($key, '');
+        }
+
+        return session($key);
+    }
 }

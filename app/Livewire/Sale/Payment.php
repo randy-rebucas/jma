@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
+use App\Traits\CartSession;
 
 class Payment extends Component
 {
+    use CartSession;
     public $mode;
     public $total;
     public $amount;
@@ -23,21 +25,7 @@ class Payment extends Component
 
     public function changeType($type)
     {
-        $this->setType($type);
-    }
-
-    public function setType($type)
-    {
-        session()->put('payment-type', $type);
-    }
-
-    public function getType()
-    {
-        if (!session('payment-type')) {
-            $this->setType(config('settings.payment_type'));
-        }
-
-        return session('payment-type');
+        $this->setTypeValue('payment-type', $type);
     }
 
     #[On('setCustomer')]
@@ -86,7 +74,7 @@ class Payment extends Component
 
         $sale_payment = new SalePayment();
         $sale_payment->sale_id = $sale->id;
-        $sale_payment->payment_type = $this->getType();
+        $sale_payment->payment_type = $this->getTypeValue('payment-type');
         $sale_payment->payment_amount = $this->amount;
         $sale_payment->save();
 
@@ -95,7 +83,7 @@ class Payment extends Component
 
     public function mount()
     {
-        $this->type = $this->getType();
+        $this->type = $this->getTypeValue('payment-type');
     }
 
     #[On('addItem')]
