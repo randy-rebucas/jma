@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="flex">
-        <x-secondary-button class="ms-3 mx-3" wire:click="$dispatch('openModal', { component: 'pos.scope-form' })">
+        <x-secondary-button class="ms-3 mx-3" wire:click="$dispatch('openModal', { component: 'job.scope-form' })">
             {{ __('Scope of work') }}
         </x-secondary-button>
         <x-secondary-button class="ms-3 mx-3" wire:click="onClickLists">

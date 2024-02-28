@@ -24,6 +24,11 @@ class Receiving extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function receiving_payment()
+    {
+        return $this->hasOne(ReceivingPayment::class);
+    }
+
     public function receiving_item()
     {
         return $this->hasOne(ReceivingItem::class);

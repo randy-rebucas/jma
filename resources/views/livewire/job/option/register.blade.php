@@ -11,7 +11,7 @@
                 <div class="h-auto">
                     <livewire:job.items />
 
-                    <livewire:pos.scope-line-items :mode="$mode" />
+                    <livewire:job.scope-line-items />
                 </div>
             @endisset
             @empty($mode)

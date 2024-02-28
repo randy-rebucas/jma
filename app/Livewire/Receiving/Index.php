@@ -7,12 +7,22 @@ use Livewire\Attributes\Layout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\On;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Traits\CartSession;
 
 #[Layout('layouts.app')]
 class Index extends Component
 {
     use LivewireAlert;
+    use CartSession;
+
     public $option;
+    public $mode;
+
+    #[On('changeMode')]
+    public function changeMode($mode)
+    {
+        $this->mode = $mode;
+    }
 
     #[On('saleCompleted')]
     public function saleCompleted($serial)
@@ -23,14 +33,13 @@ class Index extends Component
             'timer' => 3000,
         ]);
 
-        Cart::instance('default')->destroy();
-        Cart::instance('job')->destroy();
+        Cart::instance('receiving')->destroy();
     }
 
     public function mount($option)
     {
+        $this->mode = $this->getModeValue('receiving-mode');
         $this->option = $option;
-        session()->forget('mode');
     }
     public function render()
     {

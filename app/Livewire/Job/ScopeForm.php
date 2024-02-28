@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Pos;
+namespace App\Livewire\Job;
 
 use LivewireUI\Modal\ModalComponent;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -33,6 +33,6 @@ class ScopeForm extends ModalComponent
 
     public function render()
     {
-        return view('livewire.pos.scope-form');
+        return view('livewire.job.scope-form');
     }
 }

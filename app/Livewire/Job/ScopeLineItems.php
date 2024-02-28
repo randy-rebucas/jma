@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Pos;
+namespace App\Livewire\Job;
 
 use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -19,6 +19,6 @@ class ScopeLineItems extends Component
     public function render()
     {
         $content = Cart::instance('scope')->content();
-        return view('livewire.pos.scope-line-items', compact('content'));
+        return view('livewire.job.scope-line-items', compact('content'));
     }
 }
