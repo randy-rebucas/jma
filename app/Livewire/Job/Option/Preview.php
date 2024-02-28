@@ -17,8 +17,8 @@ class Preview extends Component
 
     public function render()
     {
-        $items = Job::with('sale')->paginate(10);
-// dd($items);
+        $items = Job::paginate(10);
+
         return view('livewire.job.option.preview', compact('items'));
     }
 }

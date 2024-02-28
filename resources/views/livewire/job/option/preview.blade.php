@@ -34,11 +34,22 @@
                                     @forelse ($items as $item)
                                         <x-table.row class=" dark:bg-gray-700 dark:text-white"
                                             wire:loading.class="opacity-50">
-                                            <x-table.tbody-cell :item="$item->type" class="uppercase" />
-                                            <x-table.tbody-cell :item="$item->sale->customer->full_name" />
-                                            <x-table.tbody-cell :item="$item->sale->serial" />
-                                            <x-table.tbody-cell :item="number_format($item->total_amount, 2)" class="text-right" />
+                                            <x-table.tbody-cell :item="$item->job_type" class="uppercase" />
+                                            <x-table.tbody-cell :item="$item->customer->full_name" />
+                                            <x-table.tbody-cell :item="$item->serial" />
+                                            <x-table.tbody-cell :item="number_format($item->job_item->total_amount, 2)" class="text-right" />
                                         </x-table.row>
+                                        {{-- <x-table.row class=" dark:bg-gray-700 dark:text-white"
+                                            wire:loading.class="opacity-50">
+                                            <x-table.tbody-cell colspan="9" :action="true" :item="$item->id">
+                                                @php
+                                                    $scopes = json_decode($item->job_scope_of_works->scopes);
+                                                @endphp
+                                                @foreach ($scopes as $key => $scope_item)
+                                                    {{ $scope_item->name }} :  {{ $scope_item->price }}
+                                                @endforeach
+                                            </x-table.tbody-cell>
+                                        </x-table.row> --}}
                                     @empty
                                         <x-table.row class="bg-white dark:bg-gray-700 dark:text-white">
                                             <x-table.tbody-cell colspan="9" :item="'No item found!!'" />
