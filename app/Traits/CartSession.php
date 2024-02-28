@@ -2,26 +2,20 @@
 
 namespace App\Traits;
 
-trait CartSession {
-    
-    protected $mode_key;
-    protected $mode_value;
+trait CartSession
+{
 
-    protected function initModeKey($key, $value = '')
+    public function setModeValue($key, $value)
     {
-        $this->mode_key = $key;
-        $this->mode_value = $value;
+        session()->put($key, $value);
     }
 
-    public function setModeValue($value) {
-        session()->put($this->mode_key, $value);
-    }
-
-    public function getModeValue() {
-        if (!session($this->mode_key)) {
-            $this->set($this->mode_value);
+    public function getModeValue($key)
+    {
+        if (!session($key)) {
+            $this->setModeValue($key, '');
         }
 
-        return session($this->mode_key);
+        return session($key);
     }
 }

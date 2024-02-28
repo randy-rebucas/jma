@@ -13,19 +13,18 @@ class Register extends Component
     public $mode;
     public $total;
 
-    // #[On('changeMode')]
-    // public function changeMode($mode)
-    // {
-    //     $this->setMode($mode);
-    // }
-
+    #[On('changeMode')]
+    public function changeMode($mode)
+    {
+        $this->mode = $mode;
+    }
+    
     #[On('addItem')]
     #[On('removeItem')]
     #[On('clearItem')]
     public function mount()
     {
         $this->total = Cart::instance('default')->total();
-        $this->mode = $this->getModeValue();
     }
 
     public function render()

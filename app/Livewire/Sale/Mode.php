@@ -14,7 +14,7 @@ class Mode extends Component
 
     public function changeMode($mode)
     {
-        $this->setModeValue($mode);
+        $this->setModeValue('sale-mode', $mode);
         $this->dispatch('changeMode', mode: $mode);
     }
 
@@ -27,7 +27,6 @@ class Mode extends Component
     {
         $this->modes['sale'] = 'Sale';
         $this->modes['return'] = 'Return';
-        $this->mode = $this->getModeValue();
     }
     
     public function render()

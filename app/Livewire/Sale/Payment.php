@@ -17,6 +17,7 @@ class Payment extends Component
 {
     use CartSession;
 
+    public $mode;
     public $total;
     public $amount;
     public $type;
@@ -66,13 +67,13 @@ class Payment extends Component
         )->validate();
 
         Validator::make(
-            ['mode' => $this->getModeValue()],
+            ['mode' => $this->mode],
             ['mode' => 'required'],
             ['required' => 'The register :attribute is required'],
         )->validate();
 
         $sale = new Sale();
-        $sale->sale_type = $this->getModeValue();
+        $sale->sale_type = $this->mode;
         $sale->user_id = Auth::id();
         $sale->customer_id = $this->customerId;
         $sale->serial = Str::uuid();

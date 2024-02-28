@@ -21,7 +21,7 @@ class Index extends Component
     #[On('changeMode')]
     public function changeMode($mode)
     {
-        $this->setMode($mode);
+        $this->mode = $mode;
     }
 
     #[On('saleCompleted')]
@@ -38,8 +38,7 @@ class Index extends Component
 
     public function mount($option)
     {
-        $this->initModeKey('sale-mode', config('settings.sale_register_mode'));
-        $this->mode = $this->getModeValue();
+        $this->mode = $this->getModeValue('sale-mode');
         $this->option = $option;
     }
 
