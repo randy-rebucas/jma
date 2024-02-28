@@ -2,20 +2,21 @@
 
 namespace App\Models;
 
-use App\Observers\JobPaymentObserver;
+use App\Casts\Json;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
-#[ObservedBy([JobPaymentObserver::class])]
-class JobPayment extends Model
+class JobScopeOfWorks extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'scopes' => Json::class,
+    ];
     protected $fillable = [
-        'payment_type',
-        'payment_amount',
-        'job_id'
+        'scopes',
+        'job_id',
+        'total_amount'
     ];
 
     public function job()

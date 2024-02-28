@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Job;
 
+use App\Models\JobScopeOfWorks;
 use Livewire\Component;
 use App\Models\Job;
 use App\Models\JobItem;
@@ -11,48 +12,21 @@ use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
+use App\Traits\CartSession;
 
 class Payment extends Component
 {
+    use CartSession;
+    public $mode;
     public $total;
     public $amount;
     public $type;
     public $types = [];
     public $customerId = null;
 
-    #[On('changeMode')]
-    public function changeMode($mode)
-    {
-        $this->setMode($mode);
-    }
-
-    public function setMode($mode) {
-        session()->put('job-mode', $mode);
-    }
-
-    public function getMode() {
-        if (!session('job-mode')) {
-            $this->setMode(config('settings.job_register_mode'));
-        }
-
-        return session('job-mode');
-    }
-
     public function changeType($type)
     {
-        $this->setType($type);
-    }
-
-    public function setType($mode) {
-        session()->put('payment-type', $mode);
-    }
-
-    public function getType() {
-        if (!session('payment-type')) {
-            $this->setType(config('settings.payment_type'));
-        }
-
-        return session('payment-type');
+        $this->setTypeValue('payment-type', $type);
     }
 
     #[On('setCustomer')]
@@ -63,7 +37,8 @@ class Payment extends Component
 
     public function doCanceled()
     {
-        Cart::instance('default')->destroy();
+        Cart::instance('job')->destroy();
+        Cart::instance('scope')->destroy();
         $this->dispatch('saleCanceled');
     }
 
@@ -81,13 +56,13 @@ class Payment extends Component
         )->validate();
 
         Validator::make(
-            ['mode' => $this->getMode()],
+            ['mode' => $this->mode],
             ['mode' => 'required'],
             ['required' => 'The register :attribute is required'],
         )->validate();
 
         $job = new Job();
-        $job->job_type = $this->getMode();
+        $job->job_type = $this->mode;
         $job->user_id = Auth::id();
         $job->customer_id = $this->customerId;
         $job->serial = Str::uuid();
@@ -99,15 +74,26 @@ class Payment extends Component
         $job_item->total_amount = Cart::instance('job')->total();
         $job_item->save();
 
+        $job_scope_of_works = new JobScopeOfWorks();
+        $job_scope_of_works->job_id = $job->id;
+        $job_scope_of_works->scopes = json_encode(Cart::instance('scope')->content());
+        $job_scope_of_works->total_amount = Cart::instance('scope')->total();
+        $job_scope_of_works->save();
+
         $job_payment = new JobPayment();
         $job_payment->job_id = $job->id;
-        $job_payment->payment_type = $this->getType();
+        $job_payment->payment_type = $this->getTypeValue('payment-type');
         $job_payment->payment_amount = $this->amount;
         $job_payment->save();
 
         $this->dispatch('saleCompleted', serial: $job->serial);
     }
 
+    public function mount()
+    {
+        $this->type = $this->getTypeValue('payment-type');
+    }
+    
     #[On('addItem')]
     #[On('saleCompleted')]
     #[On('saleCanceled')]
@@ -118,7 +104,7 @@ class Payment extends Component
         $this->types['cash'] = 'Cash';
         $this->types['credit'] = 'Credit';
 
-        $this->total = Cart::instance('job')->total();
+        $this->total = Cart::instance('job')->total() + Cart::instance('scope')->total();
         return view('livewire.job.payment');
     }
 }

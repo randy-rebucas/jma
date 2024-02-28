@@ -18,17 +18,11 @@ class JobItemObserver
         //
         $items = json_decode($jobItem->items, true);
 
-        // if ($job->job_type == JobTypeEnum::ORDER) {
-        //     foreach ($items as $item) {
-        //         Item::where('id', $item['id'])->decrement('receiving_quantity', $item["qty"]);
-        //     }
-        // }
-
-        // if ($job->sale_type == JobTypeEnum::ESTIMATE) {
-        //     foreach ($items as $item) {
-        //         Item::where('id', $item['id'])->increment('receiving_quantity', $item["qty"]);
-        //     }
-        // }
+        if ($job->job_type == JobTypeEnum::ORDER) {
+            foreach ($items as $item) {
+                Item::where('id', $item['id'])->decrement('receiving_quantity', $item["qty"]);
+            }
+        }
     }
 
     /**

@@ -10,18 +10,35 @@ class Job extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'scope_of_works' => Json::class,
-    ];
     protected $fillable = [
-        'scope_of_works',
-        'sale_id',
-        'type',
-        'total_amount'
+        'job_type',
+        'serial',
+        'user_id',
+        'customer_id'
     ];
 
-    public function sale()
+    public function customer()
     {
-        return $this->belongsTo(Sale::class);
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function job_payment()
+    {
+        return $this->hasOne(JobPayment::class);
+    }
+
+    public function job_item()
+    {
+        return $this->hasOne(JobItem::class);
+    }
+
+    public function job_scope_of_works()
+    {
+        return $this->hasOne(JobScopeOfWorks::class);
     }
 }

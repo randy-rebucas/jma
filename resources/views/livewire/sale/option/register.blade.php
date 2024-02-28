@@ -10,7 +10,7 @@
                     <livewire:pos.scan-item />
                 </div>
                 <div class="h-auto">
-                    <livewire:pos.line-items />
+                    <livewire:sale.items />
                 </div>
             @else
                 <livewire:pos.empty-line-items />

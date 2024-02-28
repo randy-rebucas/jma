@@ -25,7 +25,7 @@ class ScopeForm extends ModalComponent
     public function submit() {
         $this->validate();
     
-        Cart::instance('job')->add(Str::uuid(), $this->scope_name, 1, $this->scope_amount);
+        Cart::instance('scope')->add(Str::uuid(), $this->scope_name, 1, $this->scope_amount);
 
         $this->dispatch('updateJobLists');
         $this->closeModal();

@@ -2,10 +2,28 @@
 
 namespace App\Models;
 
+use App\Casts\Json;
+use App\Observers\JobItemObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
+#[ObservedBy([JobItemObserver::class])]
 class JobItem extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'items' => Json::class,
+    ];
+    protected $fillable = [
+        'items',
+        'job_id',
+        'total_amount'
+    ];
+
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
+    }
 }

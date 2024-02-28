@@ -8,20 +8,9 @@ use Livewire\Attributes\On;
 
 class ScopeLineItems extends Component
 {
-    public $mode;
-
-    #[On('change-mode')]
-    public function changeRegisterMode($mode)
+    public function remove($rowId)
     {
-        $this->mode = $mode;
-    }
-    public function mount()
-    {
-        $this->mode = session('mode');
-    }
-
-    public function remove($rowId) {    
-        Cart::instance('job')->remove($rowId);
+        Cart::instance('scope')->remove($rowId);
         $this->dispatch('updateJobLists');
     }
 
@@ -29,7 +18,7 @@ class ScopeLineItems extends Component
     #[On('saleCompleted')]
     public function render()
     {
-        $content = Cart::instance('job')->content();
+        $content = Cart::instance('scope')->content();
         return view('livewire.pos.scope-line-items', compact('content'));
     }
 }

@@ -3,28 +3,19 @@
 namespace App\Livewire\Job;
 
 use Livewire\Component;
+use App\Traits\CartSession;
 
 class Mode extends Component
 {
+    use CartSession;
+
     public $mode;
     public $modes = [];
 
     public function changeMode($mode)
     {
-        $this->setMode($mode);
+        $this->setModeValue('job-mode', $mode);
         $this->dispatch('changeMode', mode: $mode);
-    }
-
-    public function setMode($mode) {
-        session()->put('job-mode', $mode);
-    }
-
-    public function getMode() {
-        if (!session('job-mode')) {
-            $this->setMode(config('settings.job_register_mode'));
-        }
-
-        return session('job-mode');
     }
 
     public function onClickLists()
@@ -36,8 +27,6 @@ class Mode extends Component
     {
         $this->modes['order'] = 'Order';
         $this->modes['estimate'] = 'Estimate';
-
-        $this->mode = $this->getMode();
     }
 
     public function render()

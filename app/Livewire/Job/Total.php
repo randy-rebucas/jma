@@ -16,10 +16,11 @@ class Total extends Component
     #[On('removeItem')]
     #[On('addItem')]
     #[On('clearItem')]
+    #[On('updateJobLists')]
     public function mount(): void
     {
-        $this->total = Cart::instance('default')->total();
-        $this->count = Cart::instance('default')->count();
+        $this->total = Cart::instance('job')->total() + Cart::instance('scope')->total();
+        $this->count = Cart::instance('job')->count() + Cart::instance('scope')->count();
     }
 
     public function render()
