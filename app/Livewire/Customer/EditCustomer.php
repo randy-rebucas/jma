@@ -11,7 +11,7 @@ class EditCustomer extends ModalComponent
     public $last_name;
     public $phone_number;
 
-    public Customer $customer;
+    public $customerId;
 
     public static function modalMaxWidth(): string
     {
@@ -22,9 +22,9 @@ class EditCustomer extends ModalComponent
         'last_name' => 'required|string|max:255',
         'phone_number' => 'required'
     ];
-    public function mount(Customer $customer)
+    public function mount()
     {
-        $this->customer = $customer;
+        $this->customer = Customer::find($this->customerId);
 
         $this->first_name = $this->customer->first_name; // or however you have it.
         $this->last_name = $this->customer->last_name;

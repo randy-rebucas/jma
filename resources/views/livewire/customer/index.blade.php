@@ -43,7 +43,7 @@
                                     @forelse ($customers as $customer)
                                         <x-table.row class="bg-white dark:bg-gray-700 dark:text-white"
                                             wire:loading.class="opacity-50">
-                                            <x-table.tbody-cell :item="$customer->full_name" />
+                                            <x-table.tbody-cell :item="$customer->first_name . ' ' . $customer->last_name" />
                                             <x-table.tbody-cell :item="count($customer->sales)" class="text-center" />
                                             <x-table.tbody-cell :item="$customer->phone_number" class="text-center" />
                                             <x-table.tbody-cell :item="$customer->id" class="text-right" :action="true">
@@ -58,7 +58,7 @@
                                                     </svg>
                                                 </button>
                                                 <button type="button" class="btn btn-info m-1 font-medium underline"
-                                                    wire:click="$dispatch('openModal', {component: 'customer.edit-customer', arguments: {customer: {{ $customer }} }})">
+                                                    wire:click="$dispatch('openModal', {component: 'customer.edit-customer', arguments: {customerId: {{ $customer->id }} }})">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                         fill="currentColor" class="w-5 h-5">
                                                         <path

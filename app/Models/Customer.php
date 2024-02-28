@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
+use Laravel\Scout\Searchable;
 class Customer extends Model
 {
+    use Searchable;
     use HasFactory;
 
         /**
@@ -41,7 +42,7 @@ class Customer extends Model
         return $this->hasMany(Sale::class);
     }
 
-    public function cars()
+    public function customer_cars()
     {
         return $this->hasMany(CustomerCar::class);
     }
@@ -54,5 +55,10 @@ class Customer extends Model
     public function getFullNameAttribute()
     {
         return $this->first_name.' '.$this->last_name;
+    }
+
+    public function searchableAs() : string 
+    {
+        return 'customer_index';
     }
 }

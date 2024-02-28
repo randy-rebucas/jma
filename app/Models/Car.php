@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Car extends Model
 {
+    use Searchable;
     use HasFactory;
     protected $fillable = [
         'brand',
@@ -22,5 +24,10 @@ class Car extends Model
     public function customer_car()
     {
         return $this->belongsTo(CustomerCar::class);
+    }
+
+    public function searchableAs() : string 
+    {
+        return 'cars_index';
     }
 }

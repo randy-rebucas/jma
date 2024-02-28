@@ -5,8 +5,14 @@
 </x-slot>
 
 <div>
+
+
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="dark:bg-gray-800 bg-white shadow rounded-lg sm:p-2 xl:p-4 mt-4">
+            <livewire:global-search />
+        </div>
         <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+
             <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
@@ -96,7 +102,8 @@
                                 </thead>
                                 <tbody>
                                     <tr class="dark:bg-gray-700">
-                                        <td class="dark:text-gray-200 p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                        <td
+                                            class="dark:text-gray-200 p-4 whitespace-nowrap text-sm font-normal text-gray-900">
                                             Payment from <span class="font-semibold">Bonnie Green</span>
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
@@ -106,7 +113,7 @@
                                             $2300
                                         </td>
                                     </tr>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
