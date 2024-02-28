@@ -11,12 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
-use App\Traits\CartSession;
 
 class Payment extends Component
 {
-    use CartSession;
-
     public $mode;
     public $total;
     public $amount;
@@ -29,11 +26,13 @@ class Payment extends Component
         $this->setType($type);
     }
 
-    public function setType($mode) {
-        session()->put('payment-type', $mode);
+    public function setType($type)
+    {
+        session()->put('payment-type', $type);
     }
 
-    public function getType() {
+    public function getType()
+    {
         if (!session('payment-type')) {
             $this->setType(config('settings.payment_type'));
         }
@@ -92,6 +91,11 @@ class Payment extends Component
         $sale_payment->save();
 
         $this->dispatch('saleCompleted', serial: $sale->serial);
+    }
+
+    public function mount()
+    {
+        $this->type = $this->getType();
     }
 
     #[On('addItem')]
