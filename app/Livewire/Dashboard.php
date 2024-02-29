@@ -60,9 +60,9 @@ class Dashboard extends Component
         return view(
             'livewire.dashboard',
             [
-                'total_jobs' => number_format($total_job, 2),
-                'total_sales' => number_format($total_sale, 2),
-                'total_receivings' => number_format($total_receiving, 2),
+                'total_jobs' => $total_job,
+                'total_sales' => $total_sale,
+                'total_receivings' => $total_receiving,
                 'items' => Item::orderBy('created_at', 'desc')->limit(5)->latest()->get(),
                 'inventories' => Inventory::orderBy('created_at', 'desc')->limit(5)->latest()->get(),
             ]
