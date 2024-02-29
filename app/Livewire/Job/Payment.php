@@ -35,6 +35,12 @@ class Payment extends Component
         $this->customerId = $customerId;
     }
 
+    #[On('changeMode')]
+    public function changeMode($mode)
+    {
+        $this->mode = $mode;
+    }
+
     public function doCanceled()
     {
         Cart::instance('job')->destroy();

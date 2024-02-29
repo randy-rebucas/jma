@@ -28,6 +28,12 @@ class Payment extends Component
         $this->setTypeValue('payment-type', $type);
     }
 
+    #[On('changeMode')]
+    public function changeMode($mode)
+    {
+        $this->mode = $mode;
+    }
+    
     #[On('setCustomer')]
     public function setCustomer($customerId)
     {

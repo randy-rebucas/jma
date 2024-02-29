@@ -27,6 +27,12 @@ class Payment extends Component
     {
         $this->setTypeValue('payment-type', $type);
     }
+    
+    #[On('changeMode')]
+    public function changeMode($mode)
+    {
+        $this->mode = $mode;
+    }
 
     #[On('setSupplier')]
     public function setSupplier($supplierId)

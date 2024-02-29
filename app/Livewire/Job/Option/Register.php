@@ -3,12 +3,14 @@
 namespace App\Livewire\Job\Option;
 
 use App\Models\Item;
+use App\Traits\CartSession;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class Register extends Component
 {
+    use CartSession;
     public $mode;
     public $total;
     public $id;
@@ -25,6 +27,7 @@ class Register extends Component
     #[On('clearItem')]
     public function mount()
     {
+        $this->mode = $this->getModeValue('job-mode');
         $this->total = Cart::instance('default')->total();
     }
 

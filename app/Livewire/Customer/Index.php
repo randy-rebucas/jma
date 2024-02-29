@@ -16,7 +16,7 @@ class Index extends Component
 {
     use WithPagination;
 
-    public $search = 'hyundai';
+    public $search;
 
     public function delete($id): void
     {

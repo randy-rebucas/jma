@@ -1,14 +1,16 @@
 <x-slot name="header">
-    <livewire:global-search />
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        {{ __('Dashboard') }}
+    </h2>
 </x-slot>
 
 <div>
 
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-        
-
+        <div class="dark:bg-gray-800 bg-white shadow rounded-lg sm:p-2 xl:p-4 mt-4">
+            <livewire:global-search />
+        </div>
         <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
 
             <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
@@ -103,13 +105,12 @@
                                         <tr class="dark:bg-gray-700">
                                             <td
                                                 class="dark:text-gray-200 p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                                ({{ $inventory->transaction_type != 'receive' ? 'Payment from ' : 'Payment sent ' }})
+                                                ({{ $inventory->transaction_type }})
                                                 <span class="font-semibold">
-                                                    {{ App\Models\Inventory::getCustomer($inventory->serial) }}
-                                                </span>
+                                                    {{ App\Models\Inventory::getCustomer($inventory->serial) }}</span>
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                                {{ \Carbon\Carbon::parse($inventory->created_at)->format('M d,Y') }}
+                                                {{ \Carbon\Carbon::parse($inventory->created_at)->format('MM d,Y') }}
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
                                                 {{ number_format($inventory->transaction_total_amount, 2) }}
