@@ -25,6 +25,7 @@ use App\Livewire\Job\Index as Job;
 use App\Livewire\Setting\Index as Setting;
 use App\Livewire\Receiving\Index as Receiving;
 use App\Livewire\Report\Index as Report;
+use App\Livewire\Inventory\Index as Inventory;
 
 Route::middleware('guest')->group(function () {
     Route::view('/', 'welcome');
@@ -42,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/jobs/{option}', Job::class)->name('jobs');
     Route::get('/sales/{option}', Sale::class)->name('sales');
     Route::get('/receivings/{option}', Receiving::class)->name('receivings');
+    Route::get('/inventories', Inventory::class)->name('inventories');
     Route::get('/reports', Report::class)->name('reports');
     Route::get('/settings', Setting::class)->name('settings');
 });

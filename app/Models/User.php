@@ -65,5 +65,8 @@ class User extends Authenticatable
         return $this->hasMany(Address::class);
     }
 
-
+    public static function getUserName($id)
+    {
+        return self::find($id)->name;
+    }
 }

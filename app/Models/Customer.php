@@ -61,4 +61,8 @@ class Customer extends Model
     {
         return 'customer_index';
     }
+    public static function getCustomerName($id)
+    {
+        return self::with('user')->find($id)->full_name;
+    }
 }

@@ -15,7 +15,10 @@ use Livewire\Attributes\Layout;
 #[Layout('layouts.app')]
 class Dashboard extends Component
 {
-    // 12622.0 
+    public function navigate() {
+        return $this->redirect('/inventories', navigate: true);
+    }
+
     public function render()
     {
         // Jobs

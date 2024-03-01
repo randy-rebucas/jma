@@ -15,6 +15,7 @@ class CalcPercentage extends Component
     public $model;
     public $count = 0;
     public $percentage;
+    public $percentageCacl;
     public $prev_total_job = 0;
     public $prev_total_sale = 0;
     public $prev_total_receiving = 0;
@@ -56,16 +57,16 @@ class CalcPercentage extends Component
 
         switch ($this->model) {
             case 'job':
-                $this->percentage = ($this->total - $this->prev_total_job) / $this->total;
+                $this->percentage = ($this->total - $this->prev_total_job) / $this->prev_total_job;
                 break;
             case 'receiving':
-                $this->percentage = ($this->total - $this->prev_total_sale) / $this->total;
+                $this->percentage = ($this->total - $this->prev_total_sale) / $this->prev_total_sale;
                 break;
             default: // sale
-                $this->percentage = ($this->total - $this->prev_total_receiving) / $this->total;
+                $this->percentage = ($this->total - $this->prev_total_receiving) / $this->prev_total_receiving;
                 break;
         }
-
+        // $this->percentage = round($this->percentageCacl * 100);
     }
 
     public function render()

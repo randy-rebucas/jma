@@ -12,7 +12,7 @@
                             class="dark:text-gray-200 text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ Number::format($total_jobs) }}</span>
                         <h3 class="text-base font-normal text-gray-500">{{ __('Total Jobs (current month)') }}</h3>
                     </div>
-                    <livewire:shared.calc-percentage :total="$total_jobs" model="job" />
+                    {{-- <livewire:shared.calc-percentage :total="$total_jobs" model="job" /> --}}
                 </div>
             </div>
             <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
@@ -22,7 +22,7 @@
                             class="dark:text-gray-200 text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ Number::format($total_sales) }}</span>
                         <h3 class="text-base font-normal text-gray-500">{{ __('Total Sales (current month)') }}</h3>
                     </div>
-                    <livewire:shared.calc-percentage :total="$total_sales" model="sale" />
+                    {{-- <livewire:shared.calc-percentage :total="$total_sales" model="sale" /> --}}
                 </div>
             </div>
             <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
@@ -33,7 +33,7 @@
                         <h3 class="text-base font-normal text-gray-500">{{ __('Total Receivings (current month)') }}
                         </h3>
                     </div>
-                    <livewire:shared.calc-percentage :total="$total_receivings" model="receiving" />
+                    {{-- <livewire:shared.calc-percentage :total="$total_receivings" model="receiving" /> --}}
 
                 </div>
             </div>
@@ -49,7 +49,7 @@
                         class="text-base font-normal text-gray-500">{{ __('This is a list of latest transactions') }}</span>
                 </div>
                 <div class="flex-shrink-0">
-                    <a href="#"
+                    <a wire:navigate href="{{ route('inventories') }}"
                         class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">{{ __('View all') }}</a>
                 </div>
             </div>
