@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+.active, .active:hover {
+    border-color: #1c64f2;
+    color: #1c64f2;
+}
