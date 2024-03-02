@@ -16,9 +16,9 @@ class Sale extends Model
 
     protected $fillable = [
         'sale_type',
-        'serial',
         'user_id',
-        'customer_id'
+        'customer_id',
+        'total_amount'
     ];
 
     public function customer(): BelongsTo

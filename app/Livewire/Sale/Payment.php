@@ -69,14 +69,18 @@ class Payment extends Component
         $sale->sale_type = $this->mode;
         $sale->user_id = Auth::id();
         $sale->customer_id = $this->customerId;
-        $sale->serial = Str::uuid();
+        $sale->total_amount = Cart::instance('default')->total();
         $sale->save();
 
-        $sale_item = new SaleItem();
-        $sale_item->sale_id = $sale->id;
-        $sale_item->items = json_encode(Cart::instance('default')->content());
-        $sale_item->total_amount = Cart::instance('default')->total();
-        $sale_item->save();
+        foreach (Cart::instance('default')->content() as $item) {
+            $sale_item = new SaleItem();
+            $sale_item->sale_id = $sale->id;
+            $sale_item->quantity = $item->qty;
+            $sale_item->unit_price = $item->price;
+            $sale_item->sub_total = $item->total;
+            $sale_item->item_id = $item->id;
+            $sale_item->save();
+        }
 
         $sale_payment = new SalePayment();
         $sale_payment->sale_id = $sale->id;

@@ -13,12 +13,8 @@ class Item extends Model
 
     protected $fillable = [
         'name',
-        'slug',
-        'code',
-        'item_number',
         'description',
-        'cost_price',
-        'unit_price',
+        'price',
         'reorder_level',
         'receiving_quantity',
         'category_id',
@@ -26,8 +22,7 @@ class Item extends Model
     ];
 
     protected $appends = [
-        'format_cost_price',
-        'format_unit_price'
+        'format_price',
     ];
 
     public function category()
@@ -45,13 +40,8 @@ class Item extends Model
         return $this->belongsTo(Supplier::class);
     }
 
-    public function getFormatUnitPriceAttribute()
+    public function getFormatPriceAttribute()
     {
-        return number_format($this->unit_price, 2);
-    }
-
-    public function getFormatCostPriceAttribute()
-    {
-        return number_format($this->cost_price, 2);
+       return  number_format($this->price, 2);
     }
 }

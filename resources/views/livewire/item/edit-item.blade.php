@@ -5,20 +5,7 @@
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
         <legend class="dark:text-gray-200 px-2">{{ __('Item Details') }}</legend>
         <x-text-input wire:model="slug" id="slug" class="block mt-1 w-full" type="hidden" name="slug" />
-        <div class="flex justify-between">
-            <div>
-                <x-input-label for="code" :value="__('Code')" />
-                <x-text-input wire:model="code" id="code" class="block mt-1 w-full" type="text" name="code"
-                    readonly />
-                <x-input-error :messages="$errors->get('code')" class="mt-2" />
-            </div>
-            <div>
-                <x-input-label for="item_number" :value="__('Item Number')" />
-                <x-text-input wire:model="item_number" id="item_number" class="block mt-1 w-full" type="text"
-                    name="item_number" autofocus />
-            </div>
-        </div>
-
+        
         <div class="mt-4">
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" />
@@ -31,28 +18,19 @@
         </div>
 
         <div class="flex justify-between mt-4">
-            <div>
-                <x-input-label for="cost_price" :value="__('Cost Price')" />
-                <x-text-input wire:model="cost_price" id="cost_price" class="block mt-1 w-full" type="text"
-                    name="cost_price" />
-                <x-input-error :messages="$errors->get('cost_price')" class="mt-2" />
+            <div class="w-1/3">
+                <x-input-label for="price" :value="__('Price')" />
+                <x-text-input wire:model="price" id="price" class="block mt-1 w-full" type="text"
+                    name="price" />
+                <x-input-error :messages="$errors->get('price')" class="mt-2" />
             </div>
-            <div>
-                <x-input-label for="unit_price" :value="__('Unit Price')" />
-                <x-text-input wire:model="unit_price" id="unit_price" class="block mt-1 w-full" type="text"
-                    name="unit_price" />
-                <x-input-error :messages="$errors->get('unit_price')" class="mt-2" />
-            </div>
-        </div>
-
-        <div class="flex justify-between mt-4">
-            <div>
+            <div class="w-1/3">
                 <x-input-label for="reorder_level" :value="__('Re-Order Level')" />
                 <x-text-input wire:model="reorder_level" id="reorder_level" class="block mt-1 w-full" type="number"
                     name="reorder_level" />
                 <x-input-error :messages="$errors->get('reorder_level')" class="mt-2" />
             </div>
-            <div>
+            <div class="w-1/3">
                 <x-input-label for="receiving_quantity" :value="__('Receiving Quantity')" />
                 <x-text-input wire:model="receiving_quantity" id="receiving_quantity" class="block mt-1 w-full"
                     type="number" name="receiving_quantity" />

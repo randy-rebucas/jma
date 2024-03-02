@@ -12,6 +12,8 @@ class SalePayment extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    
     protected $fillable = [
         'payment_type',
         'payment_amount',

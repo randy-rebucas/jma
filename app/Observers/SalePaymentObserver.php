@@ -14,18 +14,18 @@ class SalePaymentObserver
      */
     public function created(SalePayment $salePayment): void
     {
-        $sale = Sale::find($salePayment->sale->id);
+        // $sale = Sale::find($salePayment->sale->id);
 
-        Inventory::create([
-            "transaction_code" => Str::uuid(),
-            "transaction_type" => $sale->sale_type,
-            "user_id" => $sale->user->id,
-            "transaction_paid_amount" => $sale->sale_payment->payment_amount,
-            "transaction_payment_method" => $sale->sale_payment->payment_type,
-            "transaction_total_amount" => $sale->sale_item->total_amount,
-            "items" => $sale->sale_item->items,
-            "serial" => $sale->serial
-        ]);
+        // Inventory::create([
+        //     "transaction_code" => Str::uuid(),
+        //     "transaction_type" => $sale->sale_type,
+        //     "user_id" => $sale->user->id,
+        //     "transaction_paid_amount" => $sale->sale_payment->payment_amount,
+        //     "transaction_payment_method" => $sale->sale_payment->payment_type,
+        //     "transaction_total_amount" => $sale->total_amount,
+        //     "items" => $sale->sale_item->items,
+        //     "serial" => $sale->serial
+        // ]);
     }
 
     /**

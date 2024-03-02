@@ -13,12 +13,8 @@ class CreateItem extends ModalComponent
 {
 
     public $name;
-    public $slug;
-    public $code;
-    public $item_number;
     public $description;
-    public $cost_price;
-    public $unit_price;
+    public $price;
     public $reorder_level;
     public $receiving_quantity;
     public $category_id;
@@ -32,11 +28,8 @@ class CreateItem extends ModalComponent
     }
     protected $rules = [
         'name' => 'required|string|max:255',
-        'code' => 'string|max:255',
-        'item_number' => 'string|max:255',
         'description' => 'string|max:1000',
-        'cost_price' => 'required',
-        'unit_price' => 'required',
+        'price' => 'required|decimal:2',
         'reorder_level' => 'required|numeric',
         'receiving_quantity' => 'required|numeric',
         'category_id' => 'required',
@@ -45,8 +38,6 @@ class CreateItem extends ModalComponent
 
     public function mount()
     {
-        $this->code = Str::upper(Str::random(8));
-
         $this->categories = Category::pluck('name', 'id');
         $this->suppliers = Supplier::pluck('company_name', 'id');
     }
@@ -57,10 +48,8 @@ class CreateItem extends ModalComponent
             //code...
             $validated = $this->validate();
     
-            $validated['cost_price'] = $this->cost_price;
-            $validated['unit_price'] = $this->unit_price;
-            $validated['slug'] = Str::slug($this->name);
-            
+            $validated['price'] = $this->price;
+           
             Item::create($validated);
     
             $this->dispatch('item-created');

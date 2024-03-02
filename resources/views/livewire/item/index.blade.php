@@ -39,13 +39,10 @@
                                 <x-table.thead>
                                     <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
                                         <x-table.thead-cell :title="__('Name')" class="text-left" />
-                                        <x-table.thead-cell :title="__('Code')" class="text-left" />
-                                        <x-table.thead-cell :title="__('Item Number')" class="text-left" />
-                                        <x-table.thead-cell :title="__('Cost Price')" class="text-right" />
-                                        <x-table.thead-cell :title="__('Unit Price')" class="text-right" />
-                                        <x-table.thead-cell :title="__('ReOrder Level')" class="text-center" />
-                                        <x-table.thead-cell :title="__('Quantity')" class="text-center" />
                                         <x-table.thead-cell :title="__('Category')" class="text-left" />
+                                        <x-table.thead-cell :title="__('ReOrder Level')" class="text-center" />
+                                        <x-table.thead-cell :title="__('Quantity Stocks')" class="text-center" />
+                                        <x-table.thead-cell :title="__('Price')" class="text-right" />
                                         <x-table.thead-cell title="" class="text-right" />
                                     </x-table.row>
                                 </x-table.thead>
@@ -53,7 +50,8 @@
                                     @forelse ($items as $item)
                                         @php
                                             switch (true) {
-                                                case $item->receiving_quantity < $item->reorder_level && $item->receiving_quantity > 1:
+                                                case $item->receiving_quantity < $item->reorder_level &&
+                                                    $item->receiving_quantity > 1:
                                                     $outOfStock = 'bg-red-50';
                                                     break;
                                                 case $item->receiving_quantity == 0:
@@ -67,13 +65,13 @@
                                         <x-table.row class=" dark:bg-gray-700 dark:text-white {{ $outOfStock }}"
                                             wire:loading.class="opacity-50">
                                             <x-table.tbody-cell :item="$item->name" />
-                                            <x-table.tbody-cell :item="$item->code" />
-                                            <x-table.tbody-cell :item="$item->item_number" />
-                                            <x-table.tbody-cell :item="$item->format_cost_price" class="text-right" />
-                                            <x-table.tbody-cell :item="$item->format_unit_price" class="text-right" />
+                                            <x-table.tbody-cell :item="$item->category->name" />
                                             <x-table.tbody-cell :item="$item->reorder_level" class="text-center" />
                                             <x-table.tbody-cell :item="$item->receiving_quantity" class="text-center" />
-                                            <x-table.tbody-cell :item="$item->category->name" />
+                                            <x-table.tbody-cell :item="$item->format_price" :action="true"
+                                                class="text-right">
+                                                {{ Number::currency($item->price, 'PHP') }}
+                                            </x-table.tbody-cell>
                                             <x-table.tbody-cell :item="$item->id" :action="true"
                                                 class="text-right">
                                                 <button type="button" class="btn btn-info m-1 font-medium underline"

@@ -17,8 +17,6 @@ class ScanItem extends Component
             ->select('*')
             ->where('receiving_quantity', '>=', 1)
             ->where('name', 'like', '%' . $this->search . '%')
-            ->orWhere('item_number', 'like', '%' . $this->search . '%')
-            ->orWhere('code', 'like', '%' . $this->search . '%')
             ->take(5)
             ->get();
     }

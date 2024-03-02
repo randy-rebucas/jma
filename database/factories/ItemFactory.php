@@ -20,17 +20,10 @@ class ItemFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->name();
-        $slug = Str::slug($name);
-
         return [
-            'name' => $name,
-            'slug' => $slug,
-            'code' => fake()->regexify('[A-Z]{5}[0-4]{3}'),
-            'item_number' => fake()->numerify('item-######'),
+            'name' => fake()->name(),
             'description' => fake()->paragraph(),
-            'cost_price' => fake()->numberBetween($min = 1000, $max = 9000),
-            'unit_price' => fake()->numberBetween($min = 1000, $max = 9000),
+            'price' => fake()->numberBetween($min = 1000, $max = 9000),
             'reorder_level' => fake()->numberBetween(0, 10),
             'receiving_quantity' => fake()->numberBetween(0, 100),
             'category_id' => Category::factory()->create()->id, //Category::all()->pluck('id')->random(),

@@ -5,16 +5,16 @@
 <div>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+            {{-- <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <span
                             class="dark:text-gray-200 text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ Number::format($total_jobs) }}</span>
                         <h3 class="text-base font-normal text-gray-500">{{ __('Total Jobs (current month)') }}</h3>
                     </div>
-                    {{-- <livewire:shared.calc-percentage :total="$total_jobs" model="job" /> --}}
+                    <livewire:shared.calc-percentage :total="$total_jobs" model="job" />
                 </div>
-            </div>
+            </div> --}}
             <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
@@ -25,7 +25,7 @@
                     {{-- <livewire:shared.calc-percentage :total="$total_sales" model="sale" /> --}}
                 </div>
             </div>
-            <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+            {{-- <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <span
@@ -33,10 +33,9 @@
                         <h3 class="text-base font-normal text-gray-500">{{ __('Total Receivings (current month)') }}
                         </h3>
                     </div>
-                    {{-- <livewire:shared.calc-percentage :total="$total_receivings" model="receiving" /> --}}
-
-                </div>
-            </div>
+                    <livewire:shared.calc-percentage :total="$total_receivings" model="receiving" />
+                </div> 
+            </div>--}}
         </div>
 
         <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
@@ -48,10 +47,12 @@
                     <span
                         class="text-base font-normal text-gray-500">{{ __('This is a list of latest transactions') }}</span>
                 </div>
-                <div class="flex-shrink-0">
-                    <a wire:navigate href="{{ route('inventories') }}"
-                        class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">{{ __('View all') }}</a>
-                </div>
+                @can('sale.menu')
+                    <div class="flex-shrink-0">
+                        <a wire:navigate href="{{ route('inventories') }}"
+                            class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">{{ __('View all') }}</a>
+                    </div>
+                @endcan
             </div>
 
             <div class="flex flex-col mt-8">

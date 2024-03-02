@@ -12,13 +12,19 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 class SaleItem extends Model
 {
     use HasFactory;
-    protected $casts = [
-        'items' => Json::class,
-    ];
+
+    public $timestamps = false;
+
+    // protected $casts = [
+    //     'items' => Json::class,
+    // ];
+
     protected $fillable = [
-        'items',
         'sale_id',
-        'total_amount'
+        'quantity',
+        'unit_price',
+        'sub_total',
+        'item_id'
     ];
 
     public function sale()
