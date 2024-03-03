@@ -38,7 +38,7 @@
                         </x-table.tbody-cell>
                     </x-table.row>
                 @empty
-                    <x-table.row class="bg-white dark:bg-gray-700 dark:text-white">
+                    <x-table.row class="bg-white dark:bg-gray-700 dark:text-white text-center">
                         <x-table.tbody-cell colspan="6" :item="'No transaction found!!'" />
                     </x-table.row>
                 @endforelse
