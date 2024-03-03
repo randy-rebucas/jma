@@ -26,8 +26,9 @@
                                     <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
                                         <x-table.thead-cell :title="__('Type')" class="text-left" />
                                         <x-table.thead-cell :title="__('Customer')" class="text-left" />
-                                        <x-table.thead-cell :title="__('Serial')" class="text-left" />
+                                        <x-table.thead-cell :title="__('Amount')" class="text-left" />
                                         <x-table.thead-cell :title="__('Amount')" class="text-right" />
+                                        <x-table.thead-cell :title="__('Date')" class="text-left" />
                                     </x-table.row>
                                 </x-table.thead>
                                 <x-table.tbody class="dark:border-gray-500">
@@ -36,8 +37,15 @@
                                             wire:loading.class="opacity-50">
                                             <x-table.tbody-cell :item="$item->job_type" class="uppercase" />
                                             <x-table.tbody-cell :item="$item->customer->full_name" />
-                                            <x-table.tbody-cell :item="$item->serial" />
+                                            <x-table.tbody-cell :item="$item->job_payment->payment_amount" />
+                                            <x-table.tbody-cell :item="$item->created_at" :action="true">
+                                                {{ \Carbon\Carbon::parse($item->created_at)->format('M d,Y') }}
+    
                                             <x-table.tbody-cell :item="number_format($item->job_item->total_amount, 2)" class="text-right" />
+                                                <x-table.tbody-cell :item="$item->job_paymnent->payment_amount" :action="true"
+                                                    class="text-right font-semibold">
+                                                    {{ Number::currency($item->job_item->total_amount, 'PHP') }}
+                                                </x-table.tbody-cell>
                                         </x-table.row>
                                         {{-- <x-table.row class=" dark:bg-gray-700 dark:text-white"
                                             wire:loading.class="opacity-50">

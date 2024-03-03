@@ -14,18 +14,18 @@ class JobPaymentObserver
      */
     public function created(JobPayment $jobPayment): void
     {
-        $job = Job::find($jobPayment->job->id);
+        // $job = Job::find($jobPayment->job->id);
 
-        Inventory::create([
-            "transaction_code" => Str::uuid(),
-            "transaction_type" => $job->job_type,
-            "user_id" => $job->user->id,
-            "transaction_paid_amount" => $job->job_payment->payment_amount,
-            "transaction_payment_method" => $job->job_payment->payment_type,
-            "transaction_total_amount" => $job->job_item->total_amount,
-            "items" => $job->job_item->items,
-            "serial" => $job->serial
-        ]);
+        // Inventory::create([
+        //     "transaction_code" => Str::uuid(),
+        //     "transaction_type" => $job->job_type,
+        //     "user_id" => $job->user->id,
+        //     "transaction_paid_amount" => $job->job_payment->payment_amount,
+        //     "transaction_payment_method" => $job->job_payment->payment_type,
+        //     "transaction_total_amount" => $job->job_item->total_amount,
+        //     "items" => $job->job_item->items,
+        //     "serial" => $job->serial
+        // ]);
     }
 
     /**

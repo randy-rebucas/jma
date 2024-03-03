@@ -5,16 +5,16 @@
 <div>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {{-- <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+            <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <span
                             class="dark:text-gray-200 text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ Number::format($total_jobs) }}</span>
                         <h3 class="text-base font-normal text-gray-500">{{ __('Total Jobs (current month)') }}</h3>
                     </div>
-                    <livewire:shared.calc-percentage :total="$total_jobs" model="job" />
+                    {{-- <livewire:shared.calc-percentage :total="$total_jobs" model="job" /> --}}
                 </div>
-            </div> --}}
+            </div>
             <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
@@ -25,7 +25,7 @@
                     {{-- <livewire:shared.calc-percentage :total="$total_sales" model="sale" /> --}}
                 </div>
             </div>
-            {{-- <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+            <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <span
@@ -33,9 +33,9 @@
                         <h3 class="text-base font-normal text-gray-500">{{ __('Total Receivings (current month)') }}
                         </h3>
                     </div>
-                    <livewire:shared.calc-percentage :total="$total_receivings" model="receiving" />
+                    {{-- <livewire:shared.calc-percentage :total="$total_receivings" model="receiving" /> --}}
                 </div> 
-            </div>--}}
+            </div>
         </div>
 
         <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
@@ -81,16 +81,16 @@
                                         <tr class="dark:bg-gray-700">
                                             <td
                                                 class="dark:text-gray-200 p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                                ({{ $inventory->transaction_type != 'receive' ? 'Payment from ' : 'Payment sent ' }})
+                                                ({{ $inventory->sale_type != 'receive' ? 'Payment from ' : 'Payment sent ' }})
                                                 <span class="font-semibold">
-                                                    {{ App\Models\Inventory::getCustomer($inventory->serial) }}
+                                                    {{ $inventory->customer->full_name }}
                                                 </span>
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
                                                 {{ \Carbon\Carbon::parse($inventory->created_at)->format('M d,Y') }}
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                                {{ Number::currency($inventory->transaction_total_amount, 'PHP') }}
+                                                {{ Number::currency($inventory->sale_payment->payment_amount, 'PHP') }}
                                             </td>
                                         </tr>
                                     @endforeach

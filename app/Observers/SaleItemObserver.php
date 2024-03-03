@@ -16,19 +16,13 @@ class SaleItemObserver
     {
         // get the type
         $sale = Sale::find($saleItem->sale->id);
-        //
-        $items = json_decode($saleItem->items, true);
 
         if ($sale->sale_type == SaleTypeEnum::SALE) {
-            // foreach ($items as $item) {
-                Item::where('id', $saleItem->item_id)->decrement('receiving_quantity', $saleItem->quantity);
-            // }
+            Item::where('id', $saleItem->item_id)->decrement('receiving_quantity', $saleItem->quantity);
         }
 
-        if ($sale->sale_type == SaleTypeEnum::RETURN) {
-            // foreach ($items as $item) {
-                Item::where('id', $saleItem->item_id)->increment('receiving_quantity', $saleItem->quantity);
-            // }
+        if ($sale->sale_type == SaleTypeEnum::RETURN ) {
+            Item::where('id', $saleItem->item_id)->increment('receiving_quantity', $saleItem->quantity);
         }
     }
 

@@ -22,7 +22,7 @@ class ItemFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'description' => fake()->paragraph(),
+            'description' => fake()->words(3, true),
             'price' => fake()->numberBetween($min = 1000, $max = 9000),
             'reorder_level' => fake()->numberBetween(0, 10),
             'receiving_quantity' => fake()->numberBetween(0, 100),

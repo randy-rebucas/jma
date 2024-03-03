@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Job;
 
+use App\Enums\PaymentMethodEnum;
 use App\Models\JobScopeOfWorks;
 use Livewire\Component;
 use App\Models\Job;
@@ -67,24 +68,38 @@ class Payment extends Component
             ['required' => 'The register :attribute is required'],
         )->validate();
 
+        $grand_total = Cart::instance('job')->total() + Cart::instance('scope')->total();
+
         $job = new Job();
         $job->job_type = $this->mode;
         $job->user_id = Auth::id();
         $job->customer_id = $this->customerId;
-        $job->serial = Str::uuid();
+        $job->total_amount = $grand_total;
+
+        if ($this->amount == $grand_total) {
+            $job->paid = true;
+        }
         $job->save();
 
-        $job_item = new JobItem();
-        $job_item->job_id = $job->id;
-        $job_item->items = json_encode(Cart::instance('job')->content());
-        $job_item->total_amount = Cart::instance('job')->total();
-        $job_item->save();
-
-        $job_scope_of_works = new JobScopeOfWorks();
-        $job_scope_of_works->job_id = $job->id;
-        $job_scope_of_works->scopes = json_encode(Cart::instance('scope')->content());
-        $job_scope_of_works->total_amount = Cart::instance('scope')->total();
-        $job_scope_of_works->save();
+        foreach (Cart::instance('job')->content() as $item) {
+            $job_item = new JobItem();
+            $job_item->job_id = $job->id;
+            $job_item->quantity = $item->qty;
+            $job_item->unit_price = $item->price;
+            $job_item->sub_total = $item->total;
+            $job_item->item_id = $item->id;
+            $job_item->save();
+        }
+        
+        foreach (Cart::instance('scope')->content() as $item) {
+            $job_scope_of_works = new JobScopeOfWorks();
+            $job_scope_of_works->job_id = $job->id;
+            $job_scope_of_works->quantity = $item->qty;
+            $job_scope_of_works->unit_price = $item->price;
+            $job_scope_of_works->sub_total = $item->total;
+            $job_scope_of_works->name = $item->name;
+            $job_scope_of_works->save();
+        }
 
         $job_payment = new JobPayment();
         $job_payment->job_id = $job->id;
@@ -97,6 +112,7 @@ class Payment extends Component
 
     public function mount()
     {
+        $this->types = PaymentMethodEnum::toSelectArray();
         $this->type = $this->getTypeValue('payment-type');
     }
     
@@ -107,9 +123,6 @@ class Payment extends Component
     #[On('clearItem')]
     public function render()
     {
-        $this->types['cash'] = 'Cash';
-        $this->types['credit'] = 'Credit';
-
         $this->total = Cart::instance('job')->total() + Cart::instance('scope')->total();
         return view('livewire.job.payment');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Sale;
 
+use App\Enums\SaleTypeEnum;
 use Livewire\Component;
 use App\Traits\CartSession;
 
@@ -25,8 +26,7 @@ class Mode extends Component
 
     public function mount()
     {
-        $this->modes['sale'] = 'Sale';
-        $this->modes['return'] = 'Return';
+        $this->modes = SaleTypeEnum::toSelectArray();
     }
     
     public function render()

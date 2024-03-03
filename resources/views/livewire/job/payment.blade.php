@@ -1,6 +1,5 @@
 <div>
     @if ($total > 0)
-    {{ $mode }}
         <fieldset class="border-2 border-double border-gray-200 pb-3 px-4 rounded-md">
             <legend class="px-2">{{ __('Payments') }}</legend>
             <div class="flex items-center justify-between w-full">

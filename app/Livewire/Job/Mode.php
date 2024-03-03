@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Job;
 
+use App\Enums\JobTypeEnum;
 use Livewire\Component;
 use App\Traits\CartSession;
 
@@ -25,8 +26,7 @@ class Mode extends Component
 
     public function mount()
     {
-        $this->modes['order'] = 'Order';
-        $this->modes['estimate'] = 'Estimate';
+        $this->modes = JobTypeEnum::toSelectArray();
     }
 
     public function render()

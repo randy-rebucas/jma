@@ -11,6 +11,6 @@ use BenSampo\Enum\Enum;
  */
 final class SaleTypeEnum extends Enum
 {
-    const SALE = 'sales';
+    const SALE = 'sale';
     const RETURN = 'return';
 }

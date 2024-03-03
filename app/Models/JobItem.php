@@ -13,13 +13,12 @@ class JobItem extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'items' => Json::class,
-    ];
     protected $fillable = [
-        'items',
         'job_id',
-        'total_amount'
+        'quantity',
+        'unit_price',
+        'sub_total',
+        'item_id'
     ];
 
     public function job()

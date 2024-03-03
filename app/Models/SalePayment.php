@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PaymentMethodEnum;
 use App\Observers\SalePaymentObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,10 @@ class SalePayment extends Model
     use HasFactory;
 
     public $timestamps = false;
+    
+    protected $casts = [
+        'payment_type' => PaymentMethodEnum::class, // Example enum cast
+    ];
     
     protected $fillable = [
         'payment_type',

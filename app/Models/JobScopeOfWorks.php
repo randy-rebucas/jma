@@ -10,13 +10,15 @@ class JobScopeOfWorks extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'scopes' => Json::class,
-    ];
+    // protected $casts = [
+    //     'scopes' => Json::class,
+    // ];
     protected $fillable = [
-        'scopes',
         'job_id',
-        'total_amount'
+        'quantity',
+        'unit_price',
+        'sub_total',
+        'name'
     ];
 
     public function job()

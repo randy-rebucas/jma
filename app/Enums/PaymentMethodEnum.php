@@ -19,4 +19,6 @@ final class PaymentMethodEnum extends Enum
     const ECHECK = 'e-check';
     const DIGITALPAYMENT = 'digital-payment';
     const MONEYORDER = 'money-order';
+    const PARTIAL = 'partial';
 }
+

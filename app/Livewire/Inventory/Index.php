@@ -26,10 +26,7 @@ class Index extends Component
     }
     public function render()
     {
-        $items = DB::table('inventories')
-            ->join('sales', 'inventories.serial', '=', 'sales.serial')
-            ->select('inventories.*', 'sales.customer_id')
-            ->paginate(10);
+        $items = DB::table('sales')->paginate(10);
         return view('livewire.inventory.index', compact('items'));
     }
 }

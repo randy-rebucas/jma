@@ -15,13 +15,9 @@ class JobItemObserver
     public function created(JobItem $jobItem): void
     {
         $job = Job::find($jobItem->job->id);
-        //
-        $items = json_decode($jobItem->items, true);
 
-        if ($job->job_type == JobTypeEnum::ORDER) {
-            foreach ($items as $item) {
-                Item::where('id', $item['id'])->decrement('receiving_quantity', $item["qty"]);
-            }
+        if ($job->paid) {
+            Item::where('id', $jobItem->item_id)->decrement('receiving_quantity', $jobItem->quantity);
         }
     }
 

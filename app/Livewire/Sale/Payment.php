@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Sale;
 
+use App\Enums\PaymentMethodEnum;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\SalePayment;
@@ -103,8 +104,7 @@ class Payment extends Component
     #[On('clearItem')]
     public function render()
     {
-        $this->types['cash'] = 'Cash';
-        $this->types['credit'] = 'Credit';
+        $this->types = PaymentMethodEnum::toSelectArray();
 
         $this->total = Cart::instance('default')->total();
 

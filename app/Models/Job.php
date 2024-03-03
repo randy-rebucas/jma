@@ -12,9 +12,9 @@ class Job extends Model
 
     protected $fillable = [
         'job_type',
-        'serial',
         'user_id',
-        'customer_id'
+        'customer_id',
+        'total_amount'
     ];
 
     public function customer()

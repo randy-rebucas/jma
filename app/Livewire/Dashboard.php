@@ -16,24 +16,21 @@ use Livewire\Attributes\Layout;
 #[Layout('layouts.app')]
 class Dashboard extends Component
 {
-    public $total_sale = 0;
-
-    public function navigate() {
+    public function navigate()
+    {
         return $this->redirect('/inventories', navigate: true);
     }
 
     public function render()
     {
-        $this->total_sale = DB::table('sales')->whereMonth('created_at', Carbon::now()->month)->sum('total_amount');
-        
         return view(
             'livewire.dashboard',
             [
-                // 'total_jobs' => $total_job,
-                'total_sales' => $this->total_sale,
-                // 'total_receivings' => $total_receiving,
+                'total_sales' => Sale::orderBy('created_at', 'desc')->whereMonth('created_at', Carbon::now()->month)->get()->sum('total_amount'),
+                'total_jobs' => Job::with('job_payment')->orderBy('created_at', 'desc')->whereMonth('created_at', Carbon::now()->month)->get()->sum('payment_amount'),
+                'total_receivings' => Receiving::with('receiving_payment')->orderBy('created_at', 'desc')->whereMonth('created_at', Carbon::now()->month)->get()->sum('payment_amount'),
                 'items' => Item::orderBy('created_at', 'desc')->limit(5)->latest()->get(),
-                'inventories' => Inventory::orderBy('created_at', 'desc')->limit(5)->latest()->get(),
+                'inventories' => Sale::orderBy('created_at', 'desc')->limit(5)->latest()->get(),
             ]
         );
     }
