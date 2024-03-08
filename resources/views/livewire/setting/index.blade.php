@@ -123,7 +123,7 @@
                                     </div>
                                     <div class="md:w-2/3">
                                         <x-select wire:model="setting.payment_type" id="payment_type"
-                                            name="payment_type" :options="$types"
+                                            name="payment_type" :options="$payment_methods"
                                             class="rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" />
                                     </div>
                                 </div>

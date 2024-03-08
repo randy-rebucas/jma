@@ -2,6 +2,10 @@
 
 namespace App\Livewire\Setting;
 
+use App\Enums\JobTypeEnum;
+use App\Enums\PaymentMethodEnum;
+use App\Enums\ReceivingTypeEnum;
+use App\Enums\SaleTypeEnum;
 use Livewire\Component;
 use App\Models\Setting;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -15,7 +19,7 @@ class Index extends Component
     public $sale_modes = [];
     public $job_modes = [];
     public $receiving_modes = [];
-    public $types = [];
+    public $payment_methods = [];
     public $setting = [];
 
     /**
@@ -53,17 +57,10 @@ class Index extends Component
         $this->setting['payment_type'] = config('settings.payment_type');
         $this->setting['auto_print'] = (bool) config('settings.auto_print');
 
-        $this->sale_modes['sale'] = 'Sale';
-        $this->sale_modes['return'] = 'Return';
-
-        $this->job_modes['order'] = 'Order';
-        $this->job_modes['estimate'] = 'Estimate';
-
-        $this->receiving_modes['receive'] = 'Receive';
-        $this->receiving_modes['return'] = 'Return';
-
-        $this->types['cash'] = 'Cash';
-        $this->types['credit'] = 'Credit';
+        $this->receiving_modes = ReceivingTypeEnum::toSelectArray();
+        $this->job_modes = JobTypeEnum::toSelectArray();
+        $this->sale_modes = SaleTypeEnum::toSelectArray();
+        $this->payment_methods = PaymentMethodEnum::toSelectArray();
     }
     
     public function render()
