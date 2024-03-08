@@ -14,18 +14,18 @@ class ReceivingPaymentObserver
      */
     public function created(ReceivingPayment $receivingPayment): void
     {
-        $receiving = Receiving::find($receivingPayment->receiving->id);
+        // $receiving = Receiving::find($receivingPayment->receiving->id);
 
-        Inventory::create([
-            "transaction_code" => Str::uuid(),
-            "transaction_type" => $receiving->receiving_type,
-            "user_id" => $receiving->user->id,
-            "transaction_paid_amount" => $receiving->receiving_payment->payment_amount,
-            "transaction_payment_method" => $receiving->receiving_payment->payment_type,
-            "transaction_total_amount" => $receiving->receiving_item->total_amount,
-            "items" => $receiving->receiving_item->items,
-            "serial" => $receiving->serial
-        ]);
+        // Inventory::create([
+        //     "transaction_code" => Str::uuid(),
+        //     "transaction_type" => $receiving->receiving_type,
+        //     "user_id" => $receiving->user->id,
+        //     "transaction_paid_amount" => $receiving->receiving_payment->payment_amount,
+        //     "transaction_payment_method" => $receiving->receiving_payment->payment_type,
+        //     "transaction_total_amount" => $receiving->receiving_item->total_amount,
+        //     "items" => $receiving->receiving_item->items,
+        //     "serial" => $receiving->serial
+        // ]);
     }
 
     /**

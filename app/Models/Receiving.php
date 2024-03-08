@@ -10,9 +10,9 @@ class Receiving extends Model
     use HasFactory;
     protected $fillable = [
         'receiving_type',
-        'serial',
         'user_id',
-        'supplier_id'
+        'supplier_id',
+        'total_amount',
     ];
     public function supplier()
     {

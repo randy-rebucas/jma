@@ -15,19 +15,13 @@ class ReceivingItemObserver
     public function created(ReceivingItem $receivingItem): void
     {
         $receiving = Receiving::find($receivingItem->receiving->id);
-        //
-        $items = json_decode($receivingItem->items, true);
 
         if ($receiving->receiving_type == ReceivingTypeEnum::RECEIVE) {
-            foreach ($items as $item) {
-                Item::where('id', $item['id'])->increment('receiving_quantity', $item["qty"]);
-            }
+            Item::where('id', $receivingItem->item_id)->decrement('receiving_quantity', $receivingItem->quantity);
         }
 
         if ($receiving->receiving_type == ReceivingTypeEnum::RETURN) {
-            foreach ($items as $item) {
-                Item::where('id', $item['id'])->decrement('receiving_quantity', $item["qty"]);
-            }
+            Item::where('id', $receivingItem->item_id)->increment('receiving_quantity', $receivingItem->quantity);
         }
     }
 

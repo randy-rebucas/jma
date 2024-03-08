@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Receiving;
 
+use App\Enums\PaymentMethodEnum;
 use App\Models\Receiving;
 use App\Models\ReceivingItem;
 use App\Models\ReceivingPayment;
@@ -69,14 +70,18 @@ class Payment extends Component
         $receiving->receiving_type = $this->mode;
         $receiving->user_id = Auth::id();
         $receiving->supplier_id = $this->supplierId;
-        $receiving->serial = Str::uuid();
+        $receiving->total_amount = Cart::instance('receiving')->total();
         $receiving->save();
 
-        $receiving_item = new ReceivingItem();
-        $receiving_item->receiving_id = $receiving->id;
-        $receiving_item->items = json_encode(Cart::instance('receiving')->content());
-        $receiving_item->total_amount = Cart::instance('receiving')->total();
-        $receiving_item->save();
+        foreach (Cart::instance('receiving')->content() as $item) {
+            $receiving_item = new ReceivingItem();
+            $receiving_item->receiving_id = $receiving->id;
+            $receiving_item->quantity = $item->qty;
+            $receiving_item->unit_price = $item->price;
+            $receiving_item->sub_total = $item->total;
+            $receiving_item->item_id = $item->id;
+            $receiving_item->save();
+        }
 
         $receiving_payment = new ReceivingPayment();
         $receiving_payment->receiving_id = $receiving->id;
@@ -89,6 +94,7 @@ class Payment extends Component
 
     public function mount()
     {
+        $this->types = PaymentMethodEnum::toSelectArray();
         $this->type = $this->getTypeValue('payment-type');
     }
 
@@ -99,9 +105,6 @@ class Payment extends Component
     #[On('clearItem')]
     public function render()
     {
-        $this->types['cash'] = 'Cash';
-        $this->types['credit'] = 'Credit';
-
         $this->total = Cart::instance('receiving')->total();
 
         return view('livewire.receiving.payment');

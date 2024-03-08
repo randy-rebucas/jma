@@ -26,8 +26,8 @@
                                     <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
                                         <x-table.thead-cell :title="__('Receiving Type')" class="text-left" />
                                         <x-table.thead-cell :title="__('Supplier')" class="text-left" />
-                                        <x-table.thead-cell :title="__('Serial')" class="text-left" />
-                                        <x-table.thead-cell :title="__('Payment Type')" class="text-left" />
+                                        <x-table.thead-cell :title="__('Date')" class="text-left" />
+                                        <x-table.thead-cell :title="__('Payment Type')" class="text-center" />
                                         <x-table.thead-cell :title="__('Amount')" class="text-right" />
                                     </x-table.row>
                                 </x-table.thead>
@@ -37,9 +37,14 @@
                                             wire:loading.class="opacity-50">
                                             <x-table.tbody-cell :item="$item->receiving_type" class="uppercase" />
                                             <x-table.tbody-cell :item="$item->supplier->full_name" />
-                                            <x-table.tbody-cell :item="$item->serial" />
-                                            <x-table.tbody-cell :item="$item->receiving_payment->payment_type" class="uppercase" />
-                                            <x-table.tbody-cell :item="number_format($item->receiving_payment->payment_amount, 2)" class="text-right" />
+                                            <x-table.tbody-cell :item="$item->created_at" :action="true">
+                                                {{ \Carbon\Carbon::parse($item->created_at)->format('M d,Y') }}
+                                            </x-table.tbody-cell>
+                                            <x-table.tbody-cell :item="$item->receiving_payment->payment_type" class="uppercase text-center" />
+                                            <x-table.tbody-cell :item="$item->receiving_payment->payment_amount" :action="true"
+                                                class="text-right font-semibold">
+                                                {{ Number::currency($item->receiving_payment->payment_amount, 'PHP') }}
+                                            </x-table.tbody-cell>
                                         </x-table.row>
                                     @empty
                                         <x-table.row class="bg-white dark:bg-gray-700 dark:text-white">
