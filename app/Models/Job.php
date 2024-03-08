@@ -2,19 +2,27 @@
 
 namespace App\Models;
 
+use App\Observers\JobObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use App\Casts\Json;
 
+#[ObservedBy([JobObserver::class])]
 class Job extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'paid' => 'boolean',
+    ];
 
     protected $fillable = [
         'job_type',
         'user_id',
         'customer_id',
-        'total_amount'
+        'total_amount',
+        'paid'
     ];
 
     public function customer()
@@ -32,9 +40,9 @@ class Job extends Model
         return $this->hasOne(JobPayment::class);
     }
 
-    public function job_item()
+    public function job_items()
     {
-        return $this->hasOne(JobItem::class);
+        return $this->hasMany(JobItem::class);
     }
 
     public function job_scope_of_works()

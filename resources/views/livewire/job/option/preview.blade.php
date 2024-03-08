@@ -26,9 +26,10 @@
                                     <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
                                         <x-table.thead-cell :title="__('Type')" class="text-left" />
                                         <x-table.thead-cell :title="__('Customer')" class="text-left" />
-                                        <x-table.thead-cell :title="__('Amount')" class="text-left" />
-                                        <x-table.thead-cell :title="__('Amount')" class="text-right" />
                                         <x-table.thead-cell :title="__('Date')" class="text-left" />
+                                        <x-table.thead-cell :title="__('Amount Due')" class="text-right" />
+                                        <x-table.thead-cell :title="__('Amount Paid')" class="text-right" />
+                                        <x-table.thead-cell :title="__('Status')" class="text-center" />
                                     </x-table.row>
                                 </x-table.thead>
                                 <x-table.tbody class="dark:border-gray-500">
@@ -37,27 +38,31 @@
                                             wire:loading.class="opacity-50">
                                             <x-table.tbody-cell :item="$item->job_type" class="uppercase" />
                                             <x-table.tbody-cell :item="$item->customer->full_name" />
-                                            <x-table.tbody-cell :item="$item->job_payment->payment_amount" />
                                             <x-table.tbody-cell :item="$item->created_at" :action="true">
                                                 {{ \Carbon\Carbon::parse($item->created_at)->format('M d,Y') }}
-    
-                                            <x-table.tbody-cell :item="number_format($item->job_item->total_amount, 2)" class="text-right" />
-                                                <x-table.tbody-cell :item="$item->job_paymnent->payment_amount" :action="true"
-                                                    class="text-right font-semibold">
-                                                    {{ Number::currency($item->job_item->total_amount, 'PHP') }}
-                                                </x-table.tbody-cell>
-                                        </x-table.row>
-                                        {{-- <x-table.row class=" dark:bg-gray-700 dark:text-white"
-                                            wire:loading.class="opacity-50">
-                                            <x-table.tbody-cell colspan="9" :action="true" :item="$item->id">
-                                                @php
-                                                    $scopes = json_decode($item->job_scope_of_works->scopes);
-                                                @endphp
-                                                @foreach ($scopes as $key => $scope_item)
-                                                    {{ $scope_item->name }} :  {{ $scope_item->price }}
-                                                @endforeach
                                             </x-table.tbody-cell>
-                                        </x-table.row> --}}
+                                            <x-table.tbody-cell :item="$item->id" :action="true"
+                                                class="text-right font-semibold">
+                                                {{ Number::currency($item->total_amount, 'PHP') }}
+                                            </x-table.tbody-cell>
+                                            <x-table.tbody-cell :item="$item->id" :action="true"
+                                                class="text-right font-semibold">
+                                                {{ Number::currency($item->job_payment->payment_amount, 'PHP') }}
+                                            </x-table.tbody-cell>
+                                            <x-table.tbody-cell :item="$item->paid ? 'Paid' : 'Unpaid'" class="text-center" />
+                                            <x-table.tbody-cell :action="true">
+                                                <button type="button" class="btn btn-info m-1 font-medium underline"
+                                                    wire:click="update({{ $item->id }})"
+                                                    wire:confirm="Are you sure you want to update this item to {{$item->paid ? 'Unpaid' : 'Paid'}}?">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                        fill="currentColor" class="w-5 h-5">
+                                                        <path fill-rule="evenodd"
+                                                            d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H3.989a.75.75 0 0 0-.75.75v4.242a.75.75 0 0 0 1.5 0v-2.43l.31.31a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm1.23-3.723a.75.75 0 0 0 .219-.53V2.929a.75.75 0 0 0-1.5 0V5.36l-.31-.31A7 7 0 0 0 3.239 8.188a.75.75 0 1 0 1.448.389A5.5 5.5 0 0 1 13.89 6.11l.311.31h-2.432a.75.75 0 0 0 0 1.5h4.243a.75.75 0 0 0 .53-.219Z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </button>
+                                            </x-table.tbody-cell>
+                                        </x-table.row>
                                     @empty
                                         <x-table.row class="bg-white dark:bg-gray-700 dark:text-white">
                                             <x-table.tbody-cell colspan="9" :item="'No item found!!'" />

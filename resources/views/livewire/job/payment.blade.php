@@ -11,6 +11,11 @@
                 <x-input-label for="amount" :value="__('Amount')" />
                 <x-text-input wire:model="amount" id="amount" class="mt-1 w-1/2" type="number" name="amount" />
             </div>
+            <div class="flex items-center justify-between w-full mt-3">
+                <x-input-label for="paid" :value="__('Paid')" />
+                <input value="1" wire:model="paid" id="paid" type="checkbox"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            </div>
             <div class="mt-2">
                 <x-input-error :messages="$errors->get('type')" />
                 <x-input-error :messages="$errors->get('amount')" />

@@ -21,6 +21,7 @@ class Payment extends Component
     public $mode;
     public $total;
     public $amount;
+    public $paid;
     public $type;
     public $types = [];
     public $customerId = null;
@@ -75,10 +76,7 @@ class Payment extends Component
         $job->user_id = Auth::id();
         $job->customer_id = $this->customerId;
         $job->total_amount = $grand_total;
-
-        if ($this->amount == $grand_total) {
-            $job->paid = true;
-        }
+        $job->paid = $this->paid;
         $job->save();
 
         foreach (Cart::instance('job')->content() as $item) {
@@ -114,6 +112,7 @@ class Payment extends Component
     {
         $this->types = PaymentMethodEnum::toSelectArray();
         $this->type = $this->getTypeValue('payment-type');
+        $this->paid = false;
     }
     
     #[On('addItem')]
