@@ -25,7 +25,7 @@ class Payment extends Component
     public $type;
     public $types = [];
     public $customerId = null;
-
+    public $carId = null;
     public function changeType($type)
     {
         $this->setTypeValue('payment-type', $type);
@@ -41,6 +41,12 @@ class Payment extends Component
     public function changeMode($mode)
     {
         $this->mode = $mode;
+    }
+
+    #[On('setCar')]
+    public function setCar($carId)
+    {
+        $this->carId = $carId;
     }
 
     public function doCanceled()
@@ -64,6 +70,12 @@ class Payment extends Component
         )->validate();
 
         Validator::make(
+            ['car' => $this->carId],
+            ['car' => 'required'],
+            ['required' => 'The :attribute field is required'],
+        )->validate();
+
+        Validator::make(
             ['mode' => $this->mode],
             ['mode' => 'required'],
             ['required' => 'The register :attribute is required'],
@@ -77,6 +89,7 @@ class Payment extends Component
         $job->customer_id = $this->customerId;
         $job->total_amount = $grand_total;
         $job->paid = $this->paid;
+        $job->car_id = $this->carId;
         $job->save();
 
         foreach (Cart::instance('job')->content() as $item) {
@@ -88,7 +101,7 @@ class Payment extends Component
             $job_item->item_id = $item->id;
             $job_item->save();
         }
-        
+
         foreach (Cart::instance('scope')->content() as $item) {
             $job_scope_of_works = new JobScopeOfWorks();
             $job_scope_of_works->job_id = $job->id;
@@ -114,7 +127,7 @@ class Payment extends Component
         $this->type = $this->getTypeValue('payment-type');
         $this->paid = false;
     }
-    
+
     #[On('addItem')]
     #[On('saleCompleted')]
     #[On('saleCanceled')]

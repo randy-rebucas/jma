@@ -20,6 +20,7 @@
                 <x-input-error :messages="$errors->get('type')" />
                 <x-input-error :messages="$errors->get('amount')" />
                 <x-input-error :messages="$errors->get('customer')" />
+                <x-input-error :messages="$errors->get('car')" />
                 <x-input-error :messages="$errors->get('mode')" />
             </div>
         </fieldset>
@@ -28,7 +29,8 @@
                 wire:confirm="Are you sure you want to clear this sale? All items will be cleared.">
                 {{ __('Cancel') }}
             </x-secondary-button>
-            <x-secondary-button class="py-3 my-2 bg-green-700 text-white hover:bg-green-800 hover:text-white" wire:click="doComplete">
+            <x-secondary-button class="py-3 my-2 bg-green-700 text-white hover:bg-green-800 hover:text-white"
+                wire:click="doComplete">
                 {{ __('Complete') }}
             </x-secondary-button>
         </div>

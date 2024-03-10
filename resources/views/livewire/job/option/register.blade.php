@@ -19,7 +19,7 @@
         </div>
 
         <div class="bg-slate-100 dark:bg-gray-700 dark:text-gray-200 mx-2 p-2 w-1/4 sm:rounded-lg shadow">
-            <livewire:pos.scan-customer />
+            <livewire:pos.scan-customer :showCarLists="'true'" />
             <livewire:job.total />
             <livewire:job.payment :mode="$mode" />
         </div>

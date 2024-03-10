@@ -3,15 +3,20 @@
 namespace App\Livewire\Pos;
 
 use App\Models\Customer;
+use App\Models\CustomerCar;
 use Livewire\Component;
 use Livewire\Attributes\On;
+
 class ScanCustomer extends Component
 {
+    public $showCarLists = false;
     public $types = [];
     public $search;
     public $records;
     public $details;
     public $customerId;
+    public $carId;
+    public $cars = [];
 
     public function searchResult()
     {
@@ -33,12 +38,19 @@ class ScanCustomer extends Component
         $this->customerId = $id;
         $this->records = [];
         $this->search = '';
+        $this->cars = CustomerCar::with('car')->where('customer_id', $record->id)->get()->pluck('car.plate_number', 'car_id');
 
         $this->dispatch('setCustomer', customerId: $id);
     }
 
+    public function setCar($id)
+    {
+        $this->dispatch('setCar', carId: $id);
+    }
+
     #[On('saleCompleted')]
-    public function clearCustomerId() {
+    public function clearCustomerId()
+    {
         $this->details = null;
         $this->customerId = null;
         $this->records = [];

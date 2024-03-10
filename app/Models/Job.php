@@ -22,7 +22,8 @@ class Job extends Model
         'user_id',
         'customer_id',
         'total_amount',
-        'paid'
+        'paid',
+        'car_id',
     ];
 
     public function customer()
