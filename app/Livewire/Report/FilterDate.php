@@ -3,10 +3,8 @@
 namespace App\Livewire\Report;
 
 use Livewire\Component;
-use Livewire\Attributes\Layout;
 
-#[Layout('layouts.app')]
-class Index extends Component
+class FilterDate extends Component
 {
     public $fromDate;
 
@@ -14,11 +12,11 @@ class Index extends Component
 
     public function filter()
     {
-        dd($this->toDate);
+        $this->dispatch('dateFiltered', from: $this->fromDate, to: $this->toDate);
     }
 
     public function render()
     {
-        return view('livewire.report.index');
+        return view('livewire.report.filter-date');
     }
 }

@@ -21,7 +21,7 @@
                         </div>
 
                         <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
-                            <x-table for="jobs">
+                            <x-table for="sales">
                                 <x-table.thead>
                                     <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
                                         <x-table.thead-cell :title="__('Receiving Type')" class="text-left" />
