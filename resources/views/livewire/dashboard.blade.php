@@ -8,8 +8,9 @@
             <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <span
-                            class="dark:text-gray-200 text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ Number::format($total_jobs) }}</span>
+                        <span class="dark:text-gray-200 text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                            @currency($total_jobs)
+                        </span>
                         <h3 class="text-base font-normal text-gray-500">{{ __('Total Jobs (current month)') }}</h3>
                     </div>
                     {{-- <livewire:shared.calc-percentage :total="$total_jobs" model="job" /> --}}
@@ -18,8 +19,9 @@
             <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <span
-                            class="dark:text-gray-200 text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ Number::format($total_sales) }}</span>
+                        <span class="dark:text-gray-200 text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                            @currency($total_sales)
+                        </span>
                         <h3 class="text-base font-normal text-gray-500">{{ __('Total Sales (current month)') }}</h3>
                     </div>
                     {{-- <livewire:shared.calc-percentage :total="$total_sales" model="sale" /> --}}
@@ -28,13 +30,14 @@
             <div class="dark:bg-gray-800 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <span
-                            class="dark:text-gray-200 text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ Number::format($total_receivings) }}</span>
+                        <span class="dark:text-gray-200 text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                            @currency($total_receivings)
+                        </span>
                         <h3 class="text-base font-normal text-gray-500">{{ __('Total Receivings (current month)') }}
                         </h3>
                     </div>
                     {{-- <livewire:shared.calc-percentage :total="$total_receivings" model="receiving" /> --}}
-                </div> 
+                </div>
             </div>
         </div>
 
@@ -68,7 +71,7 @@
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            {{ __('Date &amp; Time') }}
+                                            {{ __('Date') }}
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -87,10 +90,10 @@
                                                 </span>
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                                {{ \Carbon\Carbon::parse($inventory->created_at)->format('M d,Y') }}
+                                                @datetime($inventory->created_at)
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                                {{ Number::currency($inventory->sale_payment->payment_amount, 'PHP') }}
+                                                @currency($inventory->sale_payment->payment_amount)
                                             </td>
                                         </tr>
                                     @endforeach

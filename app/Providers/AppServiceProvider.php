@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,11 +31,17 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
         }
-        
-        
 
         Builder::macro("search", function ($field, $search) {
             return $search ? $this->where($field, 'like', '%' . $search . '%') : $this;
+        });
+
+        Blade::directive('currency', function ($price) {
+            return  "<?php echo Number::currency($price, 'PHP'); ?>";
+        });
+
+        Blade::directive('datetime', function ($expression) {
+            return "<?php echo ($expression)->format('M d,Y'); ?>";
         });
     }
 }

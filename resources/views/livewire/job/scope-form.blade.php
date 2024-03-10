@@ -10,7 +10,7 @@
     </div>
     <div class="mt-2">
         <x-input-label for="scope_amount" :value="__('Amount')" />
-        <x-text-input wire:model="scope_amount" id="scope_amount" class="block mt-1 w-full" type="text"
+        <x-text-input wire:model="scope_amount" id="scope_amount" class="block mt-1 w-full" type="number"
             name="scope_amount" />
         <x-input-error :messages="$errors->get('scope_amount')" class="mt-2" />
     </div>

@@ -17,7 +17,7 @@
             <x-textarea wire:model="description" class="w-full" />
         </div>
 
-        <div class="flex justify-between mt-4">
+        <div class="flex justify-between gap-4 mt-4">
             <div class="w-1/3">
                 <x-input-label for="price" :value="__('Price')" />
                 <x-text-input wire:model="price" id="price" class="block mt-1 w-full" type="text"

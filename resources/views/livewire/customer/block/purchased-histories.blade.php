@@ -12,18 +12,20 @@
         <x-table for="customer">
             <x-table.thead>
                 <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
-                    <x-table.thead-cell :title="__('Serial')" class="text-left" />
-                    <x-table.thead-cell :title="__('Type')" class="text-center" />
                     <x-table.thead-cell :title="__('Created')" class="text-center" />
+                    <x-table.thead-cell :title="__('Amount')" class="text-right" />
                     <x-table.thead-cell title="" class="text-right" />
                 </x-table.row>
             </x-table.thead>
             <x-table.tbody class="dark:border-gray-500">
                 @forelse ($sales as $sale)
                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white" wire:loading.class="opacity-50">
-                        <x-table.tbody-cell :item="$sale->serial" />
-                        <x-table.tbody-cell :item="$sale->sale_type" class="text-center uppercase" />
-                        <x-table.tbody-cell :item="$sale->created_at" class="text-center" />
+                        <x-table.tbody-cell :item="$sale->created_at" class="text-center" :action="true">
+                            @datetime($sale->created_at)
+                        </x-table.tbody-cell>
+                        <x-table.tbody-cell :item="$sale->sale_payment->payment_amount" class="text-right" :action="true">
+                            @currency($sale->sale_payment->payment_amount)
+                        </x-table.tbody-cell>
                         <x-table.tbody-cell :item="$sale->id" class="text-right" :action="true">
                             <button type="button" class="btn btn-info m-1 font-medium underline"
                                 wire:click="$dispatch('openModal', {component: 'inventory.detail', arguments: {sale: {{ $sale }} }})">
@@ -39,7 +41,7 @@
                     </x-table.row>
                 @empty
                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white text-center">
-                        <x-table.tbody-cell colspan="6" :item="'No transaction found!!'" />
+                        <x-table.tbody-cell colspan="6" :item="__('No transaction found!!')" />
                     </x-table.row>
                 @endforelse
             </x-table.tbody>

@@ -1,10 +1,10 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            Addresses
+            {{ __('Addresses') }}
         </h2>
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            List of customer addresses.
+            {{ __('List of customer addresses.') }}
         </p>
     </header>
     <div class="mt-6 space-y-6">
@@ -51,7 +51,7 @@
                     </x-table.row>
                 @empty
                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white text-center">
-                        <x-table.tbody-cell colspan="7" :item="'No address found!!'" />
+                        <x-table.tbody-cell colspan="7" :item="__('No address found!!')" />
                     </x-table.row>
                 @endforelse
             </x-table.tbody>

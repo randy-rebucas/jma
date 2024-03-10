@@ -1,12 +1,16 @@
 <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        {{ __('Jobs') }}
+    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+        {{ __('Register Jobs') }}
     </h2>
+
+    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        {{ __('Select Mode, Customer, Scope of Work and Add Items') }}
+    </p>
 </x-slot>
 
-<div class="py-12">
+<div class="py-6">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-        <div class="bg-white dark:bg-gray-800">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="min-w-full">
                 @if ($option == 'view')
                     <livewire:job.option.preview />

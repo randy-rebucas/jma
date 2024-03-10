@@ -42,7 +42,7 @@
                         <x-table.tbody-cell :item="$item->reorder_level" class="text-center" />
                         <x-table.tbody-cell :item="$item->receiving_quantity" class="text-center" />
                         <x-table.tbody-cell :item="$item->format_price" :action="true" class="text-right">
-                            {{ Number::currency($item->price, 'PHP') }}
+                            @currency($item->price)
                         </x-table.tbody-cell>
                         <x-table.tbody-cell :item="$item->id" :action="true" class="text-right">
                             <button type="button" class="btn btn-info m-1 font-medium underline"

@@ -8,7 +8,7 @@
             {{ __('Select a date start and end to view report.') }}
         </p>
         <div class="absolute right-0 text-2xl top-2">
-            <p>Total: {{ Number::currency($sum, 'PHP') }} </p>
+            <p>{{ __('Total:') }} @currency($sum)</p>
         </div>
     </header>
     <div class="mt-4 align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
@@ -16,7 +16,6 @@
             <x-table for="sales">
                 <x-table.thead>
                     <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
-                        <x-table.thead-cell :title="__('Sale Type')" class="text-left" />
                         <x-table.thead-cell :title="__('Customer')" class="text-left" />
                         <x-table.thead-cell :title="__('Date')" class="text-left" />
                         <x-table.thead-cell :title="__('Payment Type')" class="text-center" />
@@ -28,19 +27,18 @@
 
                     @forelse ($items as $item)
                         <x-table.row class=" dark:bg-gray-700 dark:text-white" wire:loading.class="opacity-50">
-                            <x-table.tbody-cell :item="$item->sale_type" class="uppercase" />
                             <x-table.tbody-cell :item="$item->customer->full_name" />
                             <x-table.tbody-cell :item="$item->created_at" :action="true">
-                                {{ \Carbon\Carbon::parse($item->created_at)->format('M d,Y') }}
+                                @datetime($item->created_at)
                             </x-table.tbody-cell>
                             <x-table.tbody-cell :item="$item->sale_payment->payment_type" class="uppercase text-center" />
                             <x-table.tbody-cell :item="$item->sale_payment->payment_amount" :action="true" class="text-right font-semibold">
-                                {{ Number::currency($item->sale_payment->payment_amount, 'PHP') }}
+                                @currency($item->sale_payment->payment_amount)
                             </x-table.tbody-cell>
                         </x-table.row>
                     @empty
                         <x-table.row class="bg-white dark:bg-gray-700 dark:text-white">
-                            <x-table.tbody-cell colspan="9" :item="'No item found!!'" />
+                            <x-table.tbody-cell colspan="9" :item="__('No item found!!')" />
                         </x-table.row>
                     @endforelse
 

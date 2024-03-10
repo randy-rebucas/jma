@@ -1,7 +1,11 @@
 <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        {{ $supplier->full_name }} <smal class="font-extralight text-green-600 text-sm">(Total Items: {{ count($supplier->items) }})</smal>
+    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+        {{ $supplier->full_name }}
     </h2>
+
+    <p class="mt-1 dark:text-gray-400 font-extralight text-green-600 text-sm">
+        ({{ __('Total Items:' . count($supplier->items)) }} )
+    </p>
 </x-slot>
 
 <div class="py-6">

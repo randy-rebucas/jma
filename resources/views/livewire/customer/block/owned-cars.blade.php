@@ -53,7 +53,7 @@
                     </x-table.row>
                 @empty
                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white text-center">
-                        <x-table.tbody-cell colspan="8" :item="'No address found!!'" />
+                        <x-table.tbody-cell colspan="8" :item="__('No address found!!')" />
                     </x-table.row>
                 @endforelse
             </x-table.tbody>

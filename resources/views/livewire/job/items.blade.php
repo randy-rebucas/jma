@@ -1,9 +1,9 @@
-<div>
+<div class="border-t-2 border-indigo-500 mt-2 pb-1 shadow">
     @if ($content->count() > 0)
         <x-table for="items">
             <x-table.thead>
                 <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
-                    <x-table.thead-cell :title="__('Name')" class="text-left w-24" />
+                    <x-table.thead-cell :title="__('Item Name')" class="text-left w-24" />
                     <x-table.thead-cell :title="__('Quantity')" class="text-center w-24" />
                     <x-table.thead-cell :title="__('Price')" class="text-right w-24" />
                     <x-table.thead-cell :title="__('Sub Total')" class="text-right w-24" />
@@ -15,8 +15,12 @@
                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white" wire:loading.class="opacity-50">
                         <x-table.tbody-cell :item="$item->name" class="md:py-1 w-24" />
                         <x-table.tbody-cell :item="$item->qty" class="text-center md:py-1 w-24" />
-                        <x-table.tbody-cell :item="number_format($item->price, 2)" class="text-right md:py-1 w-24" />
-                        <x-table.tbody-cell :item="number_format($item->total, 2)" class="text-right md:py-1 w-24" />
+                        <x-table.tbody-cell :item="$item->price" class="text-right md:py-1 w-24" :action="true">
+                            @currency($item->price)
+                        </x-table.tbody-cell>
+                        <x-table.tbody-cell :item="$item->total" class="text-right md:py-1 w-24" :action="true">
+                            @currency($item->total)
+                        </x-table.tbody-cell>
                         <x-table.tbody-cell :item="$item->id" class="text-right md:py-1 w-24" :action="true">
                             <button type="button" class="btn btn-info m-1 text-red-600 font-medium underline"
                                 wire:click="remove('{{ $item->rowId }}')">
