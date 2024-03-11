@@ -15,7 +15,7 @@
                     <div class="flex justify-between">
                         <x-text-input wire:model.live="search" class="py-2" type="search" :placeholder="__('Search Customers...')" />
                         <x-secondary-button class="ms-3 py-3"
-                            wire:click="$dispatch('openModal', { component: 'customer.create-customer' })">
+                            wire:click="$dispatch('openModal', { component: 'customer.create-customer', arguments: {redirect: {{ 1 }} } })">
                             {{ __('Create Customer') }}
                         </x-secondary-button>
                     </div>

@@ -40,6 +40,11 @@ class Item extends Model
         return $this->belongsTo(Supplier::class);
     }
 
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
+    }
+
     public function getFormatPriceAttribute()
     {
        return  number_format($this->price, 2);

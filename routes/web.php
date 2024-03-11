@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobOrderInvoice;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users', User::class)->name('users');
     Route::get('/profile', Profile::class)->name('profile');
     Route::get('/jobs/{option}', Job::class)->name('jobs');
+    Route::get('/job/invoice/{jobId}', JobOrderInvoice::class)->name('job-invoice');
     Route::get('/sales/{option}', Sale::class)->name('sales');
     Route::get('/receivings/{option}', Receiving::class)->name('receivings');
     Route::get('/inventories', Inventory::class)->name('inventories');

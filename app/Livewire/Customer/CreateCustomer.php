@@ -19,6 +19,8 @@ class CreateCustomer extends ModalComponent
     public $email;
     public $password;
 
+    public $redirect;
+
     public static function modalMaxWidth(): string
     {
         return 'xl';
@@ -67,7 +69,7 @@ class CreateCustomer extends ModalComponent
         // Execution doesn't reach here if validation fails.
         $user = User::create($validated);
 
-        Customer::create([
+        $customer = Customer::create([
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'phone_number' => $this->phone_number,
@@ -77,6 +79,10 @@ class CreateCustomer extends ModalComponent
         $this->dispatch('customer-created');
 
         $this->closeModal();
+
+        if ($this->redirect == 1) {
+            $this->redirectRoute('customer-detail', ['customerId' => $customer->id]);
+        }
     }
 
     public function render()
