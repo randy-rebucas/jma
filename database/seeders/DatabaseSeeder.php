@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'user.menu']);
 
         $role1 = Role::create(['name' => 'SuperAdmin'])->givePermissionTo(Permission::all());
-        $role2 = Role::create(['name' => 'Admin'])->givePermissionTo(['customer.menu', 'supplier.menu', 'item.menu', 'job.menu', 'sale.menu', 'receiving.menu', 'report.menu', 'user.menu', 'role.menu']);
-        $role3 = Role::create(['name' => 'Staff'])->givePermissionTo(['customer.menu', 'supplier.menu', 'item.menu', 'job.menu', 'sale.menu', 'receiving.menu']);
+        // $role2 = Role::create(['name' => 'Admin'])->givePermissionTo(['customer.menu', 'supplier.menu', 'item.menu', 'job.menu', 'sale.menu', 'receiving.menu', 'report.menu', 'user.menu', 'role.menu']);
+        // $role3 = Role::create(['name' => 'Staff'])->givePermissionTo(['customer.menu', 'supplier.menu', 'item.menu', 'job.menu', 'sale.menu', 'receiving.menu']);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'superadmin',
@@ -40,19 +40,19 @@ class DatabaseSeeder extends Seeder
         ]);
         $user->assignRole($role1);
 
-        $user = \App\Models\User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@jma.com',
-            'password' => bcrypt('password'),
-        ]);
-        $user->assignRole($role2);
+        // $user = \App\Models\User::factory()->create([
+        //     'name' => 'admin',
+        //     'email' => 'admin@jma.com',
+        //     'password' => bcrypt('password'),
+        // ]);
+        // $user->assignRole($role2);
 
-        $user = \App\Models\User::factory()->create([
-            'name' => 'staff',
-            'email' => 'staff@jma.com',
-            'password' => bcrypt('password'),
-        ]);
-        $user->assignRole($role3);
+        // $user = \App\Models\User::factory()->create([
+        //     'name' => 'staff',
+        //     'email' => 'staff@jma.com',
+        //     'password' => bcrypt('password'),
+        // ]);
+        // $user->assignRole($role3);
 
         $this->call([
             CountrySeeder::class,

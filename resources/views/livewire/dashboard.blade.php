@@ -80,7 +80,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($inventories as $inventory)
+                                    @forelse ($inventories as $inventory)
                                         <tr class="dark:bg-gray-700">
                                             <td
                                                 class="dark:text-gray-200 p-4 whitespace-nowrap text-sm font-normal text-gray-900">
@@ -96,7 +96,11 @@
                                                 @currency($inventory->sale_payment->payment_amount)
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr class="bg-white dark:bg-gray-700 dark:text-white">
+                                            <td colspan="3" class=" p-4">{{ __('No transactions found!!') }}</td>
+                                        </tr>
+                                    @endforelse
 
                                 </tbody>
                             </table>

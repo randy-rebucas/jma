@@ -23,8 +23,8 @@ class Index extends Component
         $customer = Customer::find($id);
         $customer->delete();
 
-        $user = User::find($customer->user->id);
-        $user->delete();
+        // $user = User::find($customer->user->id);
+        // $user->delete();
 
         $this->dispatch('customer-deleted');
     }

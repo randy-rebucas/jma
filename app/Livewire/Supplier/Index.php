@@ -21,8 +21,8 @@ class Index extends Component
         $supplier = Supplier::find($id);
         $supplier->delete();
 
-        $user = User::find($supplier->user->id);
-        $user->delete();
+        // $user = User::find($supplier->user->id);
+        // $user->delete();
 
         $this->dispatch('supplier-deleted');
     }
