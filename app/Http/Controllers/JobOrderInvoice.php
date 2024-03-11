@@ -6,10 +6,13 @@ use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\Job;
 use App\Models\JobItem;
+use App\Models\JobScopeOfWorks;
+use App\Models\Car;
 use Illuminate\Http\Request;
 use LaravelDaily\Invoices\Invoice;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
+
 
 class JobOrderInvoice extends Controller
 {
@@ -21,12 +24,13 @@ class JobOrderInvoice extends Controller
         $job = Job::findOrFail($id);
 
         $client = new Party([
-            'name' => 'Roosevelt Lloyd',
-            'phone' => '(520) 318-9486',
-            'custom_fields' => [
-                'note' => 'IDDQD',
-                'business id' => '365#GG',
-            ],
+            'name' =>  config('settings.business_name'),
+            'address' => config('settings.business_address'),
+            'phone' =>  config('settings.business_contact'),
+            // 'custom_fields' => [
+            //     'note' => 'IDDQD',
+            //     'business id' => '365#GG',
+            // ],
         ]);
 
         $customer_address = CustomerAddress::with('address')->where('customer_id', $job->customer->id)->first();
@@ -44,21 +48,29 @@ class JobOrderInvoice extends Controller
         foreach($job_items as $job_item) {
             $items []= (new InvoiceItem())
             ->title($job_item->item->name)
-            ->description($job_item->item->description)
             ->units('pcs')
             ->pricePerUnit($job_item->unit_price)
             ->subTotalPrice($job_item->sub_total)
             ->quantity($job_item->quantity);
         }
 
+        $job_scopes = JobScopeOfWorks::where('job_id', $job->id)->get();
+        foreach($job_scopes as $job_scope) {
+            $scopes []= (new InvoiceItem())
+            ->title($job_scope->name)
+            ->pricePerUnit($job_scope->unit_price)
+            ->subTotalPrice($job_scope->sub_total)
+            ->quantity($job_scope->quantity);
+        }
+
+        $car = Car::findOrFail($job->car_id);
+
         $notes = [
-            'your multiline',
-            'additional notes',
-            'in regards of delivery or something else',
+            '....Nothing follows....'
         ];
         $notes = implode("<br>", $notes);
 
-        $invoice = Invoice::make('receipt')
+        $invoice = Invoice::make('receipt')->template('job')
             ->series('JMA')
             ->status($job->paid ? __('invoices::invoice.paid') : __('invoices::invoice.due'))
             ->sequence($job->id)
@@ -75,8 +87,10 @@ class JobOrderInvoice extends Controller
             ->currencyDecimalPoint(',')
             ->filename($client->name . ' ' . $customer->name)
             ->addItems($items)
+            ->setCustomData($scopes)
+            ->totalAmount($job->total_amount)
             ->notes($notes)
-            ->logo(public_path('vendor/invoices/sample-logo.png'))
+            ->logo(public_path('storage/' . config('settings.business_logo')))
             // You can additionally save generated invoice to configured disk
             ->save('public');
 

@@ -50,4 +50,9 @@ class Job extends Model
     {
         return $this->hasOne(JobScopeOfWorks::class);
     }
+
+    public function car()
+    {
+        return $this->hasOne(Car::class);
+    }
 }

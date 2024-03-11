@@ -26,6 +26,11 @@ class Car extends Model
         return $this->belongsTo(CustomerCar::class);
     }
 
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
+    }
+
     public function searchableAs() : string 
     {
         return 'cars_index';

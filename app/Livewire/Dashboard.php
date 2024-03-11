@@ -27,7 +27,7 @@ class Dashboard extends Component
             'livewire.dashboard',
             [
                 'total_sales' => Sale::orderBy('created_at', 'desc')->whereMonth('created_at', Carbon::now()->month)->get()->sum('total_amount'),
-                'total_jobs' => Job::orderBy('created_at', 'desc')->whereMonth('created_at', Carbon::now()->month)->get()->sum('total_amount'),
+                'total_jobs' => Job::orderBy('created_at', 'desc')->where('paid', 1)->whereMonth('created_at', Carbon::now()->month)->get()->sum('total_amount'),
                 'total_receivings' => Receiving::orderBy('created_at', 'desc')->whereMonth('created_at', Carbon::now()->month)->get()->sum('total_amount'),
                 'items' => Item::orderBy('created_at', 'desc')->limit(5)->latest()->get(),
                 'inventories' => Sale::orderBy('created_at', 'desc')->limit(5)->latest()->get(),
