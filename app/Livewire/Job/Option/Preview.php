@@ -16,6 +16,11 @@ class Preview extends Component
         return $this->redirect('/jobs/register', navigate: true);
     }
 
+    public function invoice($id)
+    {
+        $this->redirectRoute('job-invoice', ['jobId' => $id]);
+    }
+
     public function update($id)
     {
         $job = Job::find($id);
