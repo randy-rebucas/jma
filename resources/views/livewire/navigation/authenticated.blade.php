@@ -23,7 +23,12 @@ new class extends Component {
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        @if (config('settings.business_logo'))
+                            <img src="{{ asset('storage/' . config('settings.business_logo')) }}"
+                                class="w-48 h-auto fill-current">
+                        @else
+                            <img src="https://placehold.co/150x60?text=Logo" alt="placeholder">
+                        @endif
                     </a>
                 </div>
 
@@ -82,13 +87,7 @@ new class extends Component {
                         </x-nav-link>
                     </div>
                 @endcan
-                @can('setting.menu')
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('settings')" :active="request()->routeIs('settings')" wire:navigate>
-                            {{ __('Settings') }}
-                        </x-nav-link>
-                    </div>
-                @endcan
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -115,7 +114,11 @@ new class extends Component {
                         <x-dropdown-link :href="route('profile')" wire:navigate>
                             {{ __('Profile') }}
                         </x-dropdown-link>
-
+                        @can('setting.menu')
+                            <x-dropdown-link :href="route('settings')" wire:navigate>
+                                {{ __('Settings') }}
+                            </x-dropdown-link>
+                        @endcan
                         <!-- Authentication -->
                         <button wire:click="logout" class="w-full text-start">
                             <x-dropdown-link>

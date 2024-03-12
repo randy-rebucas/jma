@@ -87,7 +87,7 @@
             </div>
         </div>
 
-        <x-primary-button class="my-4" wire:loading.attr="disabled">
+        <x-primary-button class="mb-2 ml-4" wire:loading.attr="disabled">
             {{ __('Save') }}
         </x-primary-button>
     </form>

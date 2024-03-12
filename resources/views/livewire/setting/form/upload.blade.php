@@ -25,7 +25,7 @@
                         class=" border-gray-300 dark:bg-gray-900 dark:border-gray-700 dark:focus:bg-gray-900 dark:focus:border-indigo-600 dark:focus:ring-indigo-600 dark:text-gray-300 focus:bg-white focus:border-purple-500 focus:outline-none focus:ring-indigo-500 leading-tight px-4 py-2 rounded-md text-gray-700">
                 </div>
             </div>
-            <x-primary-button class="my-4" wire:loading.attr="disabled">
+            <x-primary-button class="mb-2 ml-4" wire:loading.attr="disabled">
                 {{ __('Upload') }}
             </x-primary-button>
     </form>

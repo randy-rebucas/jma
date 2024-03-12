@@ -14,10 +14,18 @@
             <div class="min-w-full">
 
                 <div class="space-y-6">
+                    <x-accordion>
 
-                    <livewire:setting.form.upload />
+                        <x-accordion.item header="Logo" :index="1">
+                            <livewire:setting.form.upload />
+                        </x-accordion.item>
 
-                    <livewire:setting.form.general />
+                        <x-accordion.item header="General" :index="2">
+                            <livewire:setting.form.general />
+                        </x-accordion.item>
+
+                    </x-accordion>
+
                 </div>
             </div>
         </div>
