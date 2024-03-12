@@ -170,6 +170,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\VoltServiceProvider::class,
 
+        App\Providers\JmaInvoiceServiceProvider::class,
+
         Spatie\Permission\PermissionServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class
     ])->toArray(),
