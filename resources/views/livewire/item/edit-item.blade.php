@@ -4,8 +4,7 @@
     </x-slot>
     <fieldset class="border-2 border-double border-gray-200 p-4 rounded-md">
         <legend class="dark:text-gray-200 px-2">{{ __('Item Details') }}</legend>
-        <x-text-input wire:model="slug" id="slug" class="block mt-1 w-full" type="hidden" name="slug" />
-        
+
         <div class="mt-4">
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" />

@@ -11,6 +11,7 @@ class Preview extends Component
 {
     use WithPagination;
 
+    public $search;
     public function registerView()
     {
         return $this->redirect('/jobs/register', navigate: true);
@@ -29,7 +30,6 @@ class Preview extends Component
     public function render()
     {
         $items = Job::paginate(10);
-        // dd($items);
         return view('livewire.job.option.preview', compact('items'));
     }
 }

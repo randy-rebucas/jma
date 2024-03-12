@@ -29,7 +29,7 @@ class Inventory extends Component
         $this->toDate = Carbon::parse($to)->format('Y-m-d');
 
         $this->items = Sale::whereBetween('created_at', [$this->fromDate, $this->toDate])
-            ->where('sale_type', SaleTypeEnum::SALE)
+            ->where('sale_type', 'sale')
             ->orderBy('created_at', 'desc')
             ->get();
 
