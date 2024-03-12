@@ -7,7 +7,6 @@ use Livewire\Attributes\Layout;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
 use App\Models\Supplier;
-use App\Models\User;
 
 #[Layout('layouts.app')]
 class Index extends Component
@@ -20,9 +19,6 @@ class Index extends Component
     {
         $supplier = Supplier::find($id);
         $supplier->delete();
-
-        // $user = User::find($supplier->user->id);
-        // $user->delete();
 
         $this->dispatch('supplier-deleted');
     }

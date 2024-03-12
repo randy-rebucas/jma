@@ -1,52 +1,41 @@
 <x-slot name="header">
     <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-        {{ __('Manage Users') }}
+        {{ __('Manage Roles') }}
     </h2>
-
     <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Create, Edit, Delete and Search user.') }}
+        {{ __('Create, Edit, Delete and Search Roles.') }}
     </p>
 </x-slot>
 
 <div class="py-6">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+            <div class="min-w-full">
                 <div class="space-y-6">
                     <div class="flex justify-between">
-                        <x-text-input wire:model.live="search" class="py-2" type="search" :placeholder="__('Search Users...')" />
+                        {{-- <x-text-input wire:model.live="search" class="py-2" type="search" :placeholder="__('Search Role...')" /> --}}
                         <x-secondary-button class="ms-3 py-3"
-                            wire:click="$dispatch('openModal', { component: 'customer.create-customer'})">
-                            {{ __('Create User') }}
+                            wire:click="$dispatch('openModal', { component: 'customer.create-customer' })">
+                            {{ __('Create Role') }}
                         </x-secondary-button>
                     </div>
 
                     <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
-                        <x-table for="customer">
+                        <x-table for="role">
                             <x-table.thead>
                                 <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
-                                    <x-table.thead-cell :title="__('Name')" class="text-left" />
-                                    <x-table.thead-cell :title="__('Email')" class="text-left" />
-                                    <x-table.thead-cell :title="__('Created')" class="text-left" />
-                                    <x-table.thead-cell :title="__('Roles')" class="text-left" />
+                                    <x-table.thead-cell :title="__('Role Name')" class="text-left" />
                                     <x-table.thead-cell title="" class="text-right" />
                                 </x-table.row>
                             </x-table.thead>
                             <x-table.tbody class="dark:border-gray-500">
-                                @forelse ($users as $user)
+                                @forelse ($roles as $role)
                                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white"
                                         wire:loading.class="opacity-50">
-                                        <x-table.tbody-cell :item="$user->name" class="text-left" />
-                                        <x-table.tbody-cell :item="$user->email" class="text-left" />
-                                        <x-table.tbody-cell :item="$user->created_at" class="text-left" />
-                                        <x-table.tbody-cell :item="$user->id" :action="true" class="text-left">
-                                            @foreach ($user->getRoleNames() as $index => $role)
-                                                {{ $role }}
-                                            @endforeach
-                                        </x-table.tbody-cell>
-                                        <x-table.tbody-cell :item="$user->id" class="text-right" :action="true">
+                                        <x-table.tbody-cell :item="$role" />
+                                        <x-table.tbody-cell :item="$role" class="text-right" :action="true">
                                             <button type="button" class="btn btn-info m-1 font-medium underline"
-                                                wire:click="onView({{ $user->id }})">
+                                                wire:click="onView('{{ $role }}')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                     fill="currentColor" class="w-5 h-5">
                                                     <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
@@ -56,7 +45,7 @@
                                                 </svg>
                                             </button>
                                             <button type="button" class="btn btn-info m-1 font-medium underline"
-                                                wire:click="$dispatch('openModal', {component: 'customer.edit-customer', arguments: {customerId: {{ $user->id }} }})">
+                                                wire:click="$dispatch('openModal', {component: 'customer.edit-customer', arguments: {role: {{ $role }} }})">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                     fill="currentColor" class="w-5 h-5">
                                                     <path
@@ -65,7 +54,7 @@
                                             </button>
                                             <button type="button"
                                                 class="btn btn-info m-1 text-red-600 font-medium underline"
-                                                wire:click="delete({{ $user->id }})"
+                                                wire:click="delete('{{ $role }}')"
                                                 wire:confirm="Are you sure you want to delete this customer?">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                     fill="currentColor" class="w-5 h-5">
@@ -78,14 +67,11 @@
                                     </x-table.row>
                                 @empty
                                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white">
-                                        <x-table.tbody-cell colspan="6" :item="__('No user found!!')" />
+                                        <x-table.tbody-cell colspan="6" :item="__('No role found!!')" />
                                     </x-table.row>
                                 @endforelse
                             </x-table.tbody>
                         </x-table>
-                    </div>
-                    <div>
-                        {{ $users->links() }}
                     </div>
                 </div>
             </div>

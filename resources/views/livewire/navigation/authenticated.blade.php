@@ -114,6 +114,19 @@ new class extends Component {
                         <x-dropdown-link :href="route('profile')" wire:navigate>
                             {{ __('Profile') }}
                         </x-dropdown-link>
+                        @can('user.menu')
+                            <x-dropdown-link :href="route('users')" wire:navigate>
+                                {{ __('Users') }}
+                            </x-dropdown-link>
+                        @endcan
+                        {{-- @can('employee.menu') --}}
+                            <x-dropdown-link :href="route('employees')" wire:navigate>
+                                {{ __('Employees') }}
+                            </x-dropdown-link>
+                        {{-- @endcan --}}
+                        <x-dropdown-link :href="route('roles')" wire:navigate>
+                            {{ __('Roles') }}
+                        </x-dropdown-link>
                         @can('setting.menu')
                             <x-dropdown-link :href="route('settings')" wire:navigate>
                                 {{ __('Settings') }}

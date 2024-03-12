@@ -2,14 +2,11 @@
 
 namespace App\Livewire\Customer;
 
-use Illuminate\Database\Query\JoinClause;
 use Livewire\WithPagination;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use App\Models\Customer;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 #[Layout('layouts.app')]
 class Index extends Component
