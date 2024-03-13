@@ -1,5 +1,5 @@
 <x-slot name="header">
-    <livewire:global-search />
+    <livewire:global-search.lookup />
 </x-slot>
 
 <div>

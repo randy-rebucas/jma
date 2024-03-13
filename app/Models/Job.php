@@ -48,7 +48,7 @@ class Job extends Model
 
     public function job_scope_of_works()
     {
-        return $this->hasOne(JobScopeOfWorks::class);
+        return $this->hasMany(JobScopeOfWorks::class);
     }
 
     public function car()
