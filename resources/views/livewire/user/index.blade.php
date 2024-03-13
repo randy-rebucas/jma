@@ -15,21 +15,21 @@
                 <div class="space-y-6">
                     <div class="flex justify-between">
                         <x-text-input wire:model.live="search" class="py-2" type="search" :placeholder="__('Search Users...')" />
-                        <x-secondary-button class="ms-3 py-3"
-                            wire:click="$dispatch('openModal', { component: 'customer.create-customer'})">
+                        {{-- <x-secondary-button class="ms-3 py-3"
+                            wire:click="$dispatch('openModal', { component: 'user.create-user'})">
                             {{ __('Create User') }}
-                        </x-secondary-button>
+                        </x-secondary-button> --}}
                     </div>
 
                     <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
-                        <x-table for="customer">
+                        <x-table for="user">
                             <x-table.thead>
                                 <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
                                     <x-table.thead-cell :title="__('Name')" class="text-left" />
                                     <x-table.thead-cell :title="__('Email')" class="text-left" />
                                     <x-table.thead-cell :title="__('Created')" class="text-left" />
                                     <x-table.thead-cell :title="__('Roles')" class="text-left" />
-                                    <x-table.thead-cell title="" class="text-right" />
+                                    {{-- <x-table.thead-cell title="" class="text-right" /> --}}
                                 </x-table.row>
                             </x-table.thead>
                             <x-table.tbody class="dark:border-gray-500">
@@ -44,7 +44,7 @@
                                                 {{ $role }}
                                             @endforeach
                                         </x-table.tbody-cell>
-                                        <x-table.tbody-cell :item="$user->id" class="text-right" :action="true">
+                                        {{-- <x-table.tbody-cell :item="$user->id" class="text-right" :action="true">
                                             <button type="button" class="btn btn-info m-1 font-medium underline"
                                                 wire:click="onView({{ $user->id }})">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
@@ -56,7 +56,7 @@
                                                 </svg>
                                             </button>
                                             <button type="button" class="btn btn-info m-1 font-medium underline"
-                                                wire:click="$dispatch('openModal', {component: 'customer.edit-customer', arguments: {customerId: {{ $user->id }} }})">
+                                                wire:click="$dispatch('openModal', {component: 'user.edit-user', arguments: {userId: {{ $user->id }} }})">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                     fill="currentColor" class="w-5 h-5">
                                                     <path
@@ -66,7 +66,7 @@
                                             <button type="button"
                                                 class="btn btn-info m-1 text-red-600 font-medium underline"
                                                 wire:click="delete({{ $user->id }})"
-                                                wire:confirm="Are you sure you want to delete this customer?">
+                                                wire:confirm="Are you sure you want to delete this user?">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                     fill="currentColor" class="w-5 h-5">
                                                     <path fill-rule="evenodd"
@@ -74,7 +74,7 @@
                                                         clip-rule="evenodd" />
                                                 </svg>
                                             </button>
-                                        </x-table.tbody-cell>
+                                        </x-table.tbody-cell> --}}
                                     </x-table.row>
                                 @empty
                                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white">
