@@ -16,11 +16,11 @@ class ReceivingItemObserver
     {
         $receiving = Receiving::find($receivingItem->receiving->id);
 
-        if ($receiving->receiving_type == ReceivingTypeEnum::RECEIVE) {
+        if ($receiving->receiving_type == ReceivingTypeEnum::RETURN) {
             Item::where('id', $receivingItem->item_id)->decrement('receiving_quantity', $receivingItem->quantity);
         }
 
-        if ($receiving->receiving_type == ReceivingTypeEnum::RETURN) {
+        if ($receiving->receiving_type == ReceivingTypeEnum::RECEIVE) {
             Item::where('id', $receivingItem->item_id)->increment('receiving_quantity', $receivingItem->quantity);
         }
     }

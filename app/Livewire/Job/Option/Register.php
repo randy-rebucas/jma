@@ -27,7 +27,7 @@ class Register extends Component
     #[On('clearItem')]
     public function mount()
     {
-        $this->mode = $this->getModeValue('job-mode');
+        $this->mode = $this->getModeValue('job-mode', 'job');
         $this->total = Cart::instance('job')->total();
     }
 

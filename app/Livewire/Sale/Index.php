@@ -38,7 +38,7 @@ class Index extends Component
 
     public function mount($option)
     {
-        $this->mode = $this->getModeValue('sale-mode');
+        $this->mode = $this->getModeValue('sale-mode', 'sale');
         $this->option = $option;
     }
 

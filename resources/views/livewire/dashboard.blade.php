@@ -51,8 +51,8 @@
                         class="text-base font-normal text-gray-500">{{ __('This is a list of latest transactions') }}</span>
                 </div>
                 @can('sale.menu')
-                    <div class="flex-shrink-0">
-                        <a wire:navigate href="{{ route('inventories') }}"
+                    <div class="flex-shrink-0"> 
+                        <a wire:navigate href="{{ route('sales', 'view') }}"
                             class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">{{ __('View all') }}</a>
                     </div>
                 @endcan
