@@ -25,8 +25,8 @@
                             <x-table.thead>
                                 <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
                                     <x-table.thead-cell :title="__('Full Name')" class="text-left" />
-                                    <x-table.thead-cell :title="__('Purchased Counts')" class="text-center" />
-                                    <x-table.thead-cell :title="__('Phone Number')" class="text-center" />
+                                    <x-table.thead-cell :title="__('Phone Number')" class="text-left" />
+                                    <x-table.thead-cell :title="__('Role')" class="text-center" />
                                     <x-table.thead-cell title="" class="text-right" />
                                 </x-table.row>
                             </x-table.thead>
@@ -35,8 +35,12 @@
                                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white"
                                         wire:loading.class="opacity-50">
                                         <x-table.tbody-cell :item="$employee->full_name" />
-                                        <x-table.tbody-cell :item="$employee->id" class="text-center" />
-                                        <x-table.tbody-cell :item="$employee->phone_number" class="text-center" />
+                                        <x-table.tbody-cell :item="$employee->phone_number" class="text-left" />
+                                        <x-table.tbody-cell :item="$employee->user->id" :action="true" class="text-center">
+                                            @foreach ($employee->user->getRoleNames() as $index => $role)
+                                                {{ $role }}
+                                            @endforeach
+                                        </x-table.tbody-cell>
                                         <x-table.tbody-cell :item="$employee->id" class="text-right" :action="true">
                                             <button type="button" class="btn btn-info m-1 font-medium underline"
                                                 wire:click="onView({{ $employee->id }})">

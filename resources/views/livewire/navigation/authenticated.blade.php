@@ -119,14 +119,16 @@ new class extends Component {
                                 {{ __('Users') }}
                             </x-dropdown-link>
                         @endcan
-                        {{-- @can('employee.menu') --}}
+                        @can('employee.menu')
                             <x-dropdown-link :href="route('employees')" wire:navigate>
                                 {{ __('Employees') }}
                             </x-dropdown-link>
-                        {{-- @endcan --}}
-                        <x-dropdown-link :href="route('roles')" wire:navigate>
-                            {{ __('Roles') }}
-                        </x-dropdown-link>
+                        @endcan
+                        @can('role.menu')
+                            <x-dropdown-link :href="route('roles')" wire:navigate>
+                                {{ __('Roles') }}
+                            </x-dropdown-link>
+                        @endcan
                         @can('setting.menu')
                             <x-dropdown-link :href="route('settings')" wire:navigate>
                                 {{ __('Settings') }}
@@ -164,6 +166,41 @@ new class extends Component {
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @can('customer.menu')
+                <x-responsive-nav-link :href="route('customers')" :active="request()->routeIs('customers')" wire:navigate>
+                    {{ __('Customers') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('supplier.menu')
+                <x-responsive-nav-link :href="route('suppliers')" :active="request()->routeIs('suppliers')" wire:navigate>
+                    {{ __('Suppliers') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('item.menu')
+                <x-responsive-nav-link :href="route('items')" :active="request()->routeIs('items')" wire:navigate>
+                    {{ __('Items') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('job.menu')
+                <x-responsive-nav-link :href="route('jobs', 'register')" :active="request()->routeIs('jobs')" wire:navigate>
+                    {{ __('Jobs') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('sale.menu')
+                <x-responsive-nav-link :href="route('sales', 'register')" :active="request()->routeIs('sales')" wire:navigate>
+                    {{ __('Sales') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('receiving.menu')
+                <x-responsive-nav-link :href="route('receivings', 'register')" :active="request()->routeIs('receivings')" wire:navigate>
+                    {{ __('Receivings') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('report.menu')
+                <x-responsive-nav-link :href="route('reports')" :active="request()->routeIs('reports')" wire:navigate>
+                    {{ __('Reports') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
@@ -178,7 +215,26 @@ new class extends Component {
                 <x-responsive-nav-link :href="route('profile')" wire:navigate>
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-
+                @can('user.menu')
+                    <x-responsive-nav-link :href="route('users')" wire:navigate>
+                        {{ __('Users') }}
+                    </x-responsive-nav-link>
+                @endcan
+                @can('employee.menu')
+                    <x-responsive-nav-link :href="route('employees')" wire:navigate>
+                        {{ __('Employees') }}
+                    </x-responsive-nav-link>
+                @endcan
+                @can('role.menu')
+                    <x-responsive-nav-link :href="route('roles')" wire:navigate>
+                        {{ __('Roles') }}
+                    </x-responsive-nav-link>
+                @endcan
+                @can('setting.menu')
+                    <x-responsive-nav-link :href="route('settings')" wire:navigate>
+                        {{ __('Settings') }}
+                    </x-responsive-nav-link>
+                @endcan
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
                     <x-responsive-nav-link>
