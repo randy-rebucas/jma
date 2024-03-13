@@ -40,7 +40,6 @@ class JobOrderInvoice extends Controller
         foreach ($job_items as $job_item) {
             $items[] = (new InvoiceItem())
                 ->title($job_item->item->name)
-                ->units('pcs')
                 ->pricePerUnit($job_item->unit_price)
                 ->subTotalPrice($job_item->sub_total)
                 ->quantity($job_item->quantity);

@@ -55,6 +55,9 @@ class ScanCustomer extends Component
         $this->customerId = null;
         $this->records = [];
         $this->search = '';
+        $this->carId = null;
+        $this->cars = [];
+        $this->showCarLists = false;
     }
 
     public function mount(): void
