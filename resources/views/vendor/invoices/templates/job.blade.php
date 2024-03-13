@@ -157,6 +157,10 @@
         .cool-gray {
             color: #6B7280;
         }
+
+        .signature-line {
+            border-bottom: 1px solid;
+        }
     </style>
 </head>
 
@@ -187,7 +191,7 @@
         </tbody>
     </table>
 
-    {{-- Buyer | Car--}}
+    {{-- Buyer | Car --}}
     <table class="table">
         <tbody>
             <tr>
@@ -244,7 +248,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($invoice->getCustomData() as $item)
+            @foreach ($invoice->scopes as $item)
                 <tr>
                     <td class="pl-0">
                         {{ $item->title }}
@@ -361,7 +365,7 @@
                 </tr>
             @endif
             <tr>
-                <td colspan="{{ $invoice->table_columns - 2 }}" class="border-0"></td>
+                <td colspan="{{ $invoice->table_columns - 2 }}" class="border"></td>
                 <td class="text-right pl-0">{{ __('invoices::invoice.total_amount') }}</td>
                 <td class="text-right pr-0 total-amount">
                     {{ $invoice->formatCurrency($invoice->total_amount) }}
@@ -379,9 +383,24 @@
     <p>
         {{ __('invoices::invoice.amount_in_words') }}: {{ $invoice->getTotalAmountInWords() }}
     </p>
+
     <p>
         {{ __('invoices::invoice.pay_until') }}: {{ $invoice->getPayUntilDate() }}
     </p>
+    <br />
+    <br />
+    <br />
+    <br />
+    <table class="table">
+        <tbody>
+            <tr>
+                <td style="width: 20%">{{ __('invoices::invoice.customer_signature') }}:</td>
+                <td style="width: 30%" class="signature-line">&nbsp;</td>
+                <td style="width: 25%" class="text-right">{{ __('invoices::invoice.prepared_by') }}:</td>
+                <td style="width: 25%" class="text-left signature-line">{{ $invoice->getCustomData() }}</td>
+            </tr>
+        </tbody>
+    </table>
 
     <script type="text/php">
             if (isset($pdf) && $PAGE_COUNT > 1) {

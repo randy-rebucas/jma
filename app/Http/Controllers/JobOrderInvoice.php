@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\ScopeItem;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\Job;
@@ -10,6 +11,7 @@ use App\Models\JobScopeOfWorks;
 use App\Models\Car;
 use App\Services\JmaInvoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
 
@@ -47,7 +49,7 @@ class JobOrderInvoice extends Controller
 
         $job_scopes = JobScopeOfWorks::where('job_id', $job->id)->get();
         foreach ($job_scopes as $job_scope) {
-            $scopes[] = (new InvoiceItem())
+            $scopes[] = (new ScopeItem())
                 ->title($job_scope->name)
                 ->pricePerUnit($job_scope->unit_price)
                 ->subTotalPrice($job_scope->sub_total)
@@ -81,6 +83,7 @@ class JobOrderInvoice extends Controller
 
             ->type('Job ' . $job->job_type)
             ->car($car)
+            ->addScopes($scopes)
 
             ->date(now()->subWeeks(3))
             ->dateFormat('m/d/Y')
@@ -92,7 +95,7 @@ class JobOrderInvoice extends Controller
             ->currencyDecimalPoint(',')
             ->filename($client->name . ' ' . $customer->name)
             ->addItems($items)
-            ->setCustomData($scopes ?? [])
+            ->setCustomData(Auth::user()->name)
             ->totalAmount($job->total_amount)
             ->notes($notes)
             ->logo(public_path('storage/' . config('settings.business_logo')))

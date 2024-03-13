@@ -40,4 +40,6 @@ return [
     'title' => 'Title',
     'parts' => 'Parts',
     'scope_of_works' => 'Scope of Works',
+    'prepared_by' => 'Prepared By',
+    'customer_signature' => 'Customer Signature'
 ];
