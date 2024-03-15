@@ -27,9 +27,9 @@ class CreateItem extends ModalComponent
         return 'xl';
     }
     protected $rules = [
-        'name' => 'required|string|max:255',
+        'name' => 'required|string|max:255|unique:' . Item::class,
         'description' => 'string|max:1000',
-        'price' => 'required|decimal:2',
+        'price' => 'required',
         'reorder_level' => 'required|numeric',
         'receiving_quantity' => 'required|numeric',
         'category_id' => 'required',
@@ -44,21 +44,17 @@ class CreateItem extends ModalComponent
 
     public function submit()
     {
-        try {
-            //code...
-            $validated = $this->validate();
-    
-            $validated['price'] = $this->price;
-           
-            Item::create($validated);
-    
-            $this->dispatch('item-created');
-    
-            $this->closeModal();
-        } catch (\Throwable $e) {
-            Debugbar::addThrowable($e);
-        }
+        $validated = $this->validate();
+
+        $validated['price'] = $this->price;
+
+        Item::create($validated);
+
+        $this->dispatch('item-created');
+
+        $this->closeModal();
     }
+    
     public function render()
     {
         return view('livewire.item.create-item');

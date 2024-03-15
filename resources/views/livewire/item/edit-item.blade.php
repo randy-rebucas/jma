@@ -37,11 +37,19 @@
             </div>
         </div>
 
-        <div class="mt-4">
-            <x-input-label for="type" :value="__('Category')" />
-            <x-select wire:model="category_id" id="category_id" name="category_id" :options="$categories"
-                class="block mt-1 w-full" />
-            <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+        <div class="flex justify-between gap-4 mt-4">
+            <div class="w-1/2">
+                <x-input-label for="type" :value="__('Category')" />
+                <x-select wire:model="category_id" id="category_id" name="category_id" :options="$categories"
+                    class="block mt-1 w-full" />
+                <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+            </div>
+            <div class="w-1/2">
+                <x-input-label for="type" :value="__('Supplier')" />
+                <x-select wire:model="supplier_id" id="supplier_id" name="supplier_id" :options="$suppliers"
+                    class="block mt-1 w-full" />
+                <x-input-error :messages="$errors->get('supplier_id')" class="mt-2" />
+            </div>
         </div>
     </fieldset>
 

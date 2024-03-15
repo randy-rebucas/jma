@@ -10,19 +10,21 @@ use Livewire\Attributes\On;
 class ManageCategory extends ModalComponent
 {
     public $name = '';
-    public $id;
+    public $id = null;
 
     public $categories = [];
 
     protected $rules = [
-        'name' => 'required|string|max:255'
+        'name' => 'required|string|max:255|unique:' . Category::class,
     ];
 
-    #[On('category-created')] 
-    #[On('category-deleted')] 
-    public function getCategories() {
+    #[On('category-created')]
+    #[On('category-deleted')]
+    public function getCategories()
+    {
         $this->categories = Category::all();
         $this->name = '';
+        $this->id = null;
     }
 
     public function mount()
@@ -36,9 +38,21 @@ class ManageCategory extends ModalComponent
 
         $validated['slug'] = Str::slug($this->name);
 
-        Category::create($validated);
- 
+        if ($this->id) {
+            $category = Category::findOrFail($this->id);
+            $category->update($validated);
+        } else {
+            Category::create($validated);
+        }
+
         $this->dispatch('category-created');
+    }
+
+    public function edit($id)
+    {
+        $category = Category::find($id);
+        $this->name = $category->name;
+        $this->id = $category->id;
     }
 
     public function delete($id): void

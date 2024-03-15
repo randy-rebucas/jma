@@ -4,6 +4,7 @@ namespace App\Livewire\Item;
 
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Supplier;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Support\Str;
 
@@ -16,32 +17,40 @@ class EditItem extends ModalComponent
     public $receiving_quantity;
     public $category_id;
     public $categories = [];
+    public $supplier_id;
+    public $suppliers = [];
     public Item $item;
 
     public static function modalMaxWidth(): string
     {
         return 'xl';
     }
-    protected $rules = [
-        'name' => 'required|string|max:255',
-        'description' => 'string|max:1000',
-        'price' => 'required|decimal:2',
-        'reorder_level' => 'required|numeric',
-        'receiving_quantity' => 'required|numeric',
-        'category_id' => 'required'
-    ];
+
+    protected function rules()
+    {
+        return [
+            'name' => 'required|string|max:255|unique:items,name,' . $this->item->id,
+            'description' => 'string|max:1000',
+            'price' => 'required',
+            'reorder_level' => 'required|numeric',
+            'receiving_quantity' => 'required|numeric',
+            'category_id' => 'required'
+        ];
+    }
 
     public function mount(Item $item)
     {
         $this->item = $item;
         $this->categories = Category::pluck('name', 'id');
+        $this->suppliers = Supplier::pluck('company_name', 'id');
 
         $this->name = $this->item->name;
         $this->description = $this->item->description;
-        $this->price = number_format($this->item->price, 2);
+        $this->price = $this->item->price;
         $this->reorder_level = $this->item->reorder_level;
         $this->receiving_quantity = $this->item->receiving_quantity;
         $this->category_id = $this->item->category->id;
+        $this->supplier_id = $this->item->supplier->id;
     }
 
     public function update(): void
