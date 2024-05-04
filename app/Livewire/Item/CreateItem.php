@@ -14,7 +14,10 @@ class CreateItem extends ModalComponent
 
     public $name;
     public $description;
-    public $price;
+    public $part_number;
+    public $cost_price;
+    public $unit_price;
+    public $selling_price;
     public $reorder_level;
     public $receiving_quantity;
     public $category_id;
@@ -29,7 +32,10 @@ class CreateItem extends ModalComponent
     protected $rules = [
         'name' => 'required|string|max:255|unique:' . Item::class,
         'description' => 'string|max:1000',
-        'price' => 'required',
+        'part_number' => 'required',
+        'cost_price' => 'required',
+        'unit_price' => 'required',
+        'selling_price' => 'required',
         'reorder_level' => 'required|numeric',
         'receiving_quantity' => 'required|numeric',
         'category_id' => 'required',
@@ -46,7 +52,8 @@ class CreateItem extends ModalComponent
     {
         $validated = $this->validate();
 
-        $validated['price'] = $this->price;
+        $validated['cost_price'] = $this->cost_price;
+        $validated['unit_price'] = $this->unit_price;
 
         Item::create($validated);
 

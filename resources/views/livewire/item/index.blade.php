@@ -35,11 +35,14 @@
                         <x-table for="items">
                             <x-table.thead>
                                 <x-table.row class="dark:bg-gray-900 dark:text-gray-100">
+                                    <x-table.thead-cell :title="__('Part Number')" class="text-left" />
                                     <x-table.thead-cell :title="__('Name')" class="text-left" />
                                     <x-table.thead-cell :title="__('Category')" class="text-left" />
                                     <x-table.thead-cell :title="__('ReOrder Level')" class="text-center" />
                                     <x-table.thead-cell :title="__('Quantity Stocks')" class="text-center" />
-                                    <x-table.thead-cell :title="__('Price')" class="text-right" />
+                                    <x-table.thead-cell :title="__('Unit Price')" class="text-right" />
+                                    <x-table.thead-cell :title="__('Cost Price')" class="text-right" />
+                                    <x-table.thead-cell :title="__('Selling Price')" class="text-right" />
                                     <x-table.thead-cell title="" class="text-right" />
                                 </x-table.row>
                             </x-table.thead>
@@ -61,12 +64,19 @@
                                     @endphp
                                     <x-table.row class=" dark:bg-gray-700 dark:text-white {{ $outOfStock }}"
                                         wire:loading.class="opacity-50">
+                                        <x-table.tbody-cell :item="$item->part_number" />
                                         <x-table.tbody-cell :item="$item->name" />
                                         <x-table.tbody-cell :item="$item->category->name" />
                                         <x-table.tbody-cell :item="$item->reorder_level" class="text-center" />
                                         <x-table.tbody-cell :item="$item->receiving_quantity" class="text-center" />
-                                        <x-table.tbody-cell :item="$item->format_price" :action="true" class="text-right">
-                                            @currency($item->price)
+                                        <x-table.tbody-cell :item="$item->format_unit_price" :action="true" class="text-right">
+                                            @currency($item->unit_price)
+                                        </x-table.tbody-cell>
+                                        <x-table.tbody-cell :item="$item->format_cost_price" :action="true" class="text-right">
+                                            @currency($item->cost_price)
+                                        </x-table.tbody-cell>
+                                        <x-table.tbody-cell :item="$item->selling_price" :action="true" class="text-right">
+                                            @currency($item->selling_price)
                                         </x-table.tbody-cell>
                                         <x-table.tbody-cell :item="$item->id" :action="true" class="text-right">
                                             <button type="button" class="btn btn-info m-1 font-medium underline"

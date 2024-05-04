@@ -11,6 +11,7 @@ class EditCustomer extends ModalComponent
     public $last_name;
     public $phone_number;
 
+    public Customer $customer;
     public $customerId;
 
     public static function modalMaxWidth(): string

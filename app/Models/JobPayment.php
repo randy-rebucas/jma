@@ -14,7 +14,9 @@ class JobPayment extends Model
 
     protected $fillable = [
         'payment_type',
-        'payment_amount',
+        'tendered_amount',
+        'change',
+        'discount',
         'job_id'
     ];
 

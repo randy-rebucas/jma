@@ -82,6 +82,8 @@ class JobOrderInvoice extends Controller
             ->buyer($customer)
 
             ->type('Job ' . $job->job_type)
+            ->change($job->job_payment->change)
+            ->tenderedAmount($job->job_payment->tendered_amount)
             ->car($car)
             ->addScopes($scopes)
 

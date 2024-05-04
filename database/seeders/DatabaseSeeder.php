@@ -28,9 +28,7 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'setting.menu']);
         Permission::create(['name' => 'role.menu']);
         Permission::create(['name' => 'user.menu']);
-        Permission::create(['name' => 'user.menu']);
         Permission::create(['name' => 'employee.menu']);
-        Permission::create(['name' => 'role.menu']);
         
         $role1 = Role::create(['name' => 'SuperAdmin'])->givePermissionTo(Permission::all());
 

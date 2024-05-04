@@ -129,6 +129,11 @@ new class extends Component {
                                 {{ __('Roles') }}
                             </x-dropdown-link>
                         @endcan
+                        @can('expense.menu')
+                            <x-dropdown-link :href="route('expenses')" wire:navigate>
+                                {{ __('Expenses') }}
+                            </x-dropdown-link>
+                        @endcan
                         @can('setting.menu')
                             <x-dropdown-link :href="route('settings')" wire:navigate>
                                 {{ __('Settings') }}
@@ -228,6 +233,11 @@ new class extends Component {
                 @can('role.menu')
                     <x-responsive-nav-link :href="route('roles')" wire:navigate>
                         {{ __('Roles') }}
+                    </x-responsive-nav-link>
+                @endcan
+                @can('expense.menu')
+                    <x-responsive-nav-link :href="route('expenses')" wire:navigate>
+                        {{ __('Expenses') }}
                     </x-responsive-nav-link>
                 @endcan
                 @can('setting.menu')

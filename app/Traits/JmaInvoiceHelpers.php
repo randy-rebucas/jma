@@ -21,4 +21,18 @@ trait JmaInvoiceHelpers
 
         return $this;
     }
+
+    public function change(int $change)
+    {
+        $this->change = $change;
+
+        return $this;
+    }
+
+    public function tenderedAmount(int $tendered_amount)
+    {
+        $this->tendered_amount = $tendered_amount;
+
+        return $this;
+    }
 }

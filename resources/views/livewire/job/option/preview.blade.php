@@ -25,9 +25,11 @@
                     <x-table.thead-cell :title="__('Type')" class="text-left" />
                     <x-table.thead-cell :title="__('Customer')" class="text-left" />
                     <x-table.thead-cell :title="__('Date')" class="text-left" />
-                    <x-table.thead-cell :title="__('Amount Due')" class="text-right" />
-                    <x-table.thead-cell :title="__('Amount Paid')" class="text-right" />
+                    <x-table.thead-cell :title="__('Total Amount Due')" class="text-right" />
+                    <x-table.thead-cell :title="__('Tendered Amount')" class="text-right" />
+                    <x-table.thead-cell :title="__('Change')" class="text-right" />
                     <x-table.thead-cell :title="__('Status')" class="text-center" />
+                    <x-table.thead-cell :title="__('Action')" class="text-center" />
                 </x-table.row>
             </x-table.thead>
             <x-table.tbody class="dark:border-gray-500">
@@ -42,7 +44,10 @@
                             @currency($item->total_amount)
                         </x-table.tbody-cell>
                         <x-table.tbody-cell :item="$item->id" :action="true" class="text-right font-semibold">
-                            @currency($item->job_payment->payment_amount)
+                            @currency($item->job_payment->tendered_amount)
+                        </x-table.tbody-cell>
+                        <x-table.tbody-cell :item="$item->id" :action="true" class="text-right font-semibold">
+                            @currency($item->job_payment->change)
                         </x-table.tbody-cell>
                         <x-table.tbody-cell :item="$item->paid ? 'Paid' : 'Unpaid'" class="text-center" />
                         <x-table.tbody-cell :action="true" class="flex">

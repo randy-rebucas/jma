@@ -30,6 +30,7 @@ use App\Livewire\Setting\Index as Setting;
 use App\Livewire\Receiving\Index as Receiving;
 use App\Livewire\Report\Index as Report;
 use App\Livewire\Inventory\Index as Inventory;
+use App\Livewire\Expense\Index as Expenses;
 use App\Livewire\GlobalSearch\Result as GlobalSeachResult;
 
 Route::middleware('guest')->group(function () {
@@ -54,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/receivings/{option}', Receiving::class)->name('receivings');
     Route::get('/inventories', Inventory::class)->name('inventories');
     Route::get('/reports', Report::class)->name('reports');
+    Route::get('/expenses', Expenses::class)->name('expenses');
     Route::get('/settings', Setting::class)->name('settings');
 
     Route::get('/global-search/car/{carId}', GlobalSeachResult::class)->name('search-result');

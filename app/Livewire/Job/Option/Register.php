@@ -44,7 +44,7 @@ class Register extends Component
         $this->item = Item::findOrFail($id);
         if (is_null($this->inCart()->first())) {
             if ($this->item->receiving_quantity >= 1) {
-                Cart::instance('job')->add($this->item->id, $this->item->name, 1, $this->item->price);
+                Cart::instance('job')->add($this->item->id, $this->item->name, 1, $this->item->selling_price);
                 $this->dispatch('successAddItem');
                 $this->records = [];
             }
@@ -56,7 +56,7 @@ class Register extends Component
             $newQuantity = $this->item->receiving_quantity - $this->inCart()->first()->qty;
 
             if ($this->item->receiving_quantity > $newQuantity && $newQuantity > 0) {
-                Cart::instance('job')->add($this->item->id, $this->item->name, 1, $this->item->price);
+                Cart::instance('job')->add($this->item->id, $this->item->name, 1, $this->item->selling_price);
                 $this->dispatch('successAddItem');
                 $this->records = [];
             }

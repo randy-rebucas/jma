@@ -21,6 +21,7 @@ class Payment extends Component
     public $mode;
     public $total;
     public $amount;
+    public $discount;
     public $paid;
     public $type;
     public $types = [];
@@ -115,7 +116,9 @@ class Payment extends Component
         $job_payment = new JobPayment();
         $job_payment->job_id = $job->id;
         $job_payment->payment_type = $this->getTypeValue('payment-type');
-        $job_payment->payment_amount = $this->amount;
+        $job_payment->tendered_amount = $this->amount;
+        $job_payment->change = $grand_total - $this->amount;
+        $job_payment->discount = $this->discount;
         $job_payment->save();
 
         $this->dispatch('saleCompleted', serial: $job->serial);

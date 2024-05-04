@@ -21,6 +21,26 @@ class JmaInvoice extends Invoice
      */
     public $type;
 
+        /**
+     * @var int
+     */
+    public $change;
+
+        /**
+     * @var int
+     */
+    public $tendered_amount;
+
+        /**
+     * @var int
+     */
+    public $total_scope_of_works;
+    
+        /**
+     * @var int
+     */
+    public $total_items;
+
     /**
      * @var Collection
      */

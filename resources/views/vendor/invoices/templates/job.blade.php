@@ -184,8 +184,8 @@
                     @endif
                 </td>
                 <td class="border-0 pl-0">
-                    <p>{{ __('invoices::invoice.serial') }} <strong>{{ $invoice->getSerialNumber() }}</strong></p>
-                    <p>{{ __('invoices::invoice.date') }}: <strong>{{ $invoice->getDate() }}</strong></p>
+                    <p>{{ __('invoices::invoice.jo') }} <strong>{{ $invoice->getSerialNumber() }}</strong></p>
+                    <p><strong>{{ $invoice->getDate() }}</strong></p>
                 </td>
             </tr>
         </tbody>
@@ -195,7 +195,7 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>{{ __('invoices::invoice.buyer') }}: </th>
+                <th>{{ __('invoices::invoice.customer') }}: </th>
                 <td>
                     {{ $invoice->buyer->name }}
                 </td>
@@ -369,6 +369,20 @@
                 <td class="text-right pl-0">{{ __('invoices::invoice.total_amount') }}</td>
                 <td class="text-right pr-0 total-amount">
                     {{ $invoice->formatCurrency($invoice->total_amount) }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="{{ $invoice->table_columns - 2 }}" class="border"></td>
+                <td class="text-right pl-0">{{ __('invoices::invoice.tendered_amount') }}</td>
+                <td class="text-right pr-0 total-amount">
+                    {{ $invoice->formatCurrency($invoice->tendered_amount) }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="{{ $invoice->table_columns - 2 }}" class="border"></td>
+                <td class="text-right pl-0">{{ __('invoices::invoice.change') }}</td>
+                <td class="text-right pr-0 total-amount">
+                    {{ $invoice->formatCurrency($invoice->change) }}
                 </td>
             </tr>
         </tbody>
