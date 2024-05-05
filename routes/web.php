@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\JobOrderInvoice;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PrintReport;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,6 +61,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/settings', Setting::class)->name('settings');
 
     Route::get('/global-search/car/{carId}', GlobalSeachResult::class)->name('search-result');
+
+    Route::get('/report/print/{from}/{to}', PrintReport::class)->name('print-report');
 });
 
 require __DIR__ . '/auth.php';

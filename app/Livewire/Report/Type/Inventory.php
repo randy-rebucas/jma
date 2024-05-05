@@ -53,13 +53,6 @@ class Inventory extends Component
 
         $this->grandTotal = $this->totalSales + $this->totalJobs - $this->totalExpenses;
     }
-
-    #[On('printDateFiltered')]
-    public function printFilter($from, $to)
-    {
-        dd($from);
-    }
-
     public function render()
     {
         return view('livewire.report.type.inventory');

@@ -3,6 +3,7 @@
 namespace App\Livewire\Report;
 
 use Livewire\Component;
+use Carbon\Carbon;
 
 class FilterDate extends Component
 {
@@ -14,13 +15,16 @@ class FilterDate extends Component
     public function filter()
     {
         $this->isPrintDisabled = false;
-        
+
         $this->dispatch('dateFiltered', from: $this->fromDate, to: $this->toDate);
     }
 
     public function print()
     {
-        $this->dispatch('printDateFiltered', from: $this->fromDate, to: $this->toDate);
+        return redirect()->route('print-report', [
+            'from' => date('Y-m-d', strtotime($this->fromDate)),
+            'to' => date('Y-m-d', strtotime($this->toDate))
+        ]);
     }
 
     public function render()

@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "algolia/algoliasearch-client-php": "^3.4",
+        "barryvdh/laravel-dompdf": "^2.1",
         "bensampo/laravel-enum": "^6.10",
         "guzzlehttp/guzzle": "^7.2",
         "haruncpi/laravel-id-generator": "^1.1",
