@@ -12,8 +12,13 @@
                 class="p-2 py-2 border focus:outline-none focus:shadow-outline rounded shadow" type="input"
                 name="toDate" id="toDate" readonly :placeholder="__('To Date')" />
         </div>
-        <x-secondary-button class="" wire:click="filter">
+
+        <x-secondary-button class="" wire:click="filter" :disabled="!$fromDate || !$toDate" >
             {{ __('Filter') }}
+        </x-secondary-button>
+
+        <x-secondary-button class="" wire:click="print" :disabled="$isPrintDisabled">
+            {{ __('Print') }}
         </x-secondary-button>
     </div>
 

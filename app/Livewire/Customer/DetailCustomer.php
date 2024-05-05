@@ -14,7 +14,7 @@ class DetailCustomer extends Component
 
     public function mount($customerId)
     {
-        $this->customer = Customer::with('sales')->findOrFail($customerId);
+        $this->customer = Customer::findOrFail($customerId);
     }
     public function render()
     {

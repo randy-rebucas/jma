@@ -10,9 +10,17 @@ class FilterDate extends Component
 
     public $toDate;
 
+    public $isPrintDisabled = true;
     public function filter()
     {
+        $this->isPrintDisabled = false;
+        
         $this->dispatch('dateFiltered', from: $this->fromDate, to: $this->toDate);
+    }
+
+    public function print()
+    {
+        $this->dispatch('printDateFiltered', from: $this->fromDate, to: $this->toDate);
     }
 
     public function render()

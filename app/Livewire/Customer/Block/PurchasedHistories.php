@@ -2,16 +2,17 @@
 
 namespace App\Livewire\Customer\Block;
 
-use App\Models\Sale;
+use App\Models\Customer;
 use Livewire\Component;
 
 class PurchasedHistories extends Component
 {
-    public $sales;
+    public Customer $customer;
 
-    // public Sale $sale;
     public function render()
     {
-        return view('livewire.customer.block.purchased-histories');
+        $sales = $this->customer->sales;
+        $jobs = $this->customer->jobs;
+        return view('livewire.customer.block.purchased-histories', compact('sales', 'jobs'));
     }
 }

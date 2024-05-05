@@ -6,6 +6,9 @@ use App\Observers\JobObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Casts\Json;
 
 #[ObservedBy([JobObserver::class])]
@@ -36,7 +39,7 @@ class Job extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function job_payment()
+    public function job_payment(): HasOne
     {
         return $this->hasOne(JobPayment::class);
     }

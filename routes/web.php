@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Livewire\Dashboard;
+use App\Livewire\Setup\Index as Setup;
 use App\Livewire\Customer\Index as Customer;
 use App\Livewire\Customer\DetailCustomer as CustomerDetail;
 use App\Livewire\Supplier\Index as Supplier;
@@ -35,6 +36,7 @@ use App\Livewire\GlobalSearch\Result as GlobalSeachResult;
 
 Route::middleware('guest')->group(function () {
     Route::view('/', 'welcome');
+    Route::get('/setup', Setup::class)->name('setup');
 });
 
 Route::middleware(['auth'])->group(function () {

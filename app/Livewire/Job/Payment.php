@@ -118,7 +118,7 @@ class Payment extends Component
         $job_payment->payment_type = $this->getTypeValue('payment-type');
         $job_payment->tendered_amount = $this->amount;
         $job_payment->change = $grand_total - $this->amount;
-        $job_payment->discount = $this->discount;
+        $job_payment->discount = $this->discount ?? 0;
         $job_payment->save();
 
         $this->dispatch('saleCompleted', serial: $job->serial);

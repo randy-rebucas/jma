@@ -11,6 +11,10 @@
                 <x-input-label for="amount" :value="__('Amount')" />
                 <x-text-input wire:model="amount" id="amount" class="mt-1 w-1/2" type="number" name="amount" />
             </div>
+            <div class="flex items-center justify-between w-full">
+                <x-input-label for="discount" :value="__('Discount')" />
+                <x-text-input wire:model="discount" id="discount" class="mt-1 w-1/2" type="number" name="discount" />
+            </div>
             <div class="flex items-center justify-between w-full mt-3">
                 <x-input-label for="paid" :value="__('Paid')" />
                 <input value="1" wire:model="paid" id="paid" type="checkbox"
