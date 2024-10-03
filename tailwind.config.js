@@ -14,7 +14,6 @@ export default {
             'sm:max-w-2xl'
         ]
     },
-    darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
             fontFamily: {

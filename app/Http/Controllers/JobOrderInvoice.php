@@ -38,13 +38,22 @@ class JobOrderInvoice extends Controller
             'address' => $customer_address->address->line_1 . ',' . $customer_address->address->district . ', ' . $customer_address->address->city->name,
         ]);
 
+
         $job_items = JobItem::with('item')->where('job_id', $job->id)->get();
-        foreach ($job_items as $job_item) {
+        if($job_items){
+            foreach ($job_items as $job_item) {
+                $items[] = (new InvoiceItem())
+                    ->title($job_item->item->name)
+                    ->pricePerUnit($job_item->unit_price)
+                    ->subTotalPrice($job_item->sub_total)
+                    ->quantity($job_item->quantity);
+            }
+        } else {
             $items[] = (new InvoiceItem())
-                ->title($job_item->item->name)
-                ->pricePerUnit($job_item->unit_price)
-                ->subTotalPrice($job_item->sub_total)
-                ->quantity($job_item->quantity);
+                    ->title('No Item')
+                    ->pricePerUnit(0)
+                    ->subTotalPrice(0)
+                    ->quantity(0);
         }
 
         $job_scopes = JobScopeOfWorks::where('job_id', $job->id)->get();

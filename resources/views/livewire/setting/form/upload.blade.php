@@ -1,11 +1,17 @@
 <div>
-    <form wire:submit="uploadLogo">
-        <img src="{{ asset('storage/' . config('settings.business_logo')) }}">
+    <form wire:submit="uploadLogo" class="flex gap-6 mb-4">
+        <div>
+            @if (config('settings.business_logo'))
+                <img src="{{ asset('storage/' . config('settings.business_logo')) }}" class="mx-3">
+            @else
+                <img src="https://placehold.co/150x60?text=Logo" alt="placeholder" class="ml-4 rounded-lg">
+            @endif
+        </div>
         {{-- <div wire:loading wire:target="photo">Uploading...</div> --}}
         <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
             x-on:livewire-upload-finish="uploading = false" x-on:livewire-upload-cancel="uploading = false"
             x-on:livewire-upload-error="uploading = false"
-            x-on:livewire-upload-progress="progress = $event.detail.progress">
+            x-on:livewire-upload-progress="progress = $event.detail.progress" class="whitespace-nowrap">
             <div x-show="uploading">
                 <progress max="100" x-bind:value="progress"></progress>
             </div>
