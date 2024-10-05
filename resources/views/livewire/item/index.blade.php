@@ -17,7 +17,8 @@
                     <div class="flex justify-between">
                         <div class="flex gap-6">
                             <x-text-input wire:model.live="search" class="py-2" type="search" :placeholder="__('Search Items...')" />
-                            <x-select wire:model="category" id="category" name="category" wire:change="setCategory($event.target.value)" :options="$categories" class="" />
+                            <x-select wire:model="category" id="category" name="category"
+                                wire:change="setCategory($event.target.value)" :options="$categories" class="" />
                         </div>
                         <div>
                             <x-secondary-button class="ms-3 py-3"
@@ -28,6 +29,9 @@
                                 wire:click="$dispatch('openModal', { component: 'category.manage-category' })">
                                 {{ __('Categories') }}
                             </x-secondary-button>
+                            <x-primary-button class="ms-3 py-3" wire:click="print">
+                                {{ __('Print') }}
+                            </x-primary-button>
                         </div>
                     </div>
 

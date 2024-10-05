@@ -14,7 +14,42 @@
                 @foreach ($content as $item)
                     <x-table.row class="bg-white dark:bg-gray-700 dark:text-white" wire:loading.class="opacity-50">
                         <x-table.tbody-cell :item="$item->name" class="md:py-1 w-24" />
-                        <x-table.tbody-cell :item="$item->qty" class="text-center md:py-1 w-24" />
+                        <x-table.tbody-cell :item="$item->qty" class="text-center md:py-1 w-24" :action="true">
+                            <div class="flex items-center ">
+                                <button type="button" class="btn btn-info m-1 text-red-600 font-medium underline"
+                                    wire:click="decrement('{{ $item->rowId }}')">
+                                    <svg viewBox="0 0 22 22" class="w-5 h-5" version="1.1"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g id="Page-1" fill="currentColor" fill-rule="evenodd">
+                                            <g id="Dribbble-Light-Preview"
+                                                transform="translate(-219.000000, -600.000000)" fill="#8b2626">
+                                                <g id="icons" transform="translate(56.000000, 160.000000)">
+                                                    <path
+                                                        d="M177.7,450 C177.7,450.552 177.2296,451 176.65,451 L170.35,451 C169.7704,451 169.3,450.552 169.3,450 C169.3,449.448 169.7704,449 170.35,449 L176.65,449 C177.2296,449 177.7,449.448 177.7,450 M173.5,458 C168.86845,458 165.1,454.411 165.1,450 C165.1,445.589 168.86845,442 173.5,442 C178.13155,442 181.9,445.589 181.9,450 C181.9,454.411 178.13155,458 173.5,458 M173.5,440 C167.70085,440 163,444.477 163,450 C163,455.523 167.70085,460 173.5,460 C179.29915,460 184,455.523 184,450 C184,444.477 179.29915,440 173.5,440"
+                                                        id="minus_circle-[#1426]">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </button>
+
+                                <span class="grow ">{{ $item->qty }}</span>
+
+                                <button type="button" class="btn btn-info m-1 text-red-600 font-medium underline"
+                                    wire:click="increment('{{ $item->rowId }}')">
+                                    <svg viewBox="0 0 22 22" class="w-5 h-5" fill="#3b82f6"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g id="Edit / Add_Plus_Circle">
+                                            <path id="Vector"
+                                                d="M8 12H12M12 12H16M12 12V16M12 12V8M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z"
+                                                stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                        </x-table.tbody-cell>
                         <x-table.tbody-cell :item="$item->price" class="text-right md:py-1 w-24" :action="true">
                             @currency($item->price)
                         </x-table.tbody-cell>

@@ -17,6 +17,7 @@ class Total extends Component
     #[On('addItem')]
     #[On('clearItem')]
     #[On('updateJobLists')]
+    #[On('updateItem')]
     public function mount(): void
     {
         $this->total = Cart::instance('job')->total() + Cart::instance('scope')->total();

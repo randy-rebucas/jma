@@ -16,6 +16,7 @@ class Total extends Component
     #[On('removeItem')]
     #[On('addItem')]
     #[On('clearItem')]
+    #[On('updateItem')]
     public function mount(): void
     {
         $this->total = Cart::instance('default')->total();

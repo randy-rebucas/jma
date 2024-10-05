@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JobOrderInvoice;
+use App\Http\Controllers\PrintItem;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PrintReport;
 /*
@@ -63,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/global-search/car/{carId}', GlobalSeachResult::class)->name('search-result');
 
     Route::get('/report/print/{from}/{to}', PrintReport::class)->name('print-report');
+    Route::get('/report/print-items', PrintItem::class)->name('print-item');
 });
 
 require __DIR__ . '/auth.php';

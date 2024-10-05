@@ -31,6 +31,10 @@ class Index extends Component
         $this->category = $id;
     }
 
+    public function print() {
+        return redirect()->route('print-item');
+    }
+
     public function mount()
     {
         $this->categories = Category::pluck('name', 'id');
