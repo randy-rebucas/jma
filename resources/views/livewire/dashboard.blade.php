@@ -86,7 +86,7 @@
                                                 class="dark:text-gray-200 p-4 whitespace-nowrap text-sm font-normal text-gray-900">
                                                 ({{ $inventory->sale_type != 'receive' ? 'Payment from ' : 'Payment sent ' }})
                                                 <span class="font-semibold">
-                                                    {{ $inventory->customer->full_name }}
+                                                    {{ $inventory->customer->full_name ?? null }}
                                                 </span>
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
